@@ -3,42 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Datenschutzerklärung – Nährwerte</title>
+<title>Datenschutzerklärung – MacroTrack</title>
 <style>
 body{margin:0;background:#090b0d;color:#f5f7f8;font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.55}
 .wrap{max-width:620px;margin:auto;padding:32px 20px 64px}
 h1{font-size:22px}h2{font-size:16px;margin-top:32px;color:#7ee66b}
 p,li{color:#c7cdd2;font-size:14px}
 a{color:#7ee66b}
-code{background:#1b2025;padding:2px 6px;border-radius:6px;font-size:13px}
 </style>
 </head>
 <body><div class="wrap">
-<h1>Datenschutzerklärung – Nährwerte</h1>
+<h1>Datenschutzerklärung – MacroTrack</h1>
 <p><em>Stand: August 2026</em></p>
 
-<p>Nährwerte ist eine selbst gehostete App: Diese Datenschutzerklärung beschreibt, was die App-Software technisch tut. Wer konkret "Verantwortlicher" für deine Daten ist, hängt davon ab, wer den Backend-Server betreibt, mit dem du die App verbindest (bei einer privaten Installation i. d. R. du selbst).</p>
-
-<h2>Welche Daten werden gespeichert?</h2>
-<ul>
-<li><strong>Ohne Konto:</strong> Alle Angaben (Mahlzeiten, Ziele) bleiben ausschließlich lokal auf deinem Gerät (localStorage) und verlassen es nicht.</li>
-<li><strong>Mit Konto:</strong> E-Mail-Adresse und ein gehashtes Passwort (nie im Klartext) sowie deine geloggten Mahlzeiten (Lebensmittelname, Menge, Kalorien, Protein, Kohlenhydrate, Fett, Zeitpunkt) werden auf dem von dir konfigurierten Server gespeichert.</li>
-</ul>
+<p>MacroTrack hat kein Nutzerkonto und keine Cloud-Speicherung. Alle deine Angaben — Mahlzeiten, Ziele, Gewichtsverlauf — werden ausschließlich lokal auf deinem Gerät gespeichert (localStorage) und verlassen es nicht, außer in den zwei unten genannten Fällen.</p>
 
 <h2>Weitergabe an Dritte</h2>
 <ul>
-<li><strong>Open Food Facts</strong> (<a href="https://world.openfoodfacts.org" target="_blank">world.openfoodfacts.org</a>): Barcode- bzw. Namenssuchen werden direkt von deinem Gerät aus an diesen offenen, gemeinnützigen Produktdatenbank-Dienst gesendet, um Nährwertangaben abzurufen. Es werden dabei keine Konto- oder Gesundheitsdaten von dir übertragen, nur der gesuchte Begriff bzw. Barcode.</li>
-<li><strong>Foto-Analyse (optional):</strong> Falls der Serverbetreiber einen Vision-KI-Anbieter konfiguriert hat, wird ein aufgenommenes Foto zur Analyse an diesen Anbieter übermittelt. Welcher Anbieter das konkret ist, legt der Serverbetreiber fest. Das Foto wird von unserem eigenen Server nicht dauerhaft gespeichert.</li>
+<li><strong>Open Food Facts</strong> (<a href="https://world.openfoodfacts.org" target="_blank">world.openfoodfacts.org</a>): Barcode- und Namenssuchen werden direkt von deinem Gerät an diesen offenen, gemeinnützigen Produktdatenbank-Dienst gesendet, um Nährwertangaben abzurufen. Übertragen wird dabei nur der Suchbegriff bzw. Barcode, keine persönlichen Daten.</li>
+<li><strong>Foto-Analyse (optional):</strong> Nutzt du die Kamera-Funktion, wird das Foto an den unter Profil → Einstellungen hinterlegten Server gesendet und von dort an eine Vision-KI weitergereicht, um Lebensmittel zu erkennen. Das Foto wird dabei nicht dauerhaft gespeichert, nur zur Analyse verarbeitet und danach verworfen. Welcher KI-Anbieter das konkret ist, legt der Betreiber dieses Servers fest.</li>
 <li>Keine Werbung, kein Tracking, kein Verkauf von Daten an Dritte.</li>
 </ul>
 
 <h2>Löschung</h2>
-<p>Unter <strong>Profil → Konto → Konto löschen</strong> werden dein Konto und alle serverseitig gespeicherten Mahlzeiten unwiderruflich entfernt. Lokale Daten auf dem Gerät kannst du über die Löschfunktion deines Betriebssystems (App-Daten löschen) entfernen.</p>
+<p>Da alle Daten ausschließlich lokal gespeichert werden, entfernst du sie vollständig, indem du die App-Daten über die Einstellungen deines Betriebssystems löschst, oder gezielt einzelne Mahlzeiten direkt in der App (antippen → Menge anpassen/entfernen).</p>
 
 <h2>Sicherheit</h2>
-<p>Passwörter werden gehasht (PBKDF2) gespeichert, die Sitzung läuft über ein zeitlich begrenztes JWT-Token. Der Serverbetreiber ist dafür verantwortlich, den Server über eine verschlüsselte Verbindung (HTTPS) und mit aktuellen Zugangsdaten zu betreiben.</p>
+<p>Da keine Zugangsdaten oder Konten existieren, gibt es serverseitig auch keine Passwörter oder Sitzungen zu schützen. Für die Foto-Analyse gilt: Der Betreiber des Vision-Servers ist dafür verantwortlich, ihn mit aktuellen, geheim gehaltenen Zugangsdaten zu betreiben.</p>
 
 <h2>Kontakt</h2>
-<p>Fragen zu dieser Installation richtest du an die Person oder Organisation, die den von dir genutzten Server betreibt (sichtbar unter Profil → Konto → Server-URL).</p>
+<p>Fragen zu einer konkreten Installation richtest du an die Person oder Organisation, die den von dir in Profil → Einstellungen hinterlegten Server betreibt.</p>
 </div></body>
 </html>

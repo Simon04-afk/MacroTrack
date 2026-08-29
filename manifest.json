@@ -1,6 +1,6 @@
 {
-  "name": "Nährwerte",
-  "short_name": "Nährwerte",
+  "name": "MacroTrack",
+  "short_name": "MacroTrack",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#090b0d",
