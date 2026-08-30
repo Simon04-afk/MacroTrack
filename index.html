@@ -48,7 +48,7 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 
 <section id="meals" class="screen"><header><button class="secondary" style="width:auto;margin:0" onclick="go('home')">‹</button><div class="title">Verlauf</div><span></span></header><main><div class="card" id="allMeals"></div></main></section>
 
-<section id="analysis" class="screen"><header><div class="title">Analyse</div></header><main><div class="tabs"><button class="sel">Tag</button><button>Woche</button><button>Monat</button></div><div class="card" id="analysisCard"></div><div class="card"><h2 style="font-size:16px">Letzte 7 Tage</h2><div class="chart" id="weekChart"></div></div></main></section>
+<section id="analysis" class="screen"><header><div class="title">Analyse</div></header><main><div class="tabs" id="analysisTabs"><button class="sel" onclick="setAnalysisPeriod('tag',this)">Tag</button><button onclick="setAnalysisPeriod('woche',this)">Woche</button><button onclick="setAnalysisPeriod('monat',this)">Monat</button></div><div class="card" id="analysisCard"></div><div class="card"><h2 style="font-size:16px">Letzte 7 Tage</h2><div class="chart" id="weekChart"></div></div></main></section>
 
 <section id="progress" class="screen"><header><div class="title">Fortschritt</div></header><main>
 <div class="card"><div class="sectiontitle" style="margin-top:0"><h2>Gewicht</h2><span class="link" onclick="logWeight()">+ Eintragen</span></div><div id="weightChart"></div><div class="row" style="margin-top:4px"><span>Start</span><b id="wStart">–</b></div><div class="row"><span>Aktuell</span><b id="wCurrent">–</b></div><div class="row"><span>Veränderung</span><b id="wChange">–</b></div></div>
@@ -107,9 +107,62 @@ const foods=[
 ];
 const UNIT_G={g:1,tbsp:15,tsp:5,cup:240,ml:1};
 const UNIT_LABEL={g:"g",tbsp:"EL",tsp:"TL",cup:"Tasse",ml:"ml"};
+const EMOJI_HINTS=[
+ [["schokolad","kakao","cocoa","chocolat","schokoriegel"],"🍫"],
+ [["käse","cheese"],"🧀"],
+ [["joghurt","yogurt","quark","skyr"],"🥛"],
+ [["milch","milk"],"🥛"],
+ [["butter","margarine"],"🧈"],
+ [["brot","bread","brötchen","toast","baguette"],"🍞"],
+ [["müsli","cereal","cornflakes","granola","haferflocken"],"🥣"],
+ [["wurst","schinken","salami"],"🍖"],
+ [["kaffee","coffee","espresso"],"☕"],
+ [["tee ","tee,","grüntee","schwarztee"],"🍵"],
+ [["saft","juice","smoothie"],"🧃"],
+ [["cola","limonade","soda","erfrischungsgetränk","eistee"],"🥤"],
+ [["mineralwasser"],"💧"],
+ [["bier","beer"],"🍺"],
+ [["wein","wine"],"🍷"],
+ [["keks","cookie","biscuit"],"🍪"],
+ [["chips","flips"],"🍟"],
+ [["nudel","pasta","spaghetti"],"🍝"],
+ [["pizza"],"🍕"],
+ [[" eis","eiscreme","ice cream","speiseeis"],"🍦"],
+ [["mandel","cashew","walnuss","haselnuss","nuss","nüsse"],"🌰"],
+ [["erdnuss","peanut"],"🥜"],
+ [["hähnchen","huhn","chicken","geflügel"],"🍗"],
+ [["pute","turkey"],"🦃"],
+ [["rind","beef","steak"],"🥩"],
+ [["schwein","pork"],"🐖"],
+ [["lachs","salmon","thunfisch","tuna","fisch","fish"],"🐟"],
+ [["ei ","eier","egg"],"🥚"],
+ [["tofu","soja","soy","tempeh"],"🧈"],
+ [["apfel","apple"],"🍎"],
+ [["banane","banana"],"🍌"],
+ [["orange","apfelsine","mandarine"],"🍊"],
+ [["erdbeer","himbeer","beere","berry"],"🍓"],
+ [["traube","grape"],"🍇"],
+ [["avocado"],"🥑"],
+ [["honig","honey"],"🍯"],
+ [["marmelade","konfitüre","jam"],"🍓"],
+ [["reis"],"🍚"],
+ [["kartoffel","potato"],"🥔"],
+ [["gemüse","vegetable"],"🥬"],
+ [["suppe","soup"],"🍲"],
+ [["gummibär","fruchtgummi","bonbon"],"🍬"],
+ [["olivenöl"],"🫒"]
+];
+function guessEmoji(name,categories){
+ const text=" "+(String(name||"")+" "+String(categories||"")).toLowerCase()+" ";
+ for(const [keys,emoji] of EMOJI_HINTS){if(keys.some(k=>text.includes(k)))return emoji}
+ return "📦"
+}
 let d=JSON.parse(localStorage.getItem("napp")||"null")||{goal:{k:2400,p:160,c:300,f:80},meals:[],serverUrl:"http://10.0.2.2:8000",weight:{entries:[]}};
 if(!d.serverUrl)d.serverUrl="http://10.0.2.2:8000";
 if(!d.weight)d.weight={entries:[]};
+if(!d.goal)d.goal={};
+const DEFAULT_GOAL={k:2400,p:160,c:300,f:80};
+["k","p","c","f"].forEach(key=>{if(!d.goal[key]||d.goal[key]<=0)d.goal[key]=DEFAULT_GOAL[key]});
 const $=x=>document.getElementById(x),fmt=x=>Math.round(x).toLocaleString("de-DE");
 function save(){localStorage.setItem("napp",JSON.stringify(d))}
 function toast(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1700)}
@@ -131,10 +184,22 @@ function render(){
  [["p","pb","p"],["c","cb","c"],["f","fb","f"]].forEach(x=>{$(x[0]).textContent=`${fmt(eatObj[x[2]])} / ${fmt(d.goal[x[2]])} g`;$(x[1]).style.width=Math.min(100,eatObj[x[2]]/d.goal[x[2]]*100)+"%"});
  $("meals").innerHTML=renderMealGroups(tm);
  $("allMeals").innerHTML=d.meals.length?[...d.meals].reverse().map(m=>`<div class="meal"><div class="foodimg">${m.e}</div><div><h3>${m.name}</h3><p>${m.date===todayISO()?"Heute":(m.date||"Verlauf")} · ${m.time} · ${m.items}</p></div><div class="cal">${fmt(m.k)} kcal</div></div>`).join(""):`<div class="small">Noch keine Mahlzeiten. Tippe auf + und füge dein erstes Essen hinzu.</div>`;
- $("analysisCard").innerHTML=`<div class="sectiontitle"><h2>Heute</h2><span class="small">Aufnahme</span></div>${row("Kalorien",fmt(k)+" / "+fmt(g)+" kcal",k/g)}${row("Protein",fmt(p)+" / "+fmt(d.goal.p)+" g",p/d.goal.p)}${row("Kohlenhydrate",fmt(c)+" / "+fmt(d.goal.c)+" g",c/d.goal.c)}${row("Fett",fmt(f)+" / "+fmt(d.goal.f)+" g",f/d.goal.f)}`;
+ renderAnalysis();
  $("pg").textContent=fmt(d.goal.k)+" kcal";$("pp").textContent=fmt(d.goal.p)+" g";$("pc").textContent=fmt(d.goal.c)+" g";$("pf").textContent=fmt(d.goal.f)+" g";
  renderWeekChart();
  renderWeight();
+}
+let analysisPeriod="tag";
+function setAnalysisPeriod(period,btn){analysisPeriod=period;document.querySelectorAll("#analysisTabs button").forEach(b=>b.classList.remove("sel"));btn.classList.add("sel");renderAnalysis()}
+function mealsInLastDays(n){let cutoff=new Date();cutoff.setDate(cutoff.getDate()-(n-1));let cutoffISO=todayISO(cutoff);return d.meals.filter(m=>m.date>=cutoffISO)}
+function renderAnalysis(){
+ let list,tage,label;
+ if(analysisPeriod==="woche"){list=mealsInLastDays(7);tage=7;label="Diese Woche"}
+ else if(analysisPeriod==="monat"){list=mealsInLastDays(30);tage=30;label="Diesen Monat"}
+ else{list=todaysMeals();tage=1;label="Heute"}
+ let k=sumMacro(list,"k"),p=sumMacro(list,"p"),c=sumMacro(list,"c"),f=sumMacro(list,"f");
+ let gk=d.goal.k*tage,gp=d.goal.p*tage,gc=d.goal.c*tage,gf=d.goal.f*tage;
+ $("analysisCard").innerHTML=`<div class="sectiontitle"><h2>${label}</h2><span class="small">Aufnahme</span></div>${row("Kalorien",fmt(k)+" / "+fmt(gk)+" kcal",gk?k/gk:0)}${row("Protein",fmt(p)+" / "+fmt(gp)+" g",gp?p/gp:0)}${row("Kohlenhydrate",fmt(c)+" / "+fmt(gc)+" g",gc?c/gc:0)}${row("Fett",fmt(f)+" / "+fmt(gf)+" g",gf?f/gf:0)}`
 }
 function renderMealGroups(meals){
  if(!meals.length)return `<div class="small">Noch keine Mahlzeiten heute. Tippe auf + und füge dein erstes Essen hinzu.</div>`;
@@ -203,7 +268,7 @@ async function fetchRemoteResults(q,gen){
   const j=await res.json();if(gen!==searchGen)return;
   const neu=(j.products||[]).filter(p=>p.product_name&&p.nutriments&&p.nutriments["energy-kcal_100g"]!=null);
   let hinzugefuegt=[];
-  neu.forEach(p=>{const name=p.product_name_de||p.product_name;if(foods.some(f=>f[0]===name))return;foods.push([name,"📦",Number(p.nutriments["energy-kcal_100g"]||0),Number(p.nutriments.proteins_100g||0),Number(p.nutriments.carbohydrates_100g||0),Number(p.nutriments.fat_100g||0)]);hinzugefuegt.push(foods.length-1)});
+  neu.forEach(p=>{const name=p.product_name_de||p.product_name;if(foods.some(f=>f[0]===name))return;foods.push([name,guessEmoji(name,p.categories),Number(p.nutriments["energy-kcal_100g"]||0),Number(p.nutriments.proteins_100g||0),Number(p.nutriments.carbohydrates_100g||0),Number(p.nutriments.fat_100g||0)]);hinzugefuegt.push(foods.length-1)});
   if(hinzugefuegt.length)$("results").innerHTML+=hinzugefuegt.map(i=>foodRow(foods[i],i)).join("");
   if($("searchStatus"))$("searchStatus").textContent=hinzugefuegt.length?`+${hinzugefuegt.length} Treffer von Open Food Facts`:"Keine weiteren Treffer bei Open Food Facts";
  }catch(e){console.warn("Open Food Facts Suche fehlgeschlagen (offline?)",e);if(gen===searchGen&&$("searchStatus"))$("searchStatus").textContent="⚠️ Open Food Facts nicht erreichbar (offline oder kein Zugriff)"}
@@ -217,13 +282,25 @@ function add(i){
  d.meals.push(meal);save();closeModal();go("home");toast(f[0]+" hinzugefügt")
 }
 function textLog(){modal("Essen beschreiben",`<textarea id="txt" placeholder="z.B. 150 g Hähnchenbrust und 200 g Reis"></textarea><button class="primary" onclick="parseText()">Analysieren</button>`)}
-function parseText(){let t=$("txt").value.toLowerCase(),found=foods.filter(f=>t.includes(f[0].split(" ")[0]));if(!found.length)found=[foods[2],foods[3],foods[4]];window.found=found;modal("Erkannte Lebensmittel",`<span class="badge">Schätzung – bitte prüfen</span>${found.map(f=>`<div class="row"><span>${f[1]} ${f[0]}</span><b>${f[2]} kcal / 100 g</b></div>`).join("")}<button class="primary" onclick="acceptText()">Übernehmen</button>`)}
+function parseText(){
+ let t=$("txt").value.toLowerCase();
+ let found=foods.filter(f=>t.includes(f[0].split(" ")[0].toLowerCase()));
+ if(!found.length){modal("Nichts erkannt",`<p class="small">Keines unserer Lebensmittel wurde im Text gefunden. Nutze die Suche für eine gezielte Auswahl oder versuch eine andere Formulierung (z. B. genau den Lebensmittelnamen).</p><button class="secondary" onclick="searchFood()">Zur Suche</button>`);return}
+ window.found=found;
+ modal("Erkannte Lebensmittel",`<span class="badge">Schätzung – bitte prüfen</span>${found.map(f=>`<div class="row"><span>${f[1]} ${f[0]}</span><b>${f[2]} kcal / 100 g</b></div>`).join("")}<button class="primary" onclick="acceptText()">Übernehmen</button>`)
+}
 function acceptText(){
  const cat=mealCategoryNow(),time=new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}),dateNow=todayISO();
  window.found.forEach(f=>d.meals.push({id:Date.now()+Math.random(),date:dateNow,name:cat,time,items:`${f[0]} · 100 g`,food_name:f[0],grams:100,k:f[2],p:f[3],c:f[4],f:f[5],e:f[1]}));
  save();closeModal();go("home");toast("Mahlzeit gespeichert")
 }
-async function camera(){modal("Kamera",`<video id="cam" class="preview" autoplay playsinline></video><button class="primary" onclick="photoTaken()">Foto aufnehmen & analysieren</button><p class="small">Setzt eine serverseitig konfigurierte Vision-KI voraus (Server-Adresse unter Profil → Einstellungen). Ohne Konfiguration: Hinweis + Wechsel zur manuellen Eingabe.</p>`);try{$("cam").srcObject=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"},audio:false})}catch(e){$("mb").insertAdjacentHTML("beforeend",`<p class="small">Kamerazugriff nicht verfügbar. Erlaube die Kamera oder öffne die App über HTTPS/localhost.</p>`)}}
+async function camera(){modal("Kamera",`<video id="cam" class="preview" autoplay playsinline></video><button class="primary" onclick="photoTaken()">Foto aufnehmen & analysieren</button><p class="small">Setzt eine serverseitig konfigurierte Vision-KI voraus (Server-Adresse unter Profil → Einstellungen). Ohne Konfiguration: Hinweis + Wechsel zur manuellen Eingabe.</p>`);try{$("cam").srcObject=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"},audio:false})}catch(e){$("mb").insertAdjacentHTML("beforeend",`<p class="small">${cameraErrorMsg(e)}</p>`)}}
+function cameraErrorMsg(e){
+ if(e.name==="NotAllowedError")return"Kamera-Berechtigung wurde verweigert. In den App-/Website-Einstellungen erlauben und erneut versuchen.";
+ if(e.name==="NotFoundError")return"Keine Kamera am Gerät gefunden.";
+ if(e.name==="NotReadableError")return"Kamera wird gerade von einer anderen App verwendet.";
+ return"Kamerazugriff nicht verfügbar. Erlaube die Kamera oder öffne die App über HTTPS/localhost."
+}
 function photoTaken(){
  const video=$("cam");if(!video||!video.srcObject){closeModal();textLog();return}
  const canvas=document.createElement("canvas");canvas.width=video.videoWidth||720;canvas.height=video.videoHeight||720;
@@ -250,11 +327,11 @@ function acceptVision(){
  items.forEach(it=>d.meals.push({id:Date.now()+Math.random(),date:dateNow,name:cat,time,items:`${it.name} · ${Math.round(it.grams||100)} g`,food_name:it.name,grams:it.grams||100,k:it.kcal||0,p:it.protein||0,c:it.carbs||0,f:it.fat||0,e:"📷"}));
  save();closeModal();go("home");toast("Mahlzeit aus Foto gespeichert")
 }
-async function barcode(){modal("Barcode scannen",`<video id="barcodeCam" class="preview" autoplay playsinline></video><p class="small" id="scanStatus">Barcode-Erkennung wird gestartet…</p><button class="secondary" onclick="manualBarcode()">Barcode manuell eingeben</button>`);try{let v=$("barcodeCam");v.srcObject=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"},audio:false});if("BarcodeDetector" in window){let detector=new BarcodeDetector({formats:["ean_13","ean_8","upc_a","upc_e","code_128"]});let scan=async()=>{if(!document.body.contains(v))return;try{let codes=await detector.detect(v);if(codes.length){let code=codes[0].rawValue;closeModal();lookupBarcode(code);return}}catch(e){}requestAnimationFrame(scan)};scan()}else $("scanStatus").textContent="Dieser Browser unterstützt BarcodeDetector nicht. Nutze die manuelle Eingabe."}catch(e){$("scanStatus").textContent="Kamera nicht verfügbar."}}
+async function barcode(){modal("Barcode scannen",`<video id="barcodeCam" class="preview" autoplay playsinline></video><p class="small" id="scanStatus">Barcode-Erkennung wird gestartet…</p><button class="secondary" onclick="manualBarcode()">Barcode manuell eingeben</button>`);try{let v=$("barcodeCam");v.srcObject=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"},audio:false});if("BarcodeDetector" in window){let detector=new BarcodeDetector({formats:["ean_13","ean_8","upc_a","upc_e","code_128"]});let scan=async()=>{if(!document.body.contains(v))return;try{let codes=await detector.detect(v);if(codes.length){let code=codes[0].rawValue;closeModal();lookupBarcode(code);return}}catch(e){}requestAnimationFrame(scan)};scan()}else $("scanStatus").textContent="Dieser Browser unterstützt automatische Barcode-Erkennung nicht. Nutze die manuelle Eingabe."}catch(e){$("scanStatus").textContent=cameraErrorMsg(e)}}
 function manualBarcode(){modal("Barcode eingeben",`<input id="bc" inputmode="numeric" placeholder="EAN-13 / EAN-8"><button class="primary" onclick="lookupBarcode($('bc').value)">Produkt suchen</button>`)}
-async function lookupBarcode(code){if(!code)return;toast("Produkt wird gesucht…");try{let r=await fetch("https://world.openfoodfacts.org/api/v2/product/"+encodeURIComponent(code)+".json");let j=await r.json();if(!j.product){toast("Produkt nicht gefunden");return}let p=j.product,n=p.product_name_de||p.product_name||"Produkt",nut=p.nutriments||{};let f={0:n,1:"📦",2:Number(nut["energy-kcal_100g"]||0),3:Number(nut.proteins_100g||0),4:Number(nut.carbohydrates_100g||0),5:Number(nut.fat_100g||0)};foods.push(f);portion(foods.length-1)}catch(e){toast("Produktsuche fehlgeschlagen")}}
+async function lookupBarcode(code){if(!code)return;toast("Produkt wird gesucht…");try{let r=await fetch("https://world.openfoodfacts.org/api/v2/product/"+encodeURIComponent(code)+".json");let j=await r.json();if(!j.product){toast("Produkt nicht gefunden");return}let p=j.product,n=p.product_name_de||p.product_name||"Produkt",nut=p.nutriments||{};let f=[n,guessEmoji(n,p.categories),Number(nut["energy-kcal_100g"]||0),Number(nut.proteins_100g||0),Number(nut.carbohydrates_100g||0),Number(nut.fat_100g||0)];foods.push(f);portion(foods.length-1)}catch(e){toast("Produktsuche fehlgeschlagen")}}
 function editGoals(){modal("Tagesziele",`<p class="small">Setze Werte passend zu deinem persönlichen Ziel. Die App ist kein medizinischer Rat.</p><input id="gk" type="number" value="${d.goal.k}"><input id="gp" style="margin-top:8px" type="number" value="${d.goal.p}"><input id="gc" style="margin-top:8px" type="number" value="${d.goal.c}"><input id="gf" style="margin-top:8px" type="number" value="${d.goal.f}"><button class="primary" onclick="saveGoals()">Speichern</button>`)}
-function saveGoals(){d.goal={k:+$("gk").value,p:+$("gp").value,c:+$("gc").value,f:+$("gf").value};save();closeModal();render();toast("Ziele gespeichert")}
+function saveGoals(){const v={k:+$("gk").value,p:+$("gp").value,c:+$("gc").value,f:+$("gf").value};if(!v.k||v.k<=0||!v.p||v.p<=0||!v.c||v.c<=0||!v.f||v.f<=0){toast("Bitte alle Ziele größer als 0 eingeben");return}d.goal=v;save();closeModal();render();toast("Ziele gespeichert")}
 function settings(){modal("Einstellungen",`<p class="small">Server-Adresse für die Foto-Erkennung (Vision-KI). Emulator: 10.0.2.2 · echtes Gerät: LAN-IP deines Backend-Rechners.</p><input id="srvUrl" placeholder="Server-URL" value="${d.serverUrl}"><button class="primary" onclick="saveServerUrl()">Speichern</button>`)}
 function saveServerUrl(){let v=$("srvUrl").value.trim();if(v)d.serverUrl=v.replace(/\/$/,"");save();closeModal();toast("Gespeichert")}
 function exportData(){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:"application/json"}));a.download="naehrwerte-backup.json";a.click();URL.revokeObjectURL(a.href);toast("Backup erstellt")}
