@@ -174,7 +174,7 @@ function todayISO(dt){dt=dt||new Date();return dt.getFullYear()+"-"+String(dt.ge
 function mealCategoryNow(){const h=new Date().getHours();if(h<11)return"Frühstück";if(h<16)return"Mittagessen";if(h<22)return"Abendessen";return"Snack"}
 function sumMacro(list,key){return list.reduce((s,m)=>s+(m[key]||0),0)}
 function todaysMeals(){return d.meals.filter(m=>m.date===todayISO())}
-function computeStreak(){let days=new Set(d.meals.map(m=>m.date));let streak=0,cur=new Date();while(days.has(todayISO(cur))){streak++;cur.setDate(cur.getDate()-1)}return streak}
+function computeStreak(){let days=new Set(d.meals.map(m=>m.date));let cur=new Date();if(!days.has(todayISO(cur)))cur.setDate(cur.getDate()-1);let streak=0;while(days.has(todayISO(cur))){streak++;cur.setDate(cur.getDate()-1)}return streak}
 
 function render(){
  let tm=todaysMeals(),k=sumMacro(tm,"k"),p=sumMacro(tm,"p"),c=sumMacro(tm,"c"),f=sumMacro(tm,"f"),g=d.goal.k;
@@ -274,7 +274,7 @@ async function fetchRemoteResults(q,gen){
  try{
   const res=await fetch("https://world.openfoodfacts.org/cgi/search.pl?search_terms="+encodeURIComponent(q)+"&search_simple=1&action=process&json=1&page_size=12&lc=de");
   const j=await res.json();if(gen!==searchGen)return;
-  const neu=(j.products||[]).filter(p=>p.product_name&&p.nutriments&&p.nutriments["energy-kcal_100g"]!=null);
+  const neu=(j.products||[]).filter(p=>(p.product_name_de||p.product_name)&&p.nutriments&&p.nutriments["energy-kcal_100g"]!=null);
   let hinzugefuegt=[];
   neu.forEach(p=>{const name=p.product_name_de||p.product_name;if(foods.some(f=>f[0]===name))return;foods.push([name,guessEmoji(name,p.categories),Number(p.nutriments["energy-kcal_100g"]||0),Number(p.nutriments.proteins_100g||0),Number(p.nutriments.carbohydrates_100g||0),Number(p.nutriments.fat_100g||0),p.image_front_small_url||p.image_small_url||p.image_url||p.image_front_url||null]);hinzugefuegt.push(foods.length-1)});
   if(hinzugefuegt.length)$("results").innerHTML+=hinzugefuegt.map(i=>foodRow(foods[i],i)).join("");
@@ -290,12 +290,20 @@ function add(i){
  d.meals.push(meal);save();closeModal();go("home");toast(f[0]+" hinzugefügt")
 }
 function textLog(){modal("Essen beschreiben",`<textarea id="txt" placeholder="z.B. 150 g Hähnchenbrust und 200 g Reis"></textarea><button class="primary" onclick="parseText()">Analysieren</button>`)}
+function escapeRegex(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}
 function parseText(){
  let t=$("txt").value.toLowerCase();
- let found=foods.filter(f=>t.includes(f[0].split(" ")[0].toLowerCase()));
+ let seen=new Set();
+ let found=foods.filter(f=>{
+  const key=f[0].split(" ")[0].toLowerCase();
+  if(seen.has(key))return false;
+  const re=new RegExp("(^|[^a-zäöüß])"+escapeRegex(key)+"([^a-zäöüß]|$)");
+  if(!re.test(t))return false;
+  seen.add(key);return true
+ });
  if(!found.length){modal("Nichts erkannt",`<p class="small">Keines unserer Lebensmittel wurde im Text gefunden. Nutze die Suche für eine gezielte Auswahl oder versuch eine andere Formulierung (z. B. genau den Lebensmittelnamen).</p><button class="secondary" onclick="searchFood()">Zur Suche</button>`);return}
  window.found=found;
- modal("Erkannte Lebensmittel",`<span class="badge">Schätzung – bitte prüfen</span>${found.map(f=>`<div class="row"><span>${f[1]} ${f[0]}</span><b>${f[2]} kcal / 100 g</b></div>`).join("")}<button class="primary" onclick="acceptText()">Übernehmen</button>`)
+ modal("Erkannte Lebensmittel",`<span class="badge">Schätzung – bitte prüfen</span>${found.map(f=>`<div class="row"><span>${f[1]} ${f[0]}</span><b>${Math.round(f[2])} kcal / 100 g</b></div>`).join("")}<button class="primary" onclick="acceptText()">Übernehmen</button>`)
 }
 function acceptText(){
  const cat=mealCategoryNow(),time=new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}),dateNow=todayISO();
@@ -313,7 +321,7 @@ function manualBarcode(){modal("Barcode eingeben",`<input id="bc" inputmode="num
 async function lookupBarcode(code){if(!code)return;toast("Produkt wird gesucht…");try{let r=await fetch("https://world.openfoodfacts.org/api/v2/product/"+encodeURIComponent(code)+".json");let j=await r.json();if(!j.product){toast("Produkt nicht gefunden");return}let p=j.product,n=p.product_name_de||p.product_name||"Produkt",nut=p.nutriments||{};let f=[n,guessEmoji(n,p.categories),Number(nut["energy-kcal_100g"]||0),Number(nut.proteins_100g||0),Number(nut.carbohydrates_100g||0),Number(nut.fat_100g||0),p.image_front_small_url||p.image_small_url||p.image_url||p.image_front_url||null];foods.push(f);portion(foods.length-1)}catch(e){toast("Produktsuche fehlgeschlagen")}}
 function editGoals(){modal("Tagesziele",`<p class="small">Setze Werte passend zu deinem persönlichen Ziel. Die App ist kein medizinischer Rat.</p><input id="gk" type="number" value="${d.goal.k}"><input id="gp" style="margin-top:8px" type="number" value="${d.goal.p}"><input id="gc" style="margin-top:8px" type="number" value="${d.goal.c}"><input id="gf" style="margin-top:8px" type="number" value="${d.goal.f}"><button class="primary" onclick="saveGoals()">Speichern</button>`)}
 function saveGoals(){const v={k:+$("gk").value,p:+$("gp").value,c:+$("gc").value,f:+$("gf").value};if(!v.k||v.k<=0||!v.p||v.p<=0||!v.c||v.c<=0||!v.f||v.f<=0){toast("Bitte alle Ziele größer als 0 eingeben");return}d.goal=v;save();closeModal();render();toast("Ziele gespeichert")}
-function exportData(){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:"application/json"}));a.download="naehrwerte-backup.json";a.click();URL.revokeObjectURL(a.href);toast("Backup erstellt")}
+function exportData(){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(d,null,2)],{type:"application/json"}));a.download="macrotrack-backup.json";a.click();URL.revokeObjectURL(a.href);toast("Backup erstellt")}
 function importData(e){let file=e.target.files[0];if(!file)return;let r=new FileReader();r.onload=()=>{try{d=JSON.parse(r.result);save();render();toast("Backup importiert")}catch(x){toast("Ungültige Datei")}};r.readAsText(file)}
 
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
