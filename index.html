@@ -26,6 +26,7 @@ main{padding:8px 15px}.card{background:var(--card);border:1px solid var(--line);
 .option{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:10px 0;text-align:left}.ico{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:21px}.option strong{display:block}.option small{color:var(--muted);display:block;margin-top:4px}
 input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;color:#fff;border-radius:13px;padding:12px;outline:none}textarea{min-height:92px}.primary,.secondary{width:100%;border-radius:14px;padding:13px;margin-top:9px}.primary{border:0;background:var(--green);color:#081008;font-weight:850}.secondary{border:1px solid #333a40;background:#1a1f24;color:#fff}
 .tabs{display:flex;gap:5px;background:#15191d;padding:5px;border-radius:12px}.tabs button{flex:1;background:transparent;border:0;color:var(--muted);padding:8px;border-radius:9px;font-size:12px}.tabs .sel{background:#2a3036;color:#fff}
+.tabsscroll{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;-webkit-overflow-scrolling:touch}.tabsscroll button{flex:0 0 auto;background:#15191d;border:0;color:var(--muted);padding:8px 14px;border-radius:20px;font-size:12px;white-space:nowrap}.tabsscroll .sel{background:#2a3036;color:#fff}
 .row,.foodrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #252b30}.row:last-child,.foodrow:last-child{border:0}.plus{margin-left:auto;border:1px solid #394148;background:#182019;color:var(--green);border-radius:10px;padding:5px 9px}.badge{display:inline-block;background:#20262b;color:var(--muted);border-radius:8px;padding:5px 8px;font-size:10px}
 .chart{display:flex;align-items:end;gap:6px;padding:4px 3px 0}.daycol{flex:1;display:flex;flex-direction:column;align-items:center;min-width:0}.daykcal{font-size:9px;color:var(--muted);height:12px;line-height:12px;white-space:nowrap}.barwrap{height:100px;width:100%;display:flex;align-items:end}.barcol{width:100%;background:linear-gradient(to top,#72db64,#b4f6aa);border-radius:7px 7px 2px 2px;min-height:8px}.barcol.today{background:linear-gradient(to top,#4a9d3c,#7ee66b);box-shadow:0 0 0 1.5px #7ee66b inset}.barcol.over{background:linear-gradient(to top,#c97a2e,#ffad3d)}.daylabel{font-size:10px;color:var(--muted);margin-top:5px}.daylabel.today{color:var(--green);font-weight:750}
 .modal{position:fixed;inset:0;background:#000b;display:none;align-items:end;z-index:50}.modal.show{display:flex}.sheet{width:min(480px,100%);max-height:90vh;overflow:auto;margin:auto;background:#121518;border-radius:24px 24px 0 0;padding:19px}.close{float:right;background:none;border:0;color:#fff;font-size:24px}.preview{width:100%;height:250px;object-fit:cover;border-radius:17px;background:#20252a}.toast{position:fixed;z-index:100;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);background:#22292f;color:#fff;padding:11px 15px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;font-size:13px}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -43,6 +44,20 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 <div class="option" onclick="textLog()"><div class="ico" style="background:#132a3a;color:var(--blue)">✏️</div><div><strong>Beschreibung</strong><small>Beschreibe dein Essen mit Text</small></div></div>
 <div class="option" onclick="searchFood()"><div class="ico" style="background:#271a3a;color:var(--purple)">🔎</div><div><strong>Suche</strong><small>Lebensmittel aus unserer Datenbank suchen</small></div></div>
 <div class="option" onclick="barcode()"><div class="ico" style="background:#3a2a12;color:var(--orange)">▥</div><div><strong>Barcode scannen</strong><small>Verpackung scannen und hinzufügen</small></div></div>
+<div class="option" onclick="go('recipes')"><div class="ico" style="background:#2a1f3a;color:var(--purple)">📖</div><div><strong>Rezepte</strong><small>Gespeicherte Rezepte nutzen oder eigene erstellen</small></div></div>
+</main></section>
+
+<section id="recipes" class="screen"><header><button class="secondary" style="width:auto;margin:0" onclick="go('add')">‹</button><div class="title">Rezepte</div><span></span></header><main>
+<input id="recipeSearch" placeholder="Rezepte suchen" oninput="renderRecipeList()">
+<div class="tabsscroll" id="recipeCatTabs">
+<button class="sel" data-cat="Alle" onclick="selectRecipeCat(this)">Alle</button>
+<button data-cat="Frühstück" onclick="selectRecipeCat(this)">Frühstück</button>
+<button data-cat="Mittagessen" onclick="selectRecipeCat(this)">Mittagessen</button>
+<button data-cat="Abendessen" onclick="selectRecipeCat(this)">Abendessen</button>
+<button data-cat="Snack" onclick="selectRecipeCat(this)">Snack</button>
+</div>
+<div id="recipeList"></div>
+<button class="secondary" style="margin-top:6px" onclick="startNewRecipe()">+ Eigenes Rezept erstellen</button>
 </main></section>
 
 <section id="meals" class="screen"><header><button class="secondary" style="width:auto;margin:0" onclick="go('home')">‹</button><div class="title">Verlauf</div><span></span></header><main><div class="card" id="allMeals"></div></main></section>
@@ -104,6 +119,48 @@ const foods=[
 // Fertig/Sonstiges
 ["Sojasauce","🍶",53,8,5,0],["Ketchup","🍅",101,1.2,24,0.2],["Pizza Margherita","🍕",266,11,33,10]
 ];
+const DEFAULT_RECIPES=[
+ {id:"r1",name:"Haferflocken Bowl",category:"Frühstück",emoji:"🥣",items:[
+   {name:"Haferflocken",grams:60,k:224.4,p:8.1,c:35.4,f:4.2},
+   {name:"Milch 1,5%",grams:200,k:94,p:6.8,c:9.8,f:3},
+   {name:"Banane",grams:120,k:106.8,p:1.32,c:27.6,f:0.36}]},
+ {id:"r2",name:"Hähnchen Reis Bowl",category:"Mittagessen",emoji:"🍗",items:[
+   {name:"Hähnchenbrust",grams:150,k:247.5,p:46.5,c:0,f:5.4},
+   {name:"Reis gekocht",grams:200,k:260,p:5.4,c:56,f:0.6},
+   {name:"Brokkoli",grams:100,k:35,p:2.4,c:7,f:0.4}]},
+ {id:"r3",name:"Lachs mit Süßkartoffel",category:"Abendessen",emoji:"🐟",items:[
+   {name:"Lachs",grams:150,k:312,p:30,c:0,f:19.5},
+   {name:"Süßkartoffel gekocht",grams:200,k:180,p:4,c:42,f:0.2},
+   {name:"Brokkoli",grams:100,k:35,p:2.4,c:7,f:0.4}]},
+ {id:"r4",name:"Protein-Pfannkuchen",category:"Frühstück",emoji:"🥞",items:[
+   {name:"Ei",grams:120,k:171.6,p:15.12,c:1.32,f:11.4},
+   {name:"Haferflocken",grams:40,k:149.6,p:5.4,c:23.6,f:2.8},
+   {name:"Skyr",grams:100,k:63,p:11,c:4,f:0.2}]},
+ {id:"r5",name:"Magerquark mit Beeren",category:"Snack",emoji:"🍓",items:[
+   {name:"Magerquark",grams:200,k:134,p:24,c:8,f:0.4},
+   {name:"Erdbeeren",grams:100,k:32,p:0.7,c:7.7,f:0.3},
+   {name:"Honig",grams:15,k:45.6,p:0.045,c:12.3,f:0}]},
+ {id:"r6",name:"Thunfisch-Salat",category:"Mittagessen",emoji:"🥗",items:[
+   {name:"Thunfisch (Dose, Wasser)",grams:150,k:174,p:39,c:0,f:1.5},
+   {name:"Kopfsalat",grams:100,k:15,p:1.4,c:2.9,f:0.2},
+   {name:"Avocado",grams:50,k:80,p:1,c:4.25,f:7.35},
+   {name:"Olivenöl",grams:10,k:88.4,p:0,c:0,f:10}]},
+ {id:"r7",name:"Rindersteak mit Kartoffeln",category:"Abendessen",emoji:"🥩",items:[
+   {name:"Rindersteak",grams:180,k:487.8,p:45,c:0,f:32.4},
+   {name:"Kartoffeln gekocht",grams:250,k:217.5,p:4.75,c:50,f:0.25},
+   {name:"Grüne Bohnen",grams:100,k:31,p:1.8,c:7,f:0.1}]},
+ {id:"r8",name:"Linsen-Curry",category:"Abendessen",emoji:"🍛",items:[
+   {name:"Linsen gekocht",grams:200,k:232,p:18,c:40,f:0.8},
+   {name:"Reis gekocht",grams:100,k:130,p:2.7,c:28,f:0.3},
+   {name:"Kokosöl",grams:15,k:129.3,p:0,c:0,f:15}]},
+ {id:"r9",name:"Apfel mit Erdnussbutter",category:"Snack",emoji:"🍎",items:[
+   {name:"Apfel",grams:180,k:93.6,p:0.54,c:25.2,f:0.36},
+   {name:"Erdnussbutter",grams:20,k:117.6,p:5,c:4,f:10}]},
+ {id:"r10",name:"Joghurt mit Walnüssen",category:"Snack",emoji:"🥛",items:[
+   {name:"Griechischer Joghurt",grams:200,k:194,p:18,c:8,f:10},
+   {name:"Walnüsse",grams:20,k:130.8,p:3,c:2.8,f:13},
+   {name:"Honig",grams:10,k:30.4,p:0.03,c:8.2,f:0}]}
+];
 const UNIT_G={g:1,tbsp:15,tsp:5,cup:240,ml:1};
 const UNIT_LABEL={g:"g",tbsp:"EL",tsp:"TL",cup:"Tasse",ml:"ml"};
 const EMOJI_HINTS=[
@@ -163,6 +220,7 @@ function foodThumb(emoji,img,px){
 let d=JSON.parse(localStorage.getItem("napp")||"null")||{goal:{k:2400,p:160,c:300,f:80},meals:[],weight:{entries:[]}};
 if(!d.weight)d.weight={entries:[]};
 if(!d.goal)d.goal={};
+if(!d.recipes)d.recipes=JSON.parse(JSON.stringify(DEFAULT_RECIPES));
 const DEFAULT_GOAL={k:2400,p:160,c:300,f:80};
 ["k","p","c","f"].forEach(key=>{if(!d.goal[key]||d.goal[key]<=0)d.goal[key]=DEFAULT_GOAL[key]});
 const $=x=>document.getElementById(x),fmt=x=>Math.round(x).toLocaleString("de-DE");
@@ -190,6 +248,7 @@ function render(){
  $("pg").textContent=fmt(d.goal.k)+" kcal";$("pp").textContent=fmt(d.goal.p)+" g";$("pc").textContent=fmt(d.goal.c)+" g";$("pf").textContent=fmt(d.goal.f)+" g";
  renderWeekChart();
  renderWeight();
+ renderRecipeList();
 }
 let analysisPeriod="tag";
 function setAnalysisPeriod(period,btn){analysisPeriod=period;document.querySelectorAll("#analysisTabs button").forEach(b=>b.classList.remove("sel"));btn.classList.add("sel");renderAnalysis()}
@@ -265,7 +324,52 @@ function renderWeightChart(){
 }
 function modal(t,b){$("mt").textContent=t;$("mb").innerHTML=b;$("modal").classList.add("show")}function closeModal(){document.querySelector("video")?.srcObject?.getTracks().forEach(t=>t.stop());$("modal").classList.remove("show")}
 
-function searchFood(){modal("Lebensmittel suchen",`<input id="q" placeholder="z.B. Hähnchen" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p>`);results()}
+let recipeCat="Alle",recipeBuilderActive=false;
+function recipeTotals(r){return r.items.reduce((s,it)=>({k:s.k+it.k,p:s.p+it.p,c:s.c+it.c,f:s.f+it.f}),{k:0,p:0,c:0,f:0})}
+function selectRecipeCat(btn){document.querySelectorAll("#recipeCatTabs button").forEach(b=>b.classList.remove("sel"));btn.classList.add("sel");recipeCat=btn.dataset.cat;renderRecipeList()}
+function renderRecipeList(){
+ if(!$("recipeList"))return;
+ let q=($("recipeSearch")?.value||"").toLowerCase();
+ let list=(d.recipes||[]).filter(r=>(recipeCat==="Alle"||r.category===recipeCat)&&r.name.toLowerCase().includes(q));
+ $("recipeList").innerHTML=list.length?list.map(r=>{let t=recipeTotals(r);return `<div class="meal" style="cursor:pointer" onclick="openRecipe('${r.id}')"><div class="foodimg">${foodThumb(r.emoji||"🍽️",r.img,50)}</div><div><h3>${r.name}</h3><p>${Math.round(t.k)} kcal · P ${Math.round(t.p)} · K ${Math.round(t.c)} · F ${Math.round(t.f)}</p></div></div>`}).join(""):`<div class="small">Keine Rezepte gefunden.</div>`
+}
+function openRecipe(id){
+ let r=(d.recipes||[]).find(x=>String(x.id)===String(id));if(!r)return;
+ let t=recipeTotals(r);window.openingRecipe=r;
+ modal(r.name,`<div class="badge">${r.category}</div>${r.items.map(it=>`<div class="row"><span>${it.name}</span><span class="small">${Math.round(it.grams)} g</span></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><p class="small">P ${Math.round(t.p)} g · K ${Math.round(t.c)} g · F ${Math.round(t.f)} g</p><button class="primary" onclick="addRecipeToLog()">Zum heutigen Tag hinzufügen</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteRecipe('${r.id}')">Rezept löschen</button>`)
+}
+function addRecipeToLog(){
+ let r=window.openingRecipe;if(!r)return;
+ let cat=mealCategoryNow(),time=new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}),dateNow=todayISO();
+ r.items.forEach(it=>d.meals.push({id:Date.now()+Math.random(),date:dateNow,name:cat,time,items:`${it.name} · ${Math.round(it.grams)} g`,food_name:it.name,grams:it.grams,k:it.k,p:it.p,c:it.c,f:it.f,e:r.emoji||"🍽️"}));
+ save();closeModal();go("home");toast(r.name+" hinzugefügt")
+}
+function deleteRecipe(id){d.recipes=(d.recipes||[]).filter(r=>String(r.id)!==String(id));save();closeModal();renderRecipeList();toast("Rezept gelöscht")}
+function startNewRecipe(){window.newRecipe={name:"",category:"Frühstück",items:[]};renderRecipeBuilder()}
+function renderRecipeBuilder(){
+ let r=window.newRecipe,t=recipeTotals(r);
+ modal("Neues Rezept",`<input id="rName" placeholder="Rezeptname" value="${r.name}"><select id="rCat" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===r.category?"selected":""}>${c}</option>`).join("")}</select><div class="sectiontitle" style="margin:16px 0 6px"><h2 style="font-size:14px;margin:0">Zutaten</h2><span class="link" onclick="addRecipeIngredient()">+ Zutat</span></div>${r.items.length?r.items.map((it,i)=>`<div class="row"><span>${it.name} · ${Math.round(it.grams)} g</span><span style="display:flex;align-items:center;gap:8px">${Math.round(it.k)} kcal<button class="plus" onclick="removeRecipeIngredient(${i})">✕</button></span></div>`).join(""):`<div class="small">Noch keine Zutaten hinzugefügt.</div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><button class="primary" onclick="saveRecipe()">Rezept speichern</button>`)
+}
+function addRecipeIngredient(){
+ if(window.newRecipe){window.newRecipe.name=$("rName")?.value??window.newRecipe.name;window.newRecipe.category=$("rCat")?.value??window.newRecipe.category}
+ recipeBuilderActive=true;
+ modal("Zutat hinzufügen",`<input id="q" placeholder="z.B. Hähnchen" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p>`);results()
+}
+function removeRecipeIngredient(i){window.newRecipe.items.splice(i,1);renderRecipeBuilder()}
+function addIngredientToRecipe(i){
+ let f=foods[i],amount=Number($("grams").value)||100,unit=$("unit").value||"g",grams=amount*(UNIT_G[unit]||1),m=grams/100;
+ window.newRecipe.items.push({name:f[0],grams:Math.round(grams),k:f[2]*m,p:f[3]*m,c:f[4]*m,f:f[5]*m});
+ recipeBuilderActive=false;renderRecipeBuilder()
+}
+function saveRecipe(){
+ let name=($("rName").value||"").trim();
+ if(!name){toast("Bitte einen Namen eingeben");return}
+ if(!window.newRecipe.items.length){toast("Bitte mindestens eine Zutat hinzufügen");return}
+ window.newRecipe.name=name;window.newRecipe.category=$("rCat").value;window.newRecipe.id=Date.now()+Math.random();
+ if(!d.recipes)d.recipes=[];
+ d.recipes.push(window.newRecipe);save();window.newRecipe=null;closeModal();renderRecipeList();toast("Rezept gespeichert")
+}
+function searchFood(){recipeBuilderActive=false;modal("Lebensmittel suchen",`<input id="q" placeholder="z.B. Hähnchen" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p>`);results()}
 let searchDebounce=null,searchGen=0;
 function results(){let q=($("q")?.value||"").trim();renderLocalResults(q);clearTimeout(searchDebounce);const gen=++searchGen;if($("searchStatus"))$("searchStatus").textContent="";if(q.length<2)return;if($("searchStatus"))$("searchStatus").textContent="Suche bei Open Food Facts…";searchDebounce=setTimeout(()=>fetchRemoteResults(q,gen),450)}
 function foodRow(f,i){return `<div class="foodrow">${foodThumb(f[1],f[6],32)}<div><b>${f[0]}</b><div class="small">${Math.round(f[2])} kcal · P ${Math.round(f[3])} g · KH ${Math.round(f[4])} g · F ${Math.round(f[5])} g / 100 g</div></div><button class="plus" onclick="portion(${i})">＋</button></div>`}
@@ -281,7 +385,7 @@ async function fetchRemoteResults(q,gen){
   if($("searchStatus"))$("searchStatus").textContent=hinzugefuegt.length?`+${hinzugefuegt.length} Treffer von Open Food Facts`:"Keine weiteren Treffer bei Open Food Facts";
  }catch(e){console.warn("Open Food Facts Suche fehlgeschlagen (offline?)",e);if(gen===searchGen&&$("searchStatus"))$("searchStatus").textContent="⚠️ Open Food Facts nicht erreichbar (offline oder kein Zugriff)"}
 }
-function portion(i){let f=foods[i];modal(f[1]+" "+f[0],`<div class="badge">Nährwerte pro 100 g</div><p class="small">Menge</p><div style="display:flex;gap:8px"><input id="grams" type="number" value="100" min="1" style="flex:1"><select id="unit" style="flex:1"><option value="g">Gramm</option><option value="tbsp">Esslöffel (≈15 g)</option><option value="tsp">Teelöffel (≈5 g)</option><option value="cup">Tasse (≈240 g)</option><option value="ml">Milliliter (≈1 g)</option></select></div><p class="small">Löffel/Tasse/ml sind ungefähre Umrechnungen – abhängig von der Zutat.</p><button class="primary" onclick="add(${i})">Hinzufügen</button>`)}
+function portion(i){let f=foods[i];modal(f[1]+" "+f[0],`<div class="badge">Nährwerte pro 100 g</div><p class="small">Menge</p><div style="display:flex;gap:8px"><input id="grams" type="number" value="100" min="1" style="flex:1"><select id="unit" style="flex:1"><option value="g">Gramm</option><option value="tbsp">Esslöffel (≈15 g)</option><option value="tsp">Teelöffel (≈5 g)</option><option value="cup">Tasse (≈240 g)</option><option value="ml">Milliliter (≈1 g)</option></select></div><p class="small">Löffel/Tasse/ml sind ungefähre Umrechnungen – abhängig von der Zutat.</p><button class="primary" onclick="${recipeBuilderActive?`addIngredientToRecipe(${i})`:`add(${i})`}">Hinzufügen</button>`)}
 function add(i){
  let f=foods[i],unit=$("unit")?.value||"g",amount=Number($("grams").value)||1;
  const factor=UNIT_G[unit]||1,g=amount*factor,m=g/100;
@@ -291,23 +395,40 @@ function add(i){
 }
 function textLog(){modal("Essen beschreiben",`<textarea id="txt" placeholder="z.B. 150 g Hähnchenbrust und 200 g Reis"></textarea><button class="primary" onclick="parseText()">Analysieren</button>`)}
 function escapeRegex(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}
+function extractGrams(t,idx){
+ let before=t.slice(Math.max(0,idx-25),idx);
+ let m=before.match(/(\d+(?:[.,]\d+)?)\s*(g|gramm|ml|el\b|esslöffel|tl\b|teelöffel|tassen?)\s*$/i);
+ if(!m)return null;
+ let amount=parseFloat(m[1].replace(",","."));if(isNaN(amount)||amount<=0)return null;
+ let unitMap={g:"g",gramm:"g",ml:"ml",el:"tbsp",esslöffel:"tbsp",tl:"tsp",teelöffel:"tsp",tasse:"cup",tassen:"cup"};
+ let unit=unitMap[m[2].toLowerCase()]||"g";
+ return Math.round(amount*(UNIT_G[unit]||1))
+}
 function parseText(){
- let t=$("txt").value.toLowerCase();
- let seen=new Set();
- let found=foods.filter(f=>{
+ let raw=$("txt").value,t=raw.toLowerCase();
+ let seen=new Set(),found=[];
+ foods.forEach(f=>{
   const key=f[0].split(" ")[0].toLowerCase();
-  if(seen.has(key))return false;
+  if(seen.has(key))return;
   const re=new RegExp("(^|[^a-zäöüß])"+escapeRegex(key)+"([^a-zäöüß]|$)");
-  if(!re.test(t))return false;
-  seen.add(key);return true
+  const m=re.exec(t);
+  if(!m)return;
+  seen.add(key);
+  let idx=m.index+m[1].length;
+  found.push({f,grams:extractGrams(t,idx)||100})
  });
  if(!found.length){modal("Nichts erkannt",`<p class="small">Keines unserer Lebensmittel wurde im Text gefunden. Nutze die Suche für eine gezielte Auswahl oder versuch eine andere Formulierung (z. B. genau den Lebensmittelnamen).</p><button class="secondary" onclick="searchFood()">Zur Suche</button>`);return}
  window.found=found;
- modal("Erkannte Lebensmittel",`<span class="badge">Schätzung – bitte prüfen</span>${found.map(f=>`<div class="row"><span>${f[1]} ${f[0]}</span><b>${Math.round(f[2])} kcal / 100 g</b></div>`).join("")}<button class="primary" onclick="acceptText()">Übernehmen</button>`)
+ showParsedItems()
 }
+function showParsedItems(){
+ let found=window.found||[];
+ modal("Erkannte Lebensmittel",`<span class="badge">Mengen erkannt – bitte prüfen und ggf. anpassen</span>${found.map((item,i)=>`<div class="row"><span>${item.f[1]} ${item.f[0]}</span><div style="display:flex;align-items:center;gap:6px"><button class="plus" onclick="adjustParsedItem(${i},-10)">−</button><span style="min-width:48px;text-align:center;font-size:12px">${Math.round(item.grams)} g</span><button class="plus" onclick="adjustParsedItem(${i},10)">+</button></div></div>`).join("")}<button class="primary" onclick="acceptText()">Übernehmen</button>`)
+}
+function adjustParsedItem(i,delta){if(!window.found||!window.found[i])return;window.found[i].grams=Math.max(1,window.found[i].grams+delta);showParsedItems()}
 function acceptText(){
  const cat=mealCategoryNow(),time=new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}),dateNow=todayISO();
- window.found.forEach(f=>d.meals.push({id:Date.now()+Math.random(),date:dateNow,name:cat,time,items:`${f[0]} · 100 g`,food_name:f[0],grams:100,k:f[2],p:f[3],c:f[4],f:f[5],e:f[1]}));
+ (window.found||[]).forEach(item=>{let f=item.f,m=item.grams/100;d.meals.push({id:Date.now()+Math.random(),date:dateNow,name:cat,time,items:`${f[0]} · ${Math.round(item.grams)} g`,food_name:f[0],grams:item.grams,k:f[2]*m,p:f[3]*m,c:f[4]*m,f:f[5]*m,e:f[1]})});
  save();closeModal();go("home");toast("Mahlzeit gespeichert")
 }
 function cameraErrorMsg(e){
