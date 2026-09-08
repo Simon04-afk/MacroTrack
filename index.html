@@ -28,7 +28,7 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 .tabs{display:flex;gap:5px;background:#15191d;padding:5px;border-radius:12px}.tabs button{flex:1;background:transparent;border:0;color:var(--muted);padding:8px;border-radius:9px;font-size:12px}.tabs .sel{background:#2a3036;color:#fff}
 .tabsscroll{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;-webkit-overflow-scrolling:touch}.tabsscroll button{flex:0 0 auto;background:#15191d;border:0;color:var(--muted);padding:8px 14px;border-radius:20px;font-size:12px;white-space:nowrap}.tabsscroll .sel{background:#2a3036;color:#fff}
 .row,.foodrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #252b30}.row:last-child,.foodrow:last-child{border:0}.plus{margin-left:auto;border:1px solid #394148;background:#182019;color:var(--green);border-radius:10px;padding:5px 9px}.badge{display:inline-block;background:#20262b;color:var(--muted);border-radius:8px;padding:5px 8px;font-size:10px}
-.chart{display:flex;align-items:end;gap:6px;padding:4px 3px 0}.daycol{flex:1;display:flex;flex-direction:column;align-items:center;min-width:0}.daykcal{font-size:9px;color:var(--muted);height:12px;line-height:12px;white-space:nowrap}.barwrap{height:100px;width:100%;display:flex;align-items:end}.barcol{width:100%;background:linear-gradient(to top,#72db64,#b4f6aa);border-radius:7px 7px 2px 2px;min-height:8px}.barcol.today{background:linear-gradient(to top,#4a9d3c,#7ee66b);box-shadow:0 0 0 1.5px #7ee66b inset}.barcol.over{background:linear-gradient(to top,#c97a2e,#ffad3d)}.daylabel{font-size:10px;color:var(--muted);margin-top:5px}.daylabel.today{color:var(--green);font-weight:750}
+.chart{display:flex;align-items:end;gap:6px;padding:4px 3px 0}.daycol{flex:1;display:flex;flex-direction:column;align-items:center;min-width:0}.daykcal{font-size:9px;color:var(--muted);height:12px;line-height:12px;white-space:nowrap}.barwrap{height:100px;width:100%;display:flex;align-items:end}.barcol{width:100%;background:linear-gradient(to top,#72db64,#b4f6aa);border-radius:7px 7px 2px 2px;min-height:8px}.barcol.today{background:linear-gradient(to top,#4a9d3c,#7ee66b);box-shadow:0 0 0 1.5px #7ee66b inset}.barcol.over{background:linear-gradient(to top,#c97a2e,#ffad3d)}.daylabel{font-size:10px;color:var(--muted);margin-top:5px;height:12px;line-height:12px}.daylabel.today{color:var(--green);font-weight:750}
 .modal{position:fixed;inset:0;background:#000b;display:none;align-items:end;z-index:50}.modal.show{display:flex}.sheet{width:min(480px,100%);max-height:90vh;overflow:auto;margin:auto;background:#121518;border-radius:24px 24px 0 0;padding:19px}.close{float:right;background:none;border:0;color:#fff;font-size:24px}.preview{width:100%;height:250px;object-fit:cover;border-radius:17px;background:#20252a}.toast{position:fixed;z-index:100;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);background:#22292f;color:#fff;padding:11px 15px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;font-size:13px}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
@@ -68,7 +68,7 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 <section id="micros" class="screen"><header><button class="secondary" style="width:auto;margin:0" onclick="go('analysis')">‹</button><div class="title">Mikronährstoffe</div><span></span></header><main><div class="card"><h2 style="margin-top:0;font-size:16px">Heute</h2><div id="microList"></div></div></main></section>
 
 <section id="progress" class="screen"><header><div class="title">Fortschritt</div></header><main>
-<div class="card"><div class="sectiontitle" style="margin-top:0"><h2>Gewicht</h2><span class="link" onclick="logWeight()">+ Eintragen</span></div>
+<div class="card"><div class="sectiontitle" style="margin-top:0"><h2>Gewicht</h2><span class="link" onclick="logWeight()">+ Eintragen</span></div><div style="text-align:right;margin:-8px 0 8px"><span class="link" style="font-size:11px" onclick="showWeightHistory()">Alle Einträge verwalten</span></div>
 <div class="tabsscroll" id="weightRangeTabs">
 <button data-range="7" onclick="selectWeightRange(this)">1W</button>
 <button class="sel" data-range="30" onclick="selectWeightRange(this)">1M</button>
@@ -425,9 +425,13 @@ function renderTrendChart(){
   let cls="barcol"+(isToday?" today":overGoal?" over":"");
   let thin=n===30,showLabel=!thin||dt.getDate()%5===0||isToday;
   let label=thin?String(dt.getDate()):dayNames[dt.getDay()];
-  return `<div class="daycol"><span class="daykcal">${showLabel?(t>0?fmt(t):"–"):""}</span><div class="barwrap"><i class="${cls}" style="height:${pct}%"></i></div><span class="daylabel${isToday?" today":""}">${showLabel?label:""}</span></div>`
+  return `<div class="daycol" style="cursor:pointer" onclick="showDayDetail('${iso}')"><span class="daykcal">${showLabel?(t>0?fmt(t):"–"):""}</span><div class="barwrap"><i class="${cls}" style="height:${pct}%"></i></div><span class="daylabel${isToday?" today":""}">${showLabel?label:""}</span></div>`
  }).join("");
  if(title)title.textContent=n===30?"Dieser Monat":"Letzte 7 Tage"
+}
+function showDayDetail(iso){
+ let meals=mealsForDate(iso),k=sumMacro(meals,"k"),p=sumMacro(meals,"p"),c=sumMacro(meals,"c"),f=sumMacro(meals,"f");
+ modal(formatDateLabel(iso),meals.length?`${row("Kalorien",fmt(k)+" / "+fmt(d.goal.k)+" kcal",d.goal.k?k/d.goal.k:0)}${row("Protein",fmt(p)+" / "+fmt(d.goal.p)+" g",d.goal.p?p/d.goal.p:0)}${row("Kohlenhydrate",fmt(c)+" / "+fmt(d.goal.c)+" g",d.goal.c?c/d.goal.c:0)}${row("Fett",fmt(f)+" / "+fmt(d.goal.f)+" g",d.goal.f?f/d.goal.f:0)}`:`<p class="small">Keine Mahlzeiten an diesem Tag.</p>`)
 }
 function row(a,b,p){return `<div class="row"><span>${a}</span><b>${b}</b></div><div class="bar"><div class="fill g" style="width:${Math.min(100,p*100)}%"></div></div>`}
 function logWeight(){modal("Gewicht eintragen",`<input id="wInput" type="text" inputmode="decimal" placeholder="z.B. 78,5"><button class="primary" onclick="saveWeight()">Speichern</button>`)}
@@ -436,6 +440,26 @@ let weightRange=30;
 function selectWeightRange(btn){document.querySelectorAll("#weightRangeTabs button").forEach(b=>b.classList.remove("sel"));btn.classList.add("sel");weightRange=Number(btn.dataset.range);renderWeightChart()}
 function editWeightGoal(){modal("Zielgewicht",`<input id="wGoalInput" type="text" inputmode="decimal" placeholder="z.B. 72" value="${d.weight.goal||""}"><button class="primary" onclick="saveWeightGoal()">Speichern</button>`)}
 function saveWeightGoal(){let g=parseNum($("wGoalInput").value);if(!g||g<=0){toast("Bitte gültiges Zielgewicht eingeben");return}d.weight.goal=g;save();closeModal();renderWeight();toast("Zielgewicht gespeichert")}
+function showWeightHistory(){
+ let entries=[...d.weight.entries].sort((a,b)=>b.date<a.date?-1:b.date>a.date?1:0);
+ modal("Gewichtsverlauf verwalten",entries.length?entries.map(e=>`<div class="row"><span>${formatDateLabel(e.date)}</span><div style="display:flex;align-items:center;gap:6px"><b>${e.kg.toFixed(1).replace(".",",")} kg</b><button class="plus" onclick="editWeightEntry('${e.date}')">✎</button><button class="plus" style="color:var(--red)" onclick="deleteWeightEntry('${e.date}')">✕</button></div></div>`).join(""):`<div class="small">Noch keine Einträge.</div>`)
+}
+function editWeightEntry(date){
+ let e=d.weight.entries.find(x=>x.date===date);if(!e)return;
+ modal("Gewicht bearbeiten",`<p class="small">${formatDateLabel(date)}</p><input id="wEditInput" type="text" inputmode="decimal" value="${String(e.kg).replace(".",",")}"><button class="primary" onclick="saveWeightEdit('${date}')">Speichern</button><button class="secondary" style="color:var(--red);margin-top:8px" onclick="deleteWeightEntry('${date}')">Eintrag löschen</button>`)
+}
+function saveWeightEdit(date){
+ let kg=parseNum($("wEditInput").value);
+ if(!kg||kg<=0){toast("Bitte gültiges Gewicht eingeben");return}
+ let e=d.weight.entries.find(x=>x.date===date);if(e)e.kg=kg;
+ save();renderWeight();showWeightHistory();toast("Gespeichert")
+}
+function deleteWeightEntry(date){
+ d.weight.entries=d.weight.entries.filter(x=>x.date!==date);
+ save();renderWeight();
+ if(d.weight.entries.length)showWeightHistory();else closeModal();
+ toast("Eintrag gelöscht")
+}
 function renderWeight(){
  let e=d.weight.entries;
  $("wStart").textContent=e.length?e[0].kg.toFixed(1)+" kg":"–";
