@@ -425,13 +425,13 @@ function renderTrendChart(){
   let cls="barcol"+(isToday?" today":overGoal?" over":"");
   let thin=n===30,showLabel=!thin||dt.getDate()%5===0||isToday;
   let label=thin?String(dt.getDate()):dayNames[dt.getDay()];
-  return `<div class="daycol" style="cursor:pointer" onclick="showDayDetail('${iso}')"><span class="daykcal">${showLabel?(t>0?fmt(t):"–"):""}</span><div class="barwrap"><i class="${cls}" style="height:${pct}%"></i></div><span class="daylabel${isToday?" today":""}">${showLabel?label:""}</span></div>`
+  return `<div class="daycol" style="cursor:pointer" onclick="showDayMeals('${iso}')"><span class="daykcal">${showLabel?(t>0?fmt(t):"–"):""}</span><div class="barwrap"><i class="${cls}" style="height:${pct}%"></i></div><span class="daylabel${isToday?" today":""}">${showLabel?label:""}</span></div>`
  }).join("");
  if(title)title.textContent=n===30?"Dieser Monat":"Letzte 7 Tage"
 }
-function showDayDetail(iso){
- let meals=mealsForDate(iso),k=sumMacro(meals,"k"),p=sumMacro(meals,"p"),c=sumMacro(meals,"c"),f=sumMacro(meals,"f");
- modal(formatDateLabel(iso),meals.length?`${row("Kalorien",fmt(k)+" / "+fmt(d.goal.k)+" kcal",d.goal.k?k/d.goal.k:0)}${row("Protein",fmt(p)+" / "+fmt(d.goal.p)+" g",d.goal.p?p/d.goal.p:0)}${row("Kohlenhydrate",fmt(c)+" / "+fmt(d.goal.c)+" g",d.goal.c?c/d.goal.c:0)}${row("Fett",fmt(f)+" / "+fmt(d.goal.f)+" g",d.goal.f?f/d.goal.f:0)}`:`<p class="small">Keine Mahlzeiten an diesem Tag.</p>`)
+function showDayMeals(iso){
+ let meals=mealsForDate(iso);
+ modal(formatDateLabel(iso),meals.length?renderMealGroups(meals,iso):`<p class="small">Keine Mahlzeiten an diesem Tag.</p>`)
 }
 function row(a,b,p){return `<div class="row"><span>${a}</span><b>${b}</b></div><div class="bar"><div class="fill g" style="width:${Math.min(100,p*100)}%"></div></div>`}
 function logWeight(){modal("Gewicht eintragen",`<input id="wInput" type="text" inputmode="decimal" placeholder="z.B. 78,5"><button class="primary" onclick="saveWeight()">Speichern</button>`)}
