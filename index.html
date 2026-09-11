@@ -434,8 +434,8 @@ function showDayMeals(iso){
  modal(formatDateLabel(iso),meals.length?renderMealGroups(meals,iso):`<p class="small">Keine Mahlzeiten an diesem Tag.</p>`)
 }
 function row(a,b,p){return `<div class="row"><span>${a}</span><b>${b}</b></div><div class="bar"><div class="fill g" style="width:${Math.min(100,p*100)}%"></div></div>`}
-function logWeight(){modal("Gewicht eintragen",`<input id="wInput" type="text" inputmode="decimal" placeholder="z.B. 78,5"><button class="primary" onclick="saveWeight()">Speichern</button>`)}
-function saveWeight(){let kg=Number((($("wInput").value||"").trim()).replace(",","."));if(!kg||kg<=0){toast("Bitte gültiges Gewicht eingeben");return}d.weight.entries=d.weight.entries.filter(e=>e.date!==todayISO());d.weight.entries.push({date:todayISO(),kg});d.weight.entries.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);save();closeModal();render();toast("Gewicht gespeichert")}
+function logWeight(){modal("Gewicht eintragen",`<input id="wDateInput" type="date" value="${todayISO()}" max="${todayISO()}" style="margin-bottom:8px"><input id="wInput" type="text" inputmode="decimal" placeholder="z.B. 78,5"><button class="primary" onclick="saveWeight()">Speichern</button>`)}
+function saveWeight(){let date=$("wDateInput")?.value||todayISO();let kg=Number((($("wInput").value||"").trim()).replace(",","."));if(!kg||kg<=0){toast("Bitte gültiges Gewicht eingeben");return}d.weight.entries=d.weight.entries.filter(e=>e.date!==date);d.weight.entries.push({date,kg});d.weight.entries.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);save();closeModal();render();toast("Gewicht gespeichert für "+formatDateLabel(date))}
 let weightRange=30;
 function selectWeightRange(btn){document.querySelectorAll("#weightRangeTabs button").forEach(b=>b.classList.remove("sel"));btn.classList.add("sel");weightRange=Number(btn.dataset.range);renderWeightChart()}
 function editWeightGoal(){modal("Zielgewicht",`<input id="wGoalInput" type="text" inputmode="decimal" placeholder="z.B. 72" value="${d.weight.goal||""}"><button class="primary" onclick="saveWeightGoal()">Speichern</button>`)}
