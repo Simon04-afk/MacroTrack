@@ -504,7 +504,7 @@ function renderRecipeList(){
 function openRecipe(id){
  let r=(d.recipes||[]).find(x=>String(x.id)===String(id));if(!r)return;
  let t=recipeTotals(r);window.openingRecipe=r;
- modal(r.name,`<div class="badge">${r.category}</div>${r.items.map(it=>`<div class="row"><span>${it.name}</span><span class="small">${Math.round(it.grams)} g</span></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><p class="small">P ${Math.round(t.p)} g · K ${Math.round(t.c)} g · F ${Math.round(t.f)} g</p><button class="primary" onclick="addRecipeToLog()">Zum heutigen Tag hinzufügen</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteRecipe('${r.id}')">Rezept löschen</button>`)
+ modal(r.name,`<div class="badge">${r.category}</div>${r.items.map(it=>`<div class="row"><span>${it.name}</span><span class="small">${Math.round(it.grams)} g</span></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><p class="small">P ${Math.round(t.p)} g · K ${Math.round(t.c)} g · F ${Math.round(t.f)} g</p><button class="primary" onclick="addRecipeToLog()">Zum heutigen Tag hinzufügen</button><button class="secondary" style="margin-top:10px" onclick="editRecipe('${r.id}')">Rezept bearbeiten</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteRecipe('${r.id}')">Rezept löschen</button>`)
 }
 let selectedAddDate=null,selectedAddCat=null;
 function currentAddDate(){return selectedAddDate||todayISO()}
@@ -520,10 +520,17 @@ function addRecipeToLog(){
  save();closeModal();go("home");toast(r.name+" hinzugefügt");selectedAddDate=null;selectedAddCat=null
 }
 function deleteRecipe(id){d.recipes=(d.recipes||[]).filter(r=>String(r.id)!==String(id));save();closeModal();renderRecipeList();toast("Rezept gelöscht")}
-function startNewRecipe(){window.newRecipe={name:"",category:"Frühstück",items:[]};renderRecipeBuilder()}
+let editingRecipeId=null;
+function editRecipe(id){
+ let r=(d.recipes||[]).find(x=>String(x.id)===String(id));if(!r)return;
+ editingRecipeId=r.id;
+ window.newRecipe=JSON.parse(JSON.stringify(r));
+ renderRecipeBuilder()
+}
+function startNewRecipe(){editingRecipeId=null;window.newRecipe={name:"",category:"Frühstück",items:[]};renderRecipeBuilder()}
 function renderRecipeBuilder(){
  let r=window.newRecipe,t=recipeTotals(r);
- modal("Neues Rezept",`<input id="rName" placeholder="Rezeptname" value="${r.name}"><select id="rCat" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===r.category?"selected":""}>${c}</option>`).join("")}</select><div class="sectiontitle" style="margin:16px 0 6px"><h2 style="font-size:14px;margin:0">Zutaten</h2><span class="link" onclick="addRecipeIngredient()">+ Zutat</span></div>${r.items.length?r.items.map((it,i)=>`<div class="row"><span>${it.name} · ${Math.round(it.grams)} g</span><span style="display:flex;align-items:center;gap:8px">${Math.round(it.k)} kcal<button class="plus" onclick="removeRecipeIngredient(${i})">✕</button></span></div>`).join(""):`<div class="small">Noch keine Zutaten hinzugefügt.</div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><button class="primary" onclick="saveRecipe()">Rezept speichern</button>`)
+ modal(editingRecipeId?"Rezept bearbeiten":"Neues Rezept",`<input id="rName" placeholder="Rezeptname" value="${r.name}"><select id="rCat" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===r.category?"selected":""}>${c}</option>`).join("")}</select><div class="sectiontitle" style="margin:16px 0 6px"><h2 style="font-size:14px;margin:0">Zutaten</h2><span class="link" onclick="addRecipeIngredient()">+ Zutat</span></div>${r.items.length?r.items.map((it,i)=>`<div class="row"><span>${it.name} · ${Math.round(it.grams)} g</span><span style="display:flex;align-items:center;gap:8px">${Math.round(it.k)} kcal<button class="plus" onclick="removeRecipeIngredient(${i})">✕</button></span></div>`).join(""):`<div class="small">Noch keine Zutaten hinzugefügt.</div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><button class="primary" onclick="saveRecipe()">${editingRecipeId?"Änderungen speichern":"Rezept speichern"}</button>${editingRecipeId?`<button class="secondary" style="color:var(--red);margin-top:8px" onclick="deleteRecipe(editingRecipeId)">Rezept löschen</button>`:""}`)
 }
 function addRecipeIngredient(){
  if(window.newRecipe){window.newRecipe.name=$("rName")?.value??window.newRecipe.name;window.newRecipe.category=$("rCat")?.value??window.newRecipe.category}
@@ -541,9 +548,19 @@ function saveRecipe(){
  let name=($("rName").value||"").trim();
  if(!name){toast("Bitte einen Namen eingeben");return}
  if(!window.newRecipe.items.length){toast("Bitte mindestens eine Zutat hinzufügen");return}
- window.newRecipe.name=name;window.newRecipe.category=$("rCat").value;window.newRecipe.id=Date.now()+Math.random();
+ window.newRecipe.name=name;window.newRecipe.category=$("rCat").value;
  if(!d.recipes)d.recipes=[];
- d.recipes.push(window.newRecipe);save();window.newRecipe=null;closeModal();renderRecipeList();toast("Rezept gespeichert")
+ if(editingRecipeId){
+  window.newRecipe.id=editingRecipeId;
+  let idx=d.recipes.findIndex(r=>String(r.id)===String(editingRecipeId));
+  if(idx>=0)d.recipes[idx]=window.newRecipe;else d.recipes.push(window.newRecipe);
+  toast("Rezept aktualisiert")
+ }else{
+  window.newRecipe.id=Date.now()+Math.random();
+  d.recipes.push(window.newRecipe);
+  toast("Rezept gespeichert")
+ }
+ save();window.newRecipe=null;editingRecipeId=null;closeModal();renderRecipeList()
 }
 function searchFood(){recipeBuilderActive=false;modal("Lebensmittel suchen",`<input id="q" placeholder="z.B. Hähnchen" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p><button class="secondary" style="margin-top:10px" onclick="createCustomFood()">+ Eigenes Lebensmittel erstellen</button>`);results()}
 function createCustomFood(){
