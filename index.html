@@ -46,6 +46,7 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 <div class="option" onclick="searchFood()"><div class="ico" style="background:#271a3a;color:var(--purple)">🔎</div><div><strong>Suche</strong><small>Lebensmittel aus unserer Datenbank suchen</small></div></div>
 <div class="option" onclick="barcode()"><div class="ico" style="background:#3a2a12;color:var(--orange)">▥</div><div><strong>Barcode scannen</strong><small>Verpackung scannen und hinzufügen</small></div></div>
 <div class="option" onclick="go('recipes')"><div class="ico" style="background:#2a1f3a;color:var(--purple)">📖</div><div><strong>Rezepte</strong><small>Gespeicherte Rezepte nutzen oder eigene erstellen</small></div></div>
+<div class="option" onclick="createDish()"><div class="ico" style="background:#1a2a1f;color:var(--green)">🍲</div><div><strong>Gericht erstellen</strong><small>Mehrere Lebensmittel frei kombinieren und als eine Mahlzeit speichern</small></div></div>
 </main></section>
 
 <section id="recipes" class="screen"><header><button class="secondary" style="width:auto;margin:0" onclick="go('add')">‹</button><div class="title">Rezepte</div><span></span></header><main>
@@ -510,7 +511,7 @@ let selectedAddDate=null,selectedAddCat=null;
 function currentAddDate(){return selectedAddDate||todayISO()}
 function currentAddCat(){return selectedAddCat||mealCategoryNow()}
 function updateAddDateLabel(){if($("addDateLabel"))$("addDateLabel").textContent=formatDateLabel(currentAddDate())+" · "+currentAddCat()}
-function pickAddDate(){modal("Datum & Mahlzeit",`<p class="small">Datum und Mahlzeit wählen, dann direkt Lebensmittel hinzufügen.</p><input id="addDateInput" type="date" value="${currentAddDate()}" max="${todayISO()}"><select id="addCatInput" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===currentAddCat()?"selected":""}>${c}</option>`).join("")}</select><button class="primary" onclick="confirmAddDate();searchFood()">🔎 Lebensmittel suchen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();textLog()">✏️ Mit Text beschreiben</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();barcode()">▥ Barcode scannen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();closeModal();go('recipes')">📖 Rezept nutzen</button>${selectedAddDate||selectedAddCat?`<button class="secondary" style="margin-top:14px;color:var(--red)" onclick="resetAddDate()">Auf Jetzt zurücksetzen</button>`:""}`)}
+function pickAddDate(){modal("Datum & Mahlzeit",`<p class="small">Datum und Mahlzeit wählen, dann direkt Lebensmittel hinzufügen.</p><input id="addDateInput" type="date" value="${currentAddDate()}" max="${todayISO()}"><select id="addCatInput" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===currentAddCat()?"selected":""}>${c}</option>`).join("")}</select><button class="primary" onclick="confirmAddDate();searchFood()">🔎 Lebensmittel suchen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();textLog()">✏️ Mit Text beschreiben</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();barcode()">▥ Barcode scannen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();closeModal();go('recipes')">📖 Rezept nutzen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();createDish()">🍲 Gericht erstellen</button>${selectedAddDate||selectedAddCat?`<button class="secondary" style="margin-top:14px;color:var(--red)" onclick="resetAddDate()">Auf Jetzt zurücksetzen</button>`:""}`)}
 function confirmAddDate(){let v=$("addDateInput").value;if(v)selectedAddDate=v;selectedAddCat=$("addCatInput").value;updateAddDateLabel()}
 function resetAddDate(){selectedAddDate=null;selectedAddCat=null;closeModal();updateAddDateLabel()}
 function addRecipeToLog(){
@@ -562,7 +563,37 @@ function saveRecipe(){
  }
  save();window.newRecipe=null;editingRecipeId=null;closeModal();renderRecipeList()
 }
-function searchFood(){recipeBuilderActive=false;modal("Lebensmittel suchen",`<input id="q" placeholder="z.B. Hähnchen" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p><button class="secondary" style="margin-top:10px" onclick="createCustomFood()">+ Eigenes Lebensmittel erstellen</button>`);results()}
+let dishBuilderActive=false;
+function createDish(){window.newDish={name:"",items:[]};renderDishBuilder()}
+function renderDishBuilder(){
+ let dish=window.newDish,t=dish.items.reduce((s,it)=>({k:s.k+it.k,p:s.p+it.p,c:s.c+it.c,f:s.f+it.f}),{k:0,p:0,c:0,f:0});
+ modal("Gericht erstellen",`<input id="dishName" placeholder="Name (z. B. Currywurst mit Pommes)" value="${dish.name}"><div class="sectiontitle" style="margin:16px 0 6px"><h2 style="font-size:14px;margin:0">Lebensmittel</h2><span class="link" onclick="addDishIngredient()">+ Hinzufügen</span></div>${dish.items.length?dish.items.map((it,i)=>`<div class="row"><span>${it.name} · ${Math.round(it.grams)} g</span><span style="display:flex;align-items:center;gap:8px">${Math.round(it.k)} kcal<button class="plus" onclick="removeDishIngredient(${i})">✕</button></span></div>`).join(""):`<div class="small">Noch keine Lebensmittel hinzugefügt.</div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><label style="display:flex;align-items:center;gap:8px;margin:12px 0;font-size:13px;color:var(--muted)"><input type="checkbox" id="dishSaveRecipe" style="width:auto">Auch als Rezept für später speichern</label><button class="primary" onclick="saveDish()">Als Mahlzeit speichern</button>`)
+}
+function addDishIngredient(){
+ if(window.newDish)window.newDish.name=$("dishName")?.value??window.newDish.name;
+ dishBuilderActive=true;
+ modal("Zutat hinzufügen",`<input id="q" placeholder="z.B. Hähnchen" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p><button class="secondary" style="margin-top:10px" onclick="createCustomFood()">+ Eigenes Lebensmittel erstellen</button>`);results()
+}
+function removeDishIngredient(i){window.newDish.items.splice(i,1);renderDishBuilder()}
+function addIngredientToDish(i){
+ let f=foods[i],amount=parseNum($("grams").value)||100,unit=$("unit").value||"g",grams=amount*(UNIT_G[unit]||1),m=grams/100;
+ window.newDish.items.push({name:f[0],grams:Math.round(grams),k:f[2]*m,p:f[3]*m,c:f[4]*m,f:f[5]*m,e:f[1],img:f[6]||null});
+ dishBuilderActive=false;renderDishBuilder()
+}
+function saveDish(){
+ let name=($("dishName").value||"").trim();
+ if(!name){toast("Bitte einen Namen für das Gericht eingeben");return}
+ if(!window.newDish.items.length){toast("Bitte mindestens ein Lebensmittel hinzufügen");return}
+ let alsRezept=$("dishSaveRecipe")?.checked;
+ let date=currentAddDate(),time=new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
+ window.newDish.items.forEach(it=>d.meals.push({id:Date.now()+Math.random(),date,name,time,items:`${it.name} · ${Math.round(it.grams)} g`,food_name:it.name,grams:it.grams,k:it.k,p:it.p,c:it.c,f:it.f,e:it.e,img:it.img||null}));
+ if(alsRezept){
+  if(!d.recipes)d.recipes=[];
+  d.recipes.push({id:Date.now()+Math.random(),name,category:currentAddCat(),emoji:window.newDish.items[0]?.e||"🍽️",items:window.newDish.items.map(it=>({name:it.name,grams:it.grams,k:it.k,p:it.p,c:it.c,f:it.f}))})
+ }
+ save();window.newDish=null;closeModal();go("home");toast(name+" gespeichert"+(alsRezept?" (auch als Rezept)":""));selectedAddDate=null;selectedAddCat=null
+}
+function searchFood(){recipeBuilderActive=false;dishBuilderActive=false;modal("Lebensmittel suchen",`<input id="q" placeholder="z.B. Hähnchen" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p><button class="secondary" style="margin-top:10px" onclick="createCustomFood()">+ Eigenes Lebensmittel erstellen</button>`);results()}
 function createCustomFood(){
  modal("Eigenes Lebensmittel",`<input id="cfName" placeholder="Name"><div style="display:flex;gap:8px;margin-top:8px"><input id="cfK" type="text" inputmode="decimal" placeholder="kcal/100g(ml)" style="flex:1"><input id="cfP" type="text" inputmode="decimal" placeholder="Protein g" style="flex:1"></div><div style="display:flex;gap:8px;margin-top:8px"><input id="cfC" type="text" inputmode="decimal" placeholder="Kohlenh. g" style="flex:1"><input id="cfF" type="text" inputmode="decimal" placeholder="Fett g" style="flex:1"></div><p class="small">Werte pro 100 g — bei Flüssigkeiten (z. B. Saft, Milch) entspricht das auch 100 ml. Beim späteren Hinzufügen kannst du dann zwischen Gramm, Esslöffel, Teelöffel, Tasse und Milliliter wählen. Ein passendes Symbol wird automatisch gewählt.</p><button class="primary" onclick="saveCustomFood()">Speichern</button>`)
 }
@@ -574,7 +605,7 @@ function saveCustomFood(){
  let cf=[name,guessEmoji(name),k,p,c,f];
  if(!d.customFoods)d.customFoods=[];
  d.customFoods.push(cf);foods.push(cf);save();toast(name+" gespeichert");
- if(recipeBuilderActive){closeModal();addRecipeIngredient()}else{closeModal();searchFood()}
+ if(recipeBuilderActive){closeModal();addRecipeIngredient()}else if(dishBuilderActive){closeModal();addDishIngredient()}else{closeModal();searchFood()}
 }
 let searchDebounce=null,searchGen=0;
 function results(){let q=($("q")?.value||"").trim();renderLocalResults(q);clearTimeout(searchDebounce);const gen=++searchGen;if($("searchStatus"))$("searchStatus").textContent="";if(q.length<2)return;if($("searchStatus"))$("searchStatus").textContent="Suche bei Open Food Facts…";searchDebounce=setTimeout(()=>fetchRemoteResults(q,gen),450)}
@@ -591,7 +622,7 @@ async function fetchRemoteResults(q,gen){
   if($("searchStatus"))$("searchStatus").textContent=hinzugefuegt.length?`+${hinzugefuegt.length} Treffer von Open Food Facts`:"Keine weiteren Treffer bei Open Food Facts";
  }catch(e){console.warn("Open Food Facts Suche fehlgeschlagen (offline?)",e);if(gen===searchGen&&$("searchStatus"))$("searchStatus").textContent="⚠️ Open Food Facts nicht erreichbar (offline oder kein Zugriff)"}
 }
-function portion(i){let f=foods[i];modal(f[1]+" "+f[0],`<div class="badge">Nährwerte pro 100 g</div><p class="small">Menge</p><div style="display:flex;gap:8px"><input id="grams" type="text" inputmode="decimal" value="100" style="flex:1"><select id="unit" style="flex:1"><option value="g">Gramm</option><option value="tbsp">Esslöffel (≈15 g)</option><option value="tsp">Teelöffel (≈5 g)</option><option value="cup">Tasse (≈240 g)</option><option value="ml">Milliliter (≈1 g)</option></select></div><p class="small">Löffel/Tasse/ml sind ungefähre Umrechnungen – abhängig von der Zutat.</p><button class="primary" onclick="${recipeBuilderActive?`addIngredientToRecipe(${i})`:`add(${i})`}">Hinzufügen</button>`)}
+function portion(i){let f=foods[i];modal(f[1]+" "+f[0],`<div class="badge">Nährwerte pro 100 g</div><p class="small">Menge</p><div style="display:flex;gap:8px"><input id="grams" type="text" inputmode="decimal" value="100" style="flex:1"><select id="unit" style="flex:1"><option value="g">Gramm</option><option value="tbsp">Esslöffel (≈15 g)</option><option value="tsp">Teelöffel (≈5 g)</option><option value="cup">Tasse (≈240 g)</option><option value="ml">Milliliter (≈1 g)</option></select></div><p class="small">Löffel/Tasse/ml sind ungefähre Umrechnungen – abhängig von der Zutat.</p><button class="primary" onclick="${recipeBuilderActive?`addIngredientToRecipe(${i})`:dishBuilderActive?`addIngredientToDish(${i})`:`add(${i})`}">Hinzufügen</button>`)}
 function add(i){
  let f=foods[i],unit=$("unit")?.value||"g",amount=parseNum($("grams").value)||1;
  const factor=UNIT_G[unit]||1,g=amount*factor,m=g/100;
