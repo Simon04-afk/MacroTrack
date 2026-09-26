@@ -505,7 +505,7 @@ function renderRecipeList(){
 function openRecipe(id){
  let r=(d.recipes||[]).find(x=>String(x.id)===String(id));if(!r)return;
  let t=recipeTotals(r);window.openingRecipe=r;
- modal(r.name,`<div class="badge">${r.category}</div>${r.items.map(it=>`<div class="row"><span>${it.name}</span><span class="small">${Math.round(it.grams)} g</span></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><p class="small">P ${Math.round(t.p)} g · K ${Math.round(t.c)} g · F ${Math.round(t.f)} g</p><button class="primary" onclick="addRecipeToLog()">Zum heutigen Tag hinzufügen</button><button class="secondary" style="margin-top:10px" onclick="editRecipe('${r.id}')">Rezept bearbeiten</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteRecipe('${r.id}')">Rezept löschen</button>`)
+ modal(r.name,`<div class="badge">${r.category}</div>${r.items.map(it=>`<div class="row"><span>${it.name}</span><span class="small">${Math.round(it.grams)} g</span></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><p class="small">P ${Math.round(t.p)} g · K ${Math.round(t.c)} g · F ${Math.round(t.f)} g</p><button class="primary" onclick="addRecipeToLog()">${dishBuilderActive?"Zum Gericht hinzufügen":"Zum heutigen Tag hinzufügen"}</button><button class="secondary" style="margin-top:10px" onclick="editRecipe('${r.id}')">Rezept bearbeiten</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteRecipe('${r.id}')">Rezept löschen</button>`)
 }
 let selectedAddDate=null,selectedAddCat=null;
 function currentAddDate(){return selectedAddDate||todayISO()}
@@ -516,6 +516,10 @@ function confirmAddDate(){let v=$("addDateInput").value;if(v)selectedAddDate=v;s
 function resetAddDate(){selectedAddDate=null;selectedAddCat=null;closeModal();updateAddDateLabel()}
 function addRecipeToLog(){
  let r=window.openingRecipe;if(!r)return;
+ if(dishBuilderActive){
+  r.items.forEach(it=>window.newDish.items.push({name:it.name,grams:it.grams,k:it.k,p:it.p,c:it.c,f:it.f,e:r.emoji||"🍽️",img:null}));
+  dishBuilderActive=false;closeModal();renderDishBuilder();toast(r.name+" übernommen");return
+ }
  let cat=currentAddCat(),time=new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}),dateNow=currentAddDate();
  r.items.forEach(it=>d.meals.push({id:Date.now()+Math.random(),date:dateNow,name:cat,time,items:`${it.name} · ${Math.round(it.grams)} g`,food_name:it.name,grams:it.grams,k:it.k,p:it.p,c:it.c,f:it.f,e:r.emoji||"🍽️"}));
  save();closeModal();go("home");toast(r.name+" hinzugefügt");selectedAddDate=null;selectedAddCat=null
@@ -567,8 +571,11 @@ let dishBuilderActive=false;
 function createDish(){window.newDish={name:"",items:[]};renderDishBuilder()}
 function renderDishBuilder(){
  let dish=window.newDish,t=dish.items.reduce((s,it)=>({k:s.k+it.k,p:s.p+it.p,c:s.c+it.c,f:s.f+it.f}),{k:0,p:0,c:0,f:0});
- modal("Gericht erstellen",`<input id="dishName" placeholder="Name (z. B. Currywurst mit Pommes)" value="${dish.name}"><div class="sectiontitle" style="margin:16px 0 6px"><h2 style="font-size:14px;margin:0">Lebensmittel</h2><span class="link" onclick="addDishIngredient()">+ Hinzufügen</span></div>${dish.items.length?dish.items.map((it,i)=>`<div class="row"><span>${it.name} · ${Math.round(it.grams)} g</span><span style="display:flex;align-items:center;gap:8px">${Math.round(it.k)} kcal<button class="plus" onclick="removeDishIngredient(${i})">✕</button></span></div>`).join(""):`<div class="small">Noch keine Lebensmittel hinzugefügt.</div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><label style="display:flex;align-items:center;gap:8px;margin:12px 0;font-size:13px;color:var(--muted)"><input type="checkbox" id="dishSaveRecipe" style="width:auto">Auch als Rezept für später speichern</label><button class="primary" onclick="saveDish()">Als Mahlzeit speichern</button>`)
+ modal("Gericht erstellen",`<input id="dishName" placeholder="Name (z. B. Currywurst mit Pommes)" value="${dish.name}"><div class="sectiontitle" style="margin:16px 0 6px"><h2 style="font-size:14px;margin:0">Lebensmittel</h2></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px"><button class="secondary" style="flex:1;min-width:130px" onclick="addDishIngredient()">🔎 Suche</button><button class="secondary" style="flex:1;min-width:130px" onclick="addDishIngredientText()">✏️ Beschreibung</button><button class="secondary" style="flex:1;min-width:130px" onclick="addDishIngredientBarcode()">▥ Barcode</button><button class="secondary" style="flex:1;min-width:130px" onclick="addDishIngredientRecipe()">📖 Rezept</button></div>${dish.items.length?dish.items.map((it,i)=>`<div class="row"><span>${it.name} · ${Math.round(it.grams)} g</span><span style="display:flex;align-items:center;gap:8px">${Math.round(it.k)} kcal<button class="plus" onclick="removeDishIngredient(${i})">✕</button></span></div>`).join(""):`<div class="small">Noch keine Lebensmittel hinzugefügt.</div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><label style="display:flex;align-items:center;gap:8px;margin:12px 0;font-size:13px;color:var(--muted)"><input type="checkbox" id="dishSaveRecipe" style="width:auto">Auch als Rezept für später speichern</label><button class="primary" onclick="saveDish()">Als Mahlzeit speichern</button>`)
 }
+function addDishIngredientText(){if(window.newDish)window.newDish.name=$("dishName")?.value??window.newDish.name;dishBuilderActive=true;textLog()}
+function addDishIngredientBarcode(){if(window.newDish)window.newDish.name=$("dishName")?.value??window.newDish.name;dishBuilderActive=true;barcode()}
+function addDishIngredientRecipe(){if(window.newDish)window.newDish.name=$("dishName")?.value??window.newDish.name;dishBuilderActive=true;closeModal();go('recipes')}
 function addDishIngredient(){
  if(window.newDish)window.newDish.name=$("dishName")?.value??window.newDish.name;
  dishBuilderActive=true;
@@ -664,6 +671,10 @@ function showParsedItems(){
 }
 function adjustParsedItem(i,delta){if(!window.found||!window.found[i])return;window.found[i].grams=Math.max(1,window.found[i].grams+delta);showParsedItems()}
 function acceptText(){
+ if(dishBuilderActive){
+  (window.found||[]).forEach(item=>{let f=item.f,m=item.grams/100;window.newDish.items.push({name:f[0],grams:Math.round(item.grams),k:f[2]*m,p:f[3]*m,c:f[4]*m,f:f[5]*m,e:f[1],img:f[6]||null})});
+  dishBuilderActive=false;closeModal();renderDishBuilder();return
+ }
  const cat=currentAddCat(),time=new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}),dateNow=currentAddDate();
  (window.found||[]).forEach(item=>{let f=item.f,m=item.grams/100;d.meals.push({id:Date.now()+Math.random(),date:dateNow,name:cat,time,items:`${f[0]} · ${Math.round(item.grams)} g`,food_name:f[0],grams:item.grams,k:f[2]*m,p:f[3]*m,c:f[4]*m,f:f[5]*m,e:f[1]})});
  save();closeModal();go("home");toast("Mahlzeit gespeichert");selectedAddDate=null;selectedAddCat=null
