@@ -492,7 +492,10 @@ const EMOJI_HINTS=[
  [["burger"],"🍔"],[["döner","wrap","burrito"],"🌯"],[["taco","nachos"],"🌮"],[["sushi","maki","nigiri"],"🍣"],
  [["kuchen","torte","muffin","brownie","strudel"],"🍰"],[["donut","berliner"],"🍩"],[["popcorn"],"🍿"],[["schokolade","nutella"],"🍫"],
  [["wasser"],"💧"],[["whey","protein"],"💪"],[["pommes"],"🍟"],[["knödel","gnocchi","spätzle","maultasche"],"🥟"],[["garnele","krabbe","muschel"],"🦐"],
- [["steak","braten","gulasch","schnitzel","kotelett","filet"],"🥩"],[["nutella"],"🍫"]
+ [["steak","braten","gulasch","schnitzel","kotelett","filet"],"🥩"],[["nutella"],"🍫"],
+ [["sahne","schmand","fraîche"],"🥛"],[["fisch","hering","forelle","makrele","sardine"],"🐟"],[["bohne","linse","kichererbse"],"🫘"],
+ [["mehl","flocken","getreide","weizen","hafer"],"🌾"],[["sauce","soße","dressing","mayo"],"🥫"],[["gewürz","kräuter","pfeffer","salz"],"🧂"],
+ [["gebäck","riegel"],"🍰"],[["energy","getränk"],"🥤"],[["konserve"],"🥫"],[["zucker","sirup"],"🍬"],[["snack"],"🍿"]
 ];
 function guessEmoji(name,categories){
  const text=" "+(String(name||"")+" "+String(categories||"")).toLowerCase()+" ";
@@ -511,50 +514,10 @@ function extractOFFMicros(nut){
   fiber:(nut["fiber_100g"]||0), sugar:(nut["sugars_100g"]||0), sodium:(nut["sodium_100g"]!=null?nut["sodium_100g"]*1000:(nut["salt_100g"]||0)*400)
  }
 }
-let imgCache={};try{imgCache=JSON.parse(localStorage.getItem("napp_img")||"{}")||{}}catch(e){imgCache={}}
-const IMG_MAP={"Ei":"Hühnerei","Eiklar":"Eiklar","Rinderhack mager":"Hackfleisch","Rinderhack normal":"Hackfleisch","Magerquark":"Speisequark","Skyr":"Skyr","Cola":"Cola","Honig":"Honig","Butter":"Butter","Reis roh (Basmati)":"Basmatireis","Basmati gekocht":"Basmatireis","Jasminreis gekocht":"Jasminreis","Haferflocken":"Haferflocken","Müsli":"Müsli","Mais (Dose)":"Zuckermais","Erbsen":"Erbse","Erbsen TK":"Erbse","Brötchen":"Brötchen","Pizza Margherita":"Pizza Margherita","Ketchup":"Ketchup","Zucker":"Haushaltszucker","Salz":"Speisesalz","Bier":"Bier","Whey Protein":"Molkenprotein","Casein Protein":"Casein","Kreatin":"Kreatin","Pommes frites":"Pommes frites","Nutella":"Nutella","Döner Kebab":"Döner Kebab","Hamburger":"Hamburger","Wiener Würstchen":"Wiener Würstchen","Currywurst":"Currywurst"};
-function imgQuery(name){
- if(IMG_MAP[name])return IMG_MAP[name];
- let q=String(name).replace(/\(.*?\)/g," ").replace(/\d+[.,]?\d*\s*%/g," ").replace(/\b(gekocht|roh|light|fettarm|gebraten|Dose|TK|getrocknet|ungesüßt|gemischt|mager|normal|zart|fertig|laktosefrei|frisch|geräuchert|gesüßt|in Öl|Öl|Wasser)\b/gi," ").replace(/[,]/g," ").replace(/\s+/g," ").trim();
- return q||name
-}
-const thumbQ=[],thumbTried=new Set();let thumbBusy=0,thumbTimer=null;
-function saveImgCache(){try{localStorage.setItem("napp_img",JSON.stringify(imgCache))}catch(e){}}
-function queueThumb(name){if(thumbTried.has(name)||thumbQ.includes(name))return;thumbQ.push(name);if(!thumbTimer)thumbTimer=setTimeout(()=>{thumbTimer=null;pumpThumbs()},120)}
-function pumpThumbs(){
- if(typeof navigator!=="undefined"&&navigator.onLine===false){thumbQ.length=0;return}
- while(thumbBusy<2&&thumbQ.length){
-  const name=thumbQ.shift();thumbTried.add(name);thumbBusy++;
-  fetchThumb(name).then(url=>{imgCache[name]=url||"";saveImgCache();if(url)applyThumb(name,url)}).catch(()=>{}).finally(()=>{thumbBusy--;pumpThumbs()})
- }
-}
-async function fetchThumb(name){
- const q=imgQuery(name);
- const r=await fetch("https://de.wikipedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=0&gsrlimit=4&gsrsearch="+encodeURIComponent(q)+"&prop=pageimages&piprop=thumbnail&pithumbsize=160&pilimit=4");
- if(!r.ok)throw new Error("http");
- const j=await r.json();
- const pages=Object.values((j.query&&j.query.pages)||{}).sort((a,b)=>a.index-b.index);
- const toks=q.toLowerCase().split(/\s+/).filter(t=>t.length>=4).map(t=>t.slice(0,Math.min(t.length,6)));
- for(const p of pages){
-  if(!p.thumbnail||!p.thumbnail.source)continue;
-  const t=String(p.title).toLowerCase();
-  if(!toks.length||toks.some(k=>t.includes(k)))return p.thumbnail.source
- }
- return ""
-}
-function applyThumb(name,url){
- const fi=foods.findIndex(f=>f[0]===name);if(fi>=0&&!foods[fi][6])foods[fi][6]=url;
- document.querySelectorAll("[data-n]").forEach(el=>{
-  if(el.dataset.n!==name)return;
-  const holder=document.createElement("div");holder.innerHTML=foodThumb(el.dataset.e||"🍽️",url,+el.dataset.px||32);
-  if(holder.firstChild)el.replaceWith(holder.firstChild)
- })
-}
-function foodThumb(emoji,img,px,name){
- if(!img&&name&&imgCache[name])img=imgCache[name];
- if(img)return `<img src="${img}" alt="" loading="lazy" style="width:${px}px;height:${px}px;object-fit:cover;border-radius:${Math.round(px*0.28)}px;display:block;flex-shrink:0" onerror="const s=document.createElement('span');s.textContent='${emoji}';s.style.fontSize='${Math.round(px*0.46)}px';this.replaceWith(s)">`;
- if(name&&imgCache[name]===undefined)queueThumb(name);
- return `<span ${name?`data-n="${esc(name)}" data-e="${esc(emoji)}" data-px="${px}" `:""}style="font-size:${Math.round(px*0.46)}px">${emoji}</span>`
+function foodThumb(emoji,img,px){
+ try{localStorage.removeItem("napp_img")}catch(e){}
+ if(img)return `<img src="${img}" alt="" style="width:${px}px;height:${px}px;object-fit:cover;border-radius:${Math.round(px*0.28)}px;display:block;flex-shrink:0" onerror="const s=document.createElement('span');s.textContent='${emoji}';s.style.fontSize='${Math.round(px*0.46)}px';this.replaceWith(s)">`;
+ return `<span style="font-size:${Math.round(px*0.46)}px">${emoji}</span>`
 }
 function esc(x){return String(x??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
 function jsArg(x){return "'"+encodeURIComponent(String(x??"")).replace(/'/g,"%27")+"'"}
@@ -1080,7 +1043,198 @@ Gemüse gemischt|30|2|5|0.3
 Obst gemischt|50|0.6|11|0.3
 Nüsse gemischt|620|18|15|54`;
 const BASE_FOODS_N=foods.length;
-function appendExtraFoods(){const have=new Set(foods.map(f=>f[0].toLowerCase()));EXTRA_FOODS.split("\n").forEach(l=>{const a=l.split("|");if(a.length<5)return;const n=a[0].trim();if(!n||have.has(n.toLowerCase()))return;have.add(n.toLowerCase());foods.push([n,guessEmoji(n),+a[1],+a[2],+a[3],+a[4]])})}
+const FOOD_EMOJI_RAW=`Entenbrust|🦆
+Gans|🍗
+Kaninchen|🐇
+Tatar|🥩
+Kassler|🥓
+Bacon|🥓
+Mortadella|🍖
+Wiener Würstchen|🌭
+Frikadelle|🍔
+Forelle|🐟
+Hering|🐟
+Matjes|🐟
+Makrele|🐟
+Sardinen (Dose)|🥫
+Sardinen in Öl|🥫
+Scholle|🐟
+Pangasius|🐟
+Rotbarsch|🐟
+Zander|🐟
+Dorade|🐟
+Tilapia|🐟
+Surimi|🍥
+Eigelb|🥚
+Omelett|🍳
+Veganes Hack|🌱
+Veganer Aufschnitt|🌱
+Kefir|🥛
+Sahne 30%|🥛
+Saure Sahne|🥛
+Schmand|🥛
+Crème fraîche|🥛
+Schlagsahne gesüßt|🍦
+Pudding Vanille|🍮
+Ricotta|🧀
+Mascarpone|🧀
+Camembert|🧀
+Brie|🧀
+Emmentaler|🧀
+Edamer|🧀
+Cheddar|🧀
+Gruyère|🧀
+Gorgonzola|🧀
+Halloumi|🧀
+Burrata|🧀
+Grana Padano|🧀
+Pecorino|🧀
+Schmalz|🧈
+Ghee|🧈
+Pumpernickel|🍞
+Zwieback|🍞
+Naan|🫓
+Pita|🫓
+Ciabatta|🥖
+Pierogi|🥟
+Basmati gekocht|🍚
+Risotto|🍚
+Bulgur gekocht|🍚
+Hirse gekocht|🌾
+Polenta gekocht|🌽
+Hafer Kleie|🌾
+Porridge fertig|🥣
+Dinkelflocken|🌾
+Weizenmehl|🌾
+Vollkornmehl|🌾
+Paniermehl|🍞
+Blätterteig|🥐
+Kroketten|🥔
+Rote Bete|🥕
+Sellerie|🥬
+Knollensellerie|🥬
+Fenchel|🥬
+Ingwer|🫚
+Radieschen|🥕
+Wirsing|🥬
+Spargel grün|🥦
+Spargel weiß|🥦
+Artischocke|🥬
+Pak Choi|🥬
+Erbsen TK|🫛
+Zuckerschoten|🫛
+Bohnen weiß gekocht|🫘
+Dicke Bohnen|🫘
+Edamame|🫛
+Hummus|🥙
+Falafel|🧆
+Linsen rot gekocht|🫘
+Kichererbsen Dose|🫘
+Kidneybohnen Dose|🫘
+Ratatouille|🍆
+Brühe|🍲
+Caprese|🍅
+Pflaumen|🍑
+Clementine|🍊
+Papaya|🥭
+Feigen|🍇
+Feigen getrocknet|🍇
+Datteln|🌴
+Rosinen|🍇
+Cranberries getrocknet|🍒
+Trockenpflaumen|🍑
+Litschi|🍒
+Passionsfrucht|🥭
+Kaki|🍊
+Rhabarber|🌱
+Pistazien|🥜
+Macadamia|🥜
+Pinienkerne|🌰
+Sonnenblumenkerne|🌻
+Sesam|🌱
+Mohn|🌱
+Hanfsamen|🌿
+Studentenfutter|🥜
+Tahini|🥜
+Ahornsirup|🍁
+Zucker|🍬
+Puderzucker|🍬
+Süßstoff|🍬
+Vanillezucker|🍬
+Brauner Zucker|🍬
+Sonnenblumenöl|🌻
+Leinöl|🫒
+Sesamöl|🫒
+Mayonnaise|🥚
+Mayonnaise light|🥚
+Senf|🌭
+Grillsauce|🍖
+Barbecuesauce|🍖
+Pesto|🌿
+Bolognese Sauce|🍝
+Sahnesauce|🥣
+Currysauce|🍛
+Essig-Öl Dressing|🥗
+Balsamico|🍇
+Essig|🍶
+Sambal Oelek|🌶️
+Sriracha|🌶️
+Worcestersauce|🍶
+Miso Paste|🍜
+Salz|🧂
+Schwarzer Pfeffer|🧂
+Curry Pulver|🍛
+Zimt|🍂
+Backpulver|🧁
+Hefe frisch|🍞
+Gelatine|🍮
+Energieriegel|🍫
+Lakritz|🍬
+Marshmallows|🍡
+Oreo|🍪
+Spekulatius|🍪
+Salzstangen|🥨
+Cracker|🍘
+Lasagne|🍝
+Cordon Bleu|🍗
+Frühlingsrolle|🥟
+Pad Thai|🍜
+Quesadilla|🌮
+Kaiserschmarrn|🥞
+Fanta|🥤
+Sprite|🥤
+Energy Drink|⚡
+Isotonisches Getränk|🥤
+Cappuccino|☕
+Latte Macchiato|☕
+Radler|🍺
+Sekt|🥂
+Wodka|🍸
+Whisky|🥃
+Gin Tonic|🍸
+Aperol Spritz|🍹
+Kreatin|💪
+Weight Gainer|💪
+Maltodextrin|⚡
+Haferdrink Barista|🥛
+Tzatziki|🥒
+Guacamole|🥑
+Hummus light|🥙
+Sauerkraut|🥬
+Cornichons|🥒
+Kapern|🫒
+Pesto rosso|🍅
+Frischer Basilikum|🌿
+Petersilie|🌿
+Dill|🌿
+Minze|🌿
+Rosmarin|🌿
+Thymian|🌿
+Oregano getrocknet|🌿
+Fleisch|🥩
+Obst gemischt|🍎`;
+const FOOD_EMOJI={};FOOD_EMOJI_RAW.split("\n").forEach(l=>{const a=l.split("|");if(a.length===2)FOOD_EMOJI[a[0]]=a[1]});
+function appendExtraFoods(){const have=new Set(foods.map(f=>f[0].toLowerCase()));EXTRA_FOODS.split("\n").forEach(l=>{const a=l.split("|");if(a.length<5)return;const n=a[0].trim();if(!n||have.has(n.toLowerCase()))return;have.add(n.toLowerCase());foods.push([n,FOOD_EMOJI[n]||guessEmoji(n),+a[1],+a[2],+a[3],+a[4]])})}
 appendExtraFoods();
 d.customFoods.forEach(cf=>foods.push(cf));
 const $=x=>document.getElementById(x),fmt=x=>Math.round(x).toLocaleString("de-DE");
