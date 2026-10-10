@@ -1,4 +1,4 @@
-const CACHE_NAME = "macrotrack-v3";
+const CACHE_NAME = "macrotrack-v4";
 const ASSETS = ["./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./privacy.html"];
 
 self.addEventListener("install", (event) => {
@@ -10,7 +10,7 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE_NAME && k !== "macrotrack-img").map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -19,6 +19,11 @@ self.addEventListener("activate", (event) => {
 // OpenFoodFacts-Aufrufe laufen unverändert direkt übers Netz.
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
+  if (event.request.method === "GET" && url.hostname === "upload.wikimedia.org") {
+    // Lebensmittelbilder: einmal geladen, danach auch offline verfügbar
+    event.respondWith(caches.open("macrotrack-img").then((c) => c.match(event.request).then((hit) => hit || fetch(event.request).then((resp) => { if (resp && (resp.ok || resp.type === "opaque")) c.put(event.request, resp.clone()); return resp; }))));
+    return;
+  }
   if (event.request.method !== "GET" || url.origin !== self.location.origin) return;
   // Netzwerk zuerst (neue Version sofort), bei Offline der Cache
   event.respondWith(

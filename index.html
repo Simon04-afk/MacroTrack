@@ -511,9 +511,50 @@ function extractOFFMicros(nut){
   fiber:(nut["fiber_100g"]||0), sugar:(nut["sugars_100g"]||0), sodium:(nut["sodium_100g"]!=null?nut["sodium_100g"]*1000:(nut["salt_100g"]||0)*400)
  }
 }
-function foodThumb(emoji,img,px){
- if(img)return `<img src="${img}" alt="" style="width:${px}px;height:${px}px;object-fit:cover;border-radius:${Math.round(px*0.28)}px;display:block;flex-shrink:0" onerror="const s=document.createElement('span');s.textContent='${emoji}';s.style.fontSize='${Math.round(px*0.46)}px';this.replaceWith(s)">`;
- return `<span style="font-size:${Math.round(px*0.46)}px">${emoji}</span>`
+let imgCache={};try{imgCache=JSON.parse(localStorage.getItem("napp_img")||"{}")||{}}catch(e){imgCache={}}
+const IMG_MAP={"Ei":"Hühnerei","Eiklar":"Eiklar","Rinderhack mager":"Hackfleisch","Rinderhack normal":"Hackfleisch","Magerquark":"Speisequark","Skyr":"Skyr","Cola":"Cola","Honig":"Honig","Butter":"Butter","Reis roh (Basmati)":"Basmatireis","Basmati gekocht":"Basmatireis","Jasminreis gekocht":"Jasminreis","Haferflocken":"Haferflocken","Müsli":"Müsli","Mais (Dose)":"Zuckermais","Erbsen":"Erbse","Erbsen TK":"Erbse","Brötchen":"Brötchen","Pizza Margherita":"Pizza Margherita","Ketchup":"Ketchup","Zucker":"Haushaltszucker","Salz":"Speisesalz","Bier":"Bier","Whey Protein":"Molkenprotein","Casein Protein":"Casein","Kreatin":"Kreatin","Pommes frites":"Pommes frites","Nutella":"Nutella","Döner Kebab":"Döner Kebab","Hamburger":"Hamburger","Wiener Würstchen":"Wiener Würstchen","Currywurst":"Currywurst"};
+function imgQuery(name){
+ if(IMG_MAP[name])return IMG_MAP[name];
+ let q=String(name).replace(/\(.*?\)/g," ").replace(/\d+[.,]?\d*\s*%/g," ").replace(/\b(gekocht|roh|light|fettarm|gebraten|Dose|TK|getrocknet|ungesüßt|gemischt|mager|normal|zart|fertig|laktosefrei|frisch|geräuchert|gesüßt|in Öl|Öl|Wasser)\b/gi," ").replace(/[,]/g," ").replace(/\s+/g," ").trim();
+ return q||name
+}
+const thumbQ=[],thumbTried=new Set();let thumbBusy=0,thumbTimer=null;
+function saveImgCache(){try{localStorage.setItem("napp_img",JSON.stringify(imgCache))}catch(e){}}
+function queueThumb(name){if(thumbTried.has(name)||thumbQ.includes(name))return;thumbQ.push(name);if(!thumbTimer)thumbTimer=setTimeout(()=>{thumbTimer=null;pumpThumbs()},120)}
+function pumpThumbs(){
+ if(typeof navigator!=="undefined"&&navigator.onLine===false){thumbQ.length=0;return}
+ while(thumbBusy<2&&thumbQ.length){
+  const name=thumbQ.shift();thumbTried.add(name);thumbBusy++;
+  fetchThumb(name).then(url=>{imgCache[name]=url||"";saveImgCache();if(url)applyThumb(name,url)}).catch(()=>{}).finally(()=>{thumbBusy--;pumpThumbs()})
+ }
+}
+async function fetchThumb(name){
+ const q=imgQuery(name);
+ const r=await fetch("https://de.wikipedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=0&gsrlimit=4&gsrsearch="+encodeURIComponent(q)+"&prop=pageimages&piprop=thumbnail&pithumbsize=160&pilimit=4");
+ if(!r.ok)throw new Error("http");
+ const j=await r.json();
+ const pages=Object.values((j.query&&j.query.pages)||{}).sort((a,b)=>a.index-b.index);
+ const toks=q.toLowerCase().split(/\s+/).filter(t=>t.length>=4).map(t=>t.slice(0,Math.min(t.length,6)));
+ for(const p of pages){
+  if(!p.thumbnail||!p.thumbnail.source)continue;
+  const t=String(p.title).toLowerCase();
+  if(!toks.length||toks.some(k=>t.includes(k)))return p.thumbnail.source
+ }
+ return ""
+}
+function applyThumb(name,url){
+ const fi=foods.findIndex(f=>f[0]===name);if(fi>=0&&!foods[fi][6])foods[fi][6]=url;
+ document.querySelectorAll("[data-n]").forEach(el=>{
+  if(el.dataset.n!==name)return;
+  const holder=document.createElement("div");holder.innerHTML=foodThumb(el.dataset.e||"🍽️",url,+el.dataset.px||32);
+  if(holder.firstChild)el.replaceWith(holder.firstChild)
+ })
+}
+function foodThumb(emoji,img,px,name){
+ if(!img&&name&&imgCache[name])img=imgCache[name];
+ if(img)return `<img src="${img}" alt="" loading="lazy" style="width:${px}px;height:${px}px;object-fit:cover;border-radius:${Math.round(px*0.28)}px;display:block;flex-shrink:0" onerror="const s=document.createElement('span');s.textContent='${emoji}';s.style.fontSize='${Math.round(px*0.46)}px';this.replaceWith(s)">`;
+ if(name&&imgCache[name]===undefined)queueThumb(name);
+ return `<span ${name?`data-n="${esc(name)}" data-e="${esc(emoji)}" data-px="${px}" `:""}style="font-size:${Math.round(px*0.46)}px">${emoji}</span>`
 }
 function esc(x){return String(x??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
 function jsArg(x){return "'"+encodeURIComponent(String(x??"")).replace(/'/g,"%27")+"'"}
@@ -1227,7 +1268,7 @@ function renderMealGroups(meals,date){
  const order=["Frühstück","Mittagessen","Abendessen","Snack"];
  let byCat={};meals.forEach(m=>{(byCat[m.name]=byCat[m.name]||[]).push(m)});
  const cats=[...order.filter(o=>byCat[o]),...Object.keys(byCat).filter(x=>!order.includes(x))];
- return cats.map(cat=>{const items=byCat[cat],totalK=sumMacro(items,"k");return `<div class="meal" onclick="openMealGroup(${jsArg(cat)},'${date}')" style="cursor:pointer"><div class="foodimg">${foodThumb(items[0].e||"🍽️",items[0].img,50)}</div><div><h3>${esc(cat)}</h3><p>${items[0].time} · ${items.length} Eintrag${items.length===1?"":"e"}</p></div><div class="cal">${fmt(totalK)} kcal</div></div>`}).join("")
+ return cats.map(cat=>{const items=byCat[cat],totalK=sumMacro(items,"k");return `<div class="meal" onclick="openMealGroup(${jsArg(cat)},'${date}')" style="cursor:pointer"><div class="foodimg">${foodThumb(items[0].e||"🍽️",items[0].img,50,items[0].food_name)}</div><div><h3>${esc(cat)}</h3><p>${items[0].time} · ${items.length} Eintrag${items.length===1?"":"e"}</p></div><div class="cal">${fmt(totalK)} kcal</div></div>`}).join("")
 }
 function openMealGroup(cat,date){
  cat=decodeURIComponent(cat);date=date||todayISO();
@@ -1237,7 +1278,7 @@ function openMealGroup(cat,date){
 }
 function renderMealGroupModal(cat,items,date){
  date=date||todayISO();
- modal(cat,`<div class="small">${formatDateLabel(date)} · ${items[0]?.time||""}</div>${items.map(m=>`<div class="row"><span style="display:flex;align-items:center;gap:8px">${foodThumb(m.e,m.img,22)} ${esc(m.food_name||m.items)}</span><div style="display:flex;align-items:center;gap:6px"><button class="plus" onclick="adjustMealItem('${m.id}',-10)">−</button><span style="min-width:44px;text-align:center;font-size:12px">${Math.round(m.grams||0)} g</span><button class="plus" onclick="adjustMealItem('${m.id}',10)">+</button><button class="plus" style="color:var(--red)" onclick="removeMealItem('${m.id}')">✕</button></div></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:10px"><span>Gesamt</span><b>${fmt(sumMacro(items,"k"))} kcal</b></div><button class="secondary" style="margin-top:10px" onclick="copyMealDialog(${jsArg(cat)},'${date}')">⎘ Auf anderen Tag kopieren</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteMealGroup(${jsArg(cat)},'${date}')">Ganze Mahlzeit löschen</button>`)
+ modal(cat,`<div class="small">${formatDateLabel(date)} · ${items[0]?.time||""}</div>${items.map(m=>`<div class="row"><span style="display:flex;align-items:center;gap:8px">${foodThumb(m.e,m.img,22,m.food_name)} ${esc(m.food_name||m.items)}</span><div style="display:flex;align-items:center;gap:6px"><button class="plus" onclick="adjustMealItem('${m.id}',-10)">−</button><span style="min-width:44px;text-align:center;font-size:12px">${Math.round(m.grams||0)} g</span><button class="plus" onclick="adjustMealItem('${m.id}',10)">+</button><button class="plus" style="color:var(--red)" onclick="removeMealItem('${m.id}')">✕</button></div></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:10px"><span>Gesamt</span><b>${fmt(sumMacro(items,"k"))} kcal</b></div><button class="secondary" style="margin-top:10px" onclick="copyMealDialog(${jsArg(cat)},'${date}')">⎘ Auf anderen Tag kopieren</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteMealGroup(${jsArg(cat)},'${date}')">Ganze Mahlzeit löschen</button>`)
 }
 function adjustMealItem(id,deltaGrams){
  let m=d.meals.find(x=>String(x.id)===String(id));if(!m||!m.grams)return;
@@ -1383,7 +1424,7 @@ function renderRecipeList(){
  if(!$("recipeList"))return;
  let q=($("recipeSearch")?.value||"").toLowerCase();
  let list=(d.recipes||[]).filter(r=>(recipeCat==="Alle"||r.category===recipeCat)&&r.name.toLowerCase().includes(q));
- $("recipeList").innerHTML=list.length?list.map(r=>{let t=recipeTotals(r);return `<div class="meal" style="cursor:pointer" onclick="openRecipe('${r.id}')"><div class="foodimg">${foodThumb(r.emoji||"🍽️",r.img,50)}</div><div><h3>${esc(r.name)}</h3><p>${Math.round(t.k)} kcal · P ${Math.round(t.p)} · K ${Math.round(t.c)} · F ${Math.round(t.f)}</p></div></div>`}).join(""):`<div class="small">Keine Rezepte gefunden.</div>`
+ $("recipeList").innerHTML=list.length?list.map(r=>{let t=recipeTotals(r);return `<div class="meal" style="cursor:pointer" onclick="openRecipe('${r.id}')"><div class="foodimg">${foodThumb(r.emoji||"🍽️",r.img,50,(r.items&&r.items[0]&&r.items[0].name)||"")}</div><div><h3>${esc(r.name)}</h3><p>${Math.round(t.k)} kcal · P ${Math.round(t.p)} · K ${Math.round(t.c)} · F ${Math.round(t.f)}</p></div></div>`}).join(""):`<div class="small">Keine Rezepte gefunden.</div>`
 }
 function openRecipe(id){
  let r=(d.recipes||[]).find(x=>String(x.id)===String(id));if(!r)return;
@@ -1501,7 +1542,7 @@ function saveCustomFood(){
 }
 let searchDebounce=null,searchGen=0;
 function results(){let q=($("q")?.value||"").trim();renderLocalResults(q);clearTimeout(searchDebounce);const gen=++searchGen;if($("searchStatus"))$("searchStatus").textContent="";if(q.length<2)return;if($("searchStatus"))$("searchStatus").textContent="Suche bei Open Food Facts…";searchDebounce=setTimeout(()=>fetchRemoteResults(q,gen),450)}
-function foodRow(f,i){return `<div class="foodrow">${foodThumb(f[1],f[6],32)}<div><b>${esc(f[0])}</b><div class="small">${Math.round(f[2])} kcal · P ${Math.round(f[3])} g · KH ${Math.round(f[4])} g · F ${Math.round(f[5])} g / 100 g</div></div><button class="plus" onclick="portion(${i})">＋</button></div>`}
+function foodRow(f,i){return `<div class="foodrow">${foodThumb(f[1],f[6],32,f[0])}<div><b>${esc(f[0])}</b><div class="small">${Math.round(f[2])} kcal · P ${Math.round(f[3])} g · KH ${Math.round(f[4])} g · F ${Math.round(f[5])} g / 100 g</div></div><button class="plus" onclick="portion(${i})">＋</button></div>`}
 function foodIdx(name){return foods.findIndex(f=>f[0]===name)}
 function noteRecent(name){if(!name)return;d.recent=[name,...(d.recent||[]).filter(n=>n!==name)].slice(0,15)}
 function isFav(name){return (d.favs||[]).includes(name)}
