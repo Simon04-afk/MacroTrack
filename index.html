@@ -27,7 +27,7 @@ main{padding:8px 15px}.card{background:var(--card);border:1px solid var(--line);
 input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;color:#fff;border-radius:13px;padding:12px;outline:none}textarea{min-height:92px}.primary,.secondary{width:100%;border-radius:14px;padding:13px;margin-top:9px}.primary{border:0;background:var(--green);color:#081008;font-weight:850}.secondary{border:1px solid #333a40;background:#1a1f24;color:#fff}
 .anav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0}.navbtn{width:44px;height:40px;border:1px solid #2b3137;background:#171b20;color:#fff;border-radius:12px;font-size:20px}.navbtn:disabled{opacity:.3}.navlabel{flex:1;text-align:center;font-weight:700;font-size:15px}.navlabel .small{font-weight:400}.tabs{display:flex;gap:5px;background:#15191d;padding:5px;border-radius:12px}.tabs button{flex:1;background:transparent;border:0;color:var(--muted);padding:8px;border-radius:9px;font-size:12px}.tabs .sel{background:#2a3036;color:#fff}
 .tabsscroll{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;-webkit-overflow-scrolling:touch}.tabsscroll button{flex:0 0 auto;background:#15191d;border:0;color:var(--muted);padding:8px 14px;border-radius:20px;font-size:12px;white-space:nowrap}.tabsscroll .sel{background:#2a3036;color:#fff}
-.row,.foodrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #252b30}.row:last-child,.foodrow:last-child{border:0}.plus{margin-left:auto;border:1px solid #394148;background:#182019;color:var(--green);border-radius:10px;padding:5px 9px}.amt{width:64px!important;text-align:center;padding:6px 4px!important;font-size:13px;border-radius:10px!important;margin:0}.badge.warn{background:#3a2f12;color:#f2c14e}.estnote{font-size:10px;color:#f2c14e;margin-top:2px}.badge{display:inline-block;background:#20262b;color:var(--muted);border-radius:8px;padding:5px 8px;font-size:10px}
+.mealrow{flex-wrap:wrap}.row,.foodrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #252b30}.row:last-child,.foodrow:last-child{border:0}.plus{margin-left:auto;border:1px solid #394148;background:#182019;color:var(--green);border-radius:10px;padding:5px 9px}.amt{width:64px!important;text-align:center;padding:6px 4px!important;font-size:13px;border-radius:10px!important;margin:0}.badge.warn{background:#3a2f12;color:#f2c14e}.estnote{font-size:10px;color:#f2c14e;margin-top:2px}.badge{display:inline-block;background:#20262b;color:var(--muted);border-radius:8px;padding:5px 8px;font-size:10px}
 .chart{display:flex;align-items:end;gap:6px;padding:4px 3px 0}.daycol{flex:1;display:flex;flex-direction:column;align-items:center;min-width:0}.daykcal{font-size:9px;color:var(--muted);height:12px;line-height:12px;white-space:nowrap}.barwrap{height:100px;width:100%;display:flex;align-items:end}.barcol{width:100%;background:linear-gradient(to top,#72db64,#b4f6aa);border-radius:7px 7px 2px 2px;min-height:8px}.barcol.today{background:linear-gradient(to top,#4a9d3c,#7ee66b);box-shadow:0 0 0 1.5px #7ee66b inset}.barcol.over{background:linear-gradient(to top,#c97a2e,#ffad3d)}.daylabel{font-size:10px;color:var(--muted);margin-top:5px;height:12px;line-height:12px}.daylabel.today{color:var(--green);font-weight:750}
 .modal{position:fixed;inset:0;background:#000b;display:none;align-items:end;z-index:50}.modal.show{display:flex}.sheet{width:min(480px,100%);max-height:90vh;overflow:auto;margin:auto;background:#121518;border-radius:24px 24px 0 0;padding:19px}.close{float:right;background:none;border:0;color:#fff;font-size:24px}.preview{width:100%;height:250px;object-fit:cover;border-radius:17px;background:#20252a}.toast{position:fixed;z-index:100;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);background:#22292f;color:#fff;padding:11px 15px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;font-size:13px}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast.withundo{pointer-events:auto}.toast .undo{margin-left:12px;background:none;border:0;color:var(--green);font-weight:800;padding:2px 4px}
 .foodmain{display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer}.foodmain>div{min-width:0}.foodmain>div>b{overflow-wrap:anywhere}.detailpic{width:100%;height:180px;border-radius:18px;background:#22282e;display:grid;place-items:center;overflow:hidden;font-size:84px;margin-bottom:6px}.detailpic img{width:100%;height:100%;object-fit:cover;display:block}
@@ -2724,7 +2724,7 @@ function renderRemind(){
 }
 function formatDateLabel(iso){
  if(!iso)return"";
- const today=todayISO(),yesterday=todayISO(new Date(Date.now()-86400000));
+ const today=todayISO(),yesterday=todayISO(new Date(new Date().setDate(new Date().getDate()-1)));
  if(iso===today)return"Heute";
  if(iso===yesterday)return"Gestern";
  const [y,mo,da]=iso.split("-").map(Number);
@@ -2746,7 +2746,7 @@ function openMealGroup(cat,date){
 }
 function renderMealGroupModal(cat,items,date){
  date=date||todayISO();
- modal(cat,`<div class="small">${formatDateLabel(date)} · ${items[0]?.time||""}</div>${items.map(m=>`<div class="row"><span style="display:flex;align-items:center;gap:8px">${thumbFor(m.food_name,m.e,22)} ${esc(m.food_name||m.items)}</span><div style="display:flex;align-items:center;gap:6px"><button class="plus" onclick="adjustMealItem('${m.id}',-10)">−</button><input class="amt" type="text" inputmode="decimal" value="${Math.round(m.grams||0)}" aria-label="Menge in Gramm" onchange="setMealGrams('${m.id}',this.value)"><span class="small">g</span><button class="plus" onclick="adjustMealItem('${m.id}',10)">+</button><button class="plus" style="color:var(--red)" onclick="removeMealItem('${m.id}')">✕</button></div></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:10px"><span>Gesamt</span><b id="mealTotal">${fmt(sumMacro(items,"k"))} kcal</b></div><button class="secondary" style="margin-top:10px" onclick="copyMealDialog(${jsArg(cat)},'${date}')">⎘ Auf anderen Tag kopieren</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteMealGroup(${jsArg(cat)},'${date}')">Ganze Mahlzeit löschen</button>`)
+ modal(cat,`<div class="small">${formatDateLabel(date)} · ${items[0]?.time||""}</div>${items.map(m=>`<div class="row mealrow"><span style="display:flex;align-items:center;gap:8px;flex:1 1 150px;min-width:0;overflow-wrap:anywhere">${thumbFor(m.food_name,m.e,22)} ${esc(m.food_name||m.items)}</span><div style="display:flex;align-items:center;gap:6px;margin-left:auto"><button class="plus" onclick="adjustMealItem('${m.id}',-10)">−</button><input class="amt" type="text" inputmode="decimal" value="${Math.round(m.grams||0)}" aria-label="Menge in Gramm" onchange="setMealGrams('${m.id}',this.value)"><span class="small">g</span><button class="plus" onclick="adjustMealItem('${m.id}',10)">+</button><button class="plus" style="color:var(--red)" onclick="removeMealItem('${m.id}')">✕</button></div></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:10px"><span>Gesamt</span><b id="mealTotal">${fmt(sumMacro(items,"k"))} kcal</b></div><button class="secondary" style="margin-top:10px" onclick="copyMealDialog(${jsArg(cat)},'${date}')">⎘ Auf anderen Tag kopieren</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteMealGroup(${jsArg(cat)},'${date}')">Ganze Mahlzeit löschen</button>`)
 }
 function adjustMealItem(id,deltaGrams){
  let m=d.meals.find(x=>String(x.id)===String(id));if(!m||!m.grams)return;
@@ -3219,13 +3219,19 @@ function acceptText(){
  (window.found||[]).forEach(item=>{let f=item.f,m=item.grams/100;noteRecent(f[0]);d.meals.push({id:Date.now()+Math.random(),date:dateNow,name:cat,time,items:`${f[0]} · ${Math.round(item.grams)} g`,food_name:f[0],grams:item.grams,k:f[2]*m,p:f[3]*m,c:f[4]*m,f:f[5]*m,e:f[1]})});
  save();closeModal();go("home");toast("Mahlzeit gespeichert");selectedAddDate=null;selectedAddCat=null
 }
+// Kamera starten; ist das Fenster inzwischen geschlossen oder gewechselt, den Stream sofort beenden (sonst bliebe die Kamera an)
+async function startCamStream(v){
+ const s=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"},audio:false});
+ if(!v||!document.body.contains(v)){s.getTracks().forEach(t=>t.stop());return null}
+ v.srcObject=s;return s
+}
 function cameraErrorMsg(e){
  if(e.name==="NotAllowedError")return"Kamera-Berechtigung wurde verweigert. In den App-/Website-Einstellungen erlauben und erneut versuchen.";
  if(e.name==="NotFoundError")return"Keine Kamera am Gerät gefunden.";
  if(e.name==="NotReadableError")return"Kamera wird gerade von einer anderen App verwendet.";
  return"Kamerazugriff nicht verfügbar. Erlaube die Kamera oder öffne die App über HTTPS/localhost."
 }
-async function barcode(){if(window.AndroidBridge&&window.AndroidBridge.scanBarcode){window.AndroidBridge.scanBarcode();return}modal("Barcode scannen",`<video id="barcodeCam" class="preview" autoplay playsinline></video><p class="small" id="scanStatus">Barcode-Erkennung wird gestartet…</p><button class="secondary" onclick="manualBarcode()">Barcode manuell eingeben</button>`);try{let v=$("barcodeCam");v.srcObject=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"},audio:false});if("BarcodeDetector" in window){let detector=new BarcodeDetector({formats:["ean_13","ean_8","upc_a","upc_e","code_128"]});let scan=async()=>{if(!document.body.contains(v))return;try{let codes=await detector.detect(v);if(codes.length){let code=codes[0].rawValue;lookupBarcode(code);return}}catch(e){}requestAnimationFrame(scan)};scan()}else $("scanStatus").textContent="Dieser Browser unterstützt automatische Barcode-Erkennung nicht. Nutze die manuelle Eingabe."}catch(e){$("scanStatus").textContent=cameraErrorMsg(e)}}
+async function barcode(){if(window.AndroidBridge&&window.AndroidBridge.scanBarcode){window.AndroidBridge.scanBarcode();return}modal("Barcode scannen",`<video id="barcodeCam" class="preview" autoplay playsinline></video><p class="small" id="scanStatus">Barcode-Erkennung wird gestartet…</p><button class="secondary" onclick="manualBarcode()">Barcode manuell eingeben</button>`);try{let v=$("barcodeCam");if(!(await startCamStream(v)))return;if("BarcodeDetector" in window){let detector=new BarcodeDetector({formats:["ean_13","ean_8","upc_a","upc_e","code_128"]});let scan=async()=>{if(!document.body.contains(v))return;try{let codes=await detector.detect(v);if(codes.length){let code=codes[0].rawValue;lookupBarcode(code);return}}catch(e){}requestAnimationFrame(scan)};scan()}else if($("scanStatus"))$("scanStatus").textContent="Dieser Browser unterstützt automatische Barcode-Erkennung nicht. Nutze die manuelle Eingabe."}catch(e){if($("scanStatus"))$("scanStatus").textContent=cameraErrorMsg(e)}}
 function manualBarcode(){modal("Barcode eingeben",`<input id="bc" inputmode="numeric" placeholder="EAN-13 / EAN-8"><button class="primary" onclick="lookupBarcode($('bc').value)">Produkt suchen</button>`)}
 async function lookupBarcode(code){
  code=String(code||"").replace(/\D/g,"");
@@ -3289,7 +3295,8 @@ async function imageToDataURL(src,maxSide,q){
  if(!w||!hh)throw new Error("kein Bild");
  const s=Math.min(1,maxSide/Math.max(w,hh)),c=document.createElement("canvas");
  c.width=Math.max(1,Math.round(w*s));c.height=Math.max(1,Math.round(hh*s));
- c.getContext("2d").drawImage(bmp,0,0,c.width,c.height);
+ const cx=c.getContext("2d");cx.fillStyle="#fff";cx.fillRect(0,0,c.width,c.height);   // transparente PNGs sonst schwarz im JPEG
+ cx.drawImage(bmp,0,0,c.width,c.height);
  if(bmp.close)try{bmp.close()}catch(e){}
  return c.toDataURL("image/jpeg",q)
 }
@@ -3328,11 +3335,11 @@ function foodDetails(i,fromPortion){
  else if(auto){pic=`<img src="${auto}" alt="">`;cap="Produktbild (auf dem Gerät gespeichert)"}
  else if(onl){pic=`<img src="${esc(onl)}" alt="" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'${f[1]}'}))">`;cap="Produktbild von Open Food Facts (wird online geladen)"}
  else{pic=f[1];cap="Symbol – du kannst ein eigenes Foto hinzufügen"}
- modal(n,`<div class="detailpic">${pic}</div><div class="small" style="margin-bottom:8px">${cap}</div><div class="badge">Nährwerte pro 100 g</div><p style="margin:6px 0 2px"><b>${Math.round(f[2])} kcal</b></p><p class="small" style="margin:0 0 6px">Protein ${r1(f[3])} g · Kohlenhydrate ${r1(f[4])} g · Fett ${r1(f[5])} g</p><p class="small">${esc(foodHint(f))}</p>${fromPortion?`<button class="primary" onclick="modalBack()">Zurück zur Menge</button>`:`<button class="primary" onclick="portion(${i})">Menge wählen &amp; hinzufügen</button>`}<button class="secondary" id="favBtn" onclick="toggleFav(${i})">${isFav(n)?"★ Favorit":"☆ Als Favorit merken"}</button><button class="secondary" onclick="photoStart(${i})">📷 ${own?"Eigenes Foto ändern":"Eigenes Foto hinzufügen"}</button>`)
+ modal(n,`<div class="detailpic">${pic}</div><div class="small" style="margin-bottom:8px">${cap}</div><div class="badge">Nährwerte pro 100 g</div><p style="margin:6px 0 2px"><b>${Math.round(f[2])} kcal</b></p><p class="small" style="margin:0 0 6px">Protein ${r1(f[3])} g · Kohlenhydrate ${r1(f[4])} g · Fett ${r1(f[5])} g</p><p class="small">${esc(foodHint(f))}</p>${fromPortion?`<button class="primary" onclick="modalBack()">Zurück zur Menge</button>`:`<button class="primary" onclick="portion(${i})">Menge wählen &amp; hinzufügen</button>`}<button class="secondary" id="favBtn" onclick="toggleFav(${i})">${isFav(n)?"★ Favorit":"☆ Als Favorit merken"}</button><button class="secondary" onclick="photoStart(${i},${!!fromPortion})">📷 ${own?"Eigenes Foto ändern":"Eigenes Foto hinzufügen"}</button>`)
 }
 // Foto hinzufügen: Menü → Kamera/Galerie → Vorschau → erst „Foto speichern“ speichert wirklich
 let photoCtx=null,photoDraft=null;
-function photoStart(i){const f=foods[i];if(!f)return;photoCtx={name:f[0],depth:modalStack.length};photoDraft=null;photoMenu()}
+function photoStart(i,fromPortion){const f=foods[i];if(!f)return;photoCtx={name:f[0],depth:modalStack.length,fromPortion:!!fromPortion};photoDraft=null;photoMenu()}
 function photoMenu(){
  if(!photoCtx)return;const n=photoCtx.name;
  modal("Foto für "+n,`<p class="small">Das Foto bleibt nur auf diesem Gerät und ersetzt in deinen Listen das Symbol. Gespeichert wird erst, wenn du es bestätigst.</p><button class="primary" onclick="photoCamera()">📷 Mit der Kamera aufnehmen</button><input type="file" id="photoFile" accept="image/*" style="display:none" onchange="photoFromFile(event)"><button class="secondary" onclick="$('photoFile').click()">🖼️ Aus der Galerie wählen</button>${ownPhoto(n)?`<button class="secondary" style="color:var(--red)" onclick="photoRemoveAsk()">Eigenes Foto entfernen</button>`:""}<button class="secondary" onclick="modalBack()">Abbrechen</button>`)
@@ -3341,7 +3348,7 @@ async function photoCamera(){
  modal("Foto aufnehmen",`<video id="photoCam" class="preview" autoplay playsinline muted></video><p class="small" id="photoCamStatus">Kamera wird gestartet…</p><button class="primary" id="photoShot" onclick="photoShot()" disabled>📸 Aufnehmen</button><button class="secondary" onclick="modalBack()">Abbrechen</button>`);
  try{
   const v=$("photoCam");
-  v.srcObject=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"},audio:false});
+  if(!(await startCamStream(v)))return;
   v.onloadedmetadata=()=>{if($("photoShot"))$("photoShot").disabled=false;if($("photoCamStatus"))$("photoCamStatus").textContent="Lebensmittel mittig zeigen und aufnehmen"}
  }catch(e){if($("photoCamStatus"))$("photoCamStatus").textContent=cameraErrorMsg(e)}
 }
@@ -3360,7 +3367,7 @@ function photoBackToDetails(){
  if(!photoCtx){closeModal();return}
  const i=foodIdx(photoCtx.name);
  if(i<0){closeModal();return}
- modalStack.length=Math.min(modalStack.length,photoCtx.depth);modalNoPush=true;foodDetails(i)
+ modalStack.length=Math.min(modalStack.length,photoCtx.depth);modalNoPush=true;foodDetails(i,photoCtx.fromPortion)
 }
 function photoCancel(){photoDraft=null;photoBackToDetails()}
 function photoSave(){
