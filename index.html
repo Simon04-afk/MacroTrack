@@ -27,7 +27,7 @@ main{padding:8px 15px}.card{background:var(--card);border:1px solid var(--line);
 input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;color:#fff;border-radius:13px;padding:12px;outline:none}textarea{min-height:92px}.primary,.secondary{width:100%;border-radius:14px;padding:13px;margin-top:9px}.primary{border:0;background:var(--green);color:#081008;font-weight:850}.secondary{border:1px solid #333a40;background:#1a1f24;color:#fff}
 .anav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0}.navbtn{width:44px;height:40px;border:1px solid #2b3137;background:#171b20;color:#fff;border-radius:12px;font-size:20px}.navbtn:disabled{opacity:.3}.navlabel{flex:1;text-align:center;font-weight:700;font-size:15px}.navlabel .small{font-weight:400}.tabs{display:flex;gap:5px;background:#15191d;padding:5px;border-radius:12px}.tabs button{flex:1;background:transparent;border:0;color:var(--muted);padding:8px;border-radius:9px;font-size:12px}.tabs .sel{background:#2a3036;color:#fff}
 .tabsscroll{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;-webkit-overflow-scrolling:touch}.tabsscroll button{flex:0 0 auto;background:#15191d;border:0;color:var(--muted);padding:8px 14px;border-radius:20px;font-size:12px;white-space:nowrap}.tabsscroll .sel{background:#2a3036;color:#fff}
-.mealrow{flex-wrap:wrap}.row,.foodrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #252b30}.row:last-child,.foodrow:last-child{border:0}.plus{margin-left:auto;border:1px solid #394148;background:#182019;color:var(--green);border-radius:10px;padding:5px 9px}.amt{width:64px!important;text-align:center;padding:6px 4px!important;font-size:13px;border-radius:10px!important;margin:0}.badge.warn{background:#3a2f12;color:#f2c14e}.estnote{font-size:10px;color:#f2c14e;margin-top:2px}.badge{display:inline-block;background:#20262b;color:var(--muted);border-radius:8px;padding:5px 8px;font-size:10px}
+.mealrow{flex-wrap:wrap}.camrow{margin-left:auto}.camrow+.cal{margin-left:0}.meal h3{overflow-wrap:anywhere}.meal>div:nth-child(2){min-width:0}.row,.foodrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #252b30}.row:last-child,.foodrow:last-child{border:0}.plus{margin-left:auto;border:1px solid #394148;background:#182019;color:var(--green);border-radius:10px;padding:5px 9px}.amt{width:64px!important;text-align:center;padding:6px 4px!important;font-size:13px;border-radius:10px!important;margin:0}.badge.warn{background:#3a2f12;color:#f2c14e}.estnote{font-size:10px;color:#f2c14e;margin-top:2px}.badge{display:inline-block;background:#20262b;color:var(--muted);border-radius:8px;padding:5px 8px;font-size:10px}
 .chart{display:flex;align-items:end;gap:6px;padding:4px 3px 0}.daycol{flex:1;display:flex;flex-direction:column;align-items:center;min-width:0}.daykcal{font-size:9px;color:var(--muted);height:12px;line-height:12px;white-space:nowrap}.barwrap{height:100px;width:100%;display:flex;align-items:end}.barcol{width:100%;background:linear-gradient(to top,#72db64,#b4f6aa);border-radius:7px 7px 2px 2px;min-height:8px}.barcol.today{background:linear-gradient(to top,#4a9d3c,#7ee66b);box-shadow:0 0 0 1.5px #7ee66b inset}.barcol.over{background:linear-gradient(to top,#c97a2e,#ffad3d)}.daylabel{font-size:10px;color:var(--muted);margin-top:5px;height:12px;line-height:12px}.daylabel.today{color:var(--green);font-weight:750}
 .modal{position:fixed;inset:0;background:#000b;display:none;align-items:end;z-index:50}.modal.show{display:flex}.sheet{width:min(480px,100%);max-height:90vh;overflow:auto;margin:auto;background:#121518;border-radius:24px 24px 0 0;padding:19px}.close{float:right;background:none;border:0;color:#fff;font-size:24px}.preview{width:100%;height:250px;object-fit:cover;border-radius:17px;background:#20252a}.toast{position:fixed;z-index:100;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);background:#22292f;color:#fff;padding:11px 15px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;font-size:13px}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast.withundo{pointer-events:auto}.toast .undo{margin-left:12px;background:none;border:0;color:var(--green);font-weight:800;padding:2px 4px}
 .foodmain{display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer}.foodmain>div{min-width:0}.foodmain>div>b{overflow-wrap:anywhere}.detailpic{width:100%;height:180px;border-radius:18px;background:#22282e;display:grid;place-items:center;overflow:hidden;font-size:84px;margin-bottom:6px}.detailpic img{width:100%;height:100%;object-fit:cover;display:block}
@@ -35,12 +35,12 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 </head>
 <body>
 <div class="app">
-<section id="home" class="screen active"><header><div><div class="title">Heute⌄</div><div class="sub" id="date"></div></div><div class="streak">🔥 <span id="streak">0</span> Tage</div></header><main>
+<section id="home" class="screen active"><header><div><div class="title">Heute⌄</div><div class="sub" id="date"></div></div><div class="streak">🔥 <span id="streak">0</span> <span id="streakUnit">Tage</span></div></header><main>
 <div class="card hero"><div class="ring" id="ring"><div class="ringin"><div class="kcal" id="kcal">0</div><div class="small">von <span id="goal">2400</span> kcal</div></div></div><div class="small"><span id="left">2400</span> kcal übrig</div></div>
 <div class="macros"><div class="macro"><span class="small">Protein</span><b id="p">0 / 160 g</b><div class="bar"><div class="fill g" id="pb"></div></div></div><div class="macro"><span class="small">Kohlenh.</span><b id="c">0 / 300 g</b><div class="bar"><div class="fill b" id="cb"></div></div></div><div class="macro"><span class="small">Fett</span><b id="f">0 / 80 g</b><div class="bar"><div class="fill o" id="fb"></div></div></div></div>
 <div id="remind"></div>
 <div class="card" id="waterCard"></div>
-<div class="sectiontitle"><h2>Mahlzeiten heute</h2><span class="link" onclick="go('meals')">Verlauf</span></div><div class="card" id="meals"></div>
+<div class="sectiontitle"><h2>Mahlzeiten heute</h2><span class="link" onclick="go('meals')">Verlauf</span></div><div class="card" id="todayMeals"></div>
 </main></section>
 
 <section id="add" class="screen"><header><button class="secondary" style="width:auto;margin:0" onclick="go('home')">‹</button><div class="title">Essen hinzufügen</div><span></span></header><main>
@@ -623,6 +623,7 @@ function normalizeData(x){
  if(!x.goal||typeof x.goal!=="object")x.goal={};
  if(!Array.isArray(x.meals))x.meals=[];
  x.meals=x.meals.filter(m=>m&&typeof m==="object"&&m.date);
+ x.meals.forEach(m=>{if(m.pid!=null&&!pidOk(m.pid))delete m.pid});   // Foto-Kennung einer Mahlzeit
  if(!x.weight||typeof x.weight!=="object")x.weight={};
  if(!Array.isArray(x.weight.entries))x.weight.entries=[];
  x.weight.entries=x.weight.entries.filter(e=>e&&e.date&&isFinite(e.kg)).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);
@@ -2517,10 +2518,10 @@ function render(){
  $("date").textContent=new Date().toLocaleDateString("de-DE",{weekday:"long",day:"2-digit",month:"long"});
  $("kcal").textContent=fmt(k);$("goal").textContent=fmt(g);$("left").textContent=fmt(Math.max(0,g-k));
  $("ring").style.background=`conic-gradient(var(--green) 0 ${Math.min(100,k/g*100)}%,#2a3035 ${Math.min(100,k/g*100)}%)`;
- $("streak").textContent=computeStreak();
+ {const sv=computeStreak();$("streak").textContent=sv;if($("streakUnit"))$("streakUnit").textContent=sv===1?"Tag":"Tage"}
  const eatObj={k,p,c,f};
  [["p","pb","p"],["c","cb","c"],["f","fb","f"]].forEach(x=>{$(x[0]).textContent=`${fmt(eatObj[x[2]])} / ${fmt(d.goal[x[2]])} g`;$(x[1]).style.width=Math.min(100,eatObj[x[2]]/d.goal[x[2]]*100)+"%"});
- $("meals").innerHTML=renderMealGroups(tm);
+ $("todayMeals").innerHTML=renderMealGroups(tm);
  renderVerlauf();
  renderAnalysis();
  $("pg").textContent=fmt(d.goal.k)+" kcal";$("pp").textContent=fmt(d.goal.p)+" g";$("pc").textContent=fmt(d.goal.c)+" g";$("pf").textContent=fmt(d.goal.f)+" g";
@@ -2736,7 +2737,7 @@ function renderMealGroups(meals,date){
  const order=["Frühstück","Mittagessen","Abendessen","Snack"];
  let byCat={};meals.forEach(m=>{(byCat[m.name]=byCat[m.name]||[]).push(m)});
  const cats=[...order.filter(o=>byCat[o]),...Object.keys(byCat).filter(x=>!order.includes(x))];
- return cats.map(cat=>{const items=byCat[cat],totalK=sumMacro(items,"k");return `<div class="meal" onclick="openMealGroup(${jsArg(cat)},'${date}')" style="cursor:pointer"><div class="foodimg">${thumbFor(items[0].food_name,items[0].e||"🍽️",50)}</div><div><h3>${esc(cat)}</h3><p>${items[0].time} · ${items.length} Eintrag${items.length===1?"":"e"}</p></div><div class="cal">${fmt(totalK)} kcal</div></div>`}).join("")
+ return cats.map(cat=>{const items=byCat[cat],totalK=sumMacro(items,"k"),pid=mealPid(items);if(pid)items.forEach(m=>{if(!m.pid)m.pid=pid});const has=!!mealPhotoOf(items);return `<div class="meal" onclick="openMealGroup(${jsArg(cat)},'${date}')" style="cursor:pointer"><div class="foodimg">${groupThumb(items,50)}</div><div><h3>${esc(cat)}</h3><p>${items[0].time} · ${items.length} Eintrag${items.length===1?"":"e"}</p></div>${has?"":`<button class="plus camrow" aria-label="Foto zur Mahlzeit hinzufügen" onclick="event.stopPropagation();mealPhotoStart(${jsArg(cat)},'${date}')">📷</button>`}<div class="cal">${fmt(totalK)} kcal</div></div>`}).join("")
 }
 function openMealGroup(cat,date){
  cat=decodeURIComponent(cat);date=date||todayISO();
@@ -2746,7 +2747,8 @@ function openMealGroup(cat,date){
 }
 function renderMealGroupModal(cat,items,date){
  date=date||todayISO();
- modal(cat,`<div class="small">${formatDateLabel(date)} · ${items[0]?.time||""}</div>${items.map(m=>`<div class="row mealrow"><span style="display:flex;align-items:center;gap:8px;flex:1 1 150px;min-width:0;overflow-wrap:anywhere">${thumbFor(m.food_name,m.e,22)} ${esc(m.food_name||m.items)}</span><div style="display:flex;align-items:center;gap:6px;margin-left:auto"><button class="plus" onclick="adjustMealItem('${m.id}',-10)">−</button><input class="amt" type="text" inputmode="decimal" value="${Math.round(m.grams||0)}" aria-label="Menge in Gramm" onchange="setMealGrams('${m.id}',this.value)"><span class="small">g</span><button class="plus" onclick="adjustMealItem('${m.id}',10)">+</button><button class="plus" style="color:var(--red)" onclick="removeMealItem('${m.id}')">✕</button></div></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:10px"><span>Gesamt</span><b id="mealTotal">${fmt(sumMacro(items,"k"))} kcal</b></div><button class="secondary" style="margin-top:10px" onclick="copyMealDialog(${jsArg(cat)},'${date}')">⎘ Auf anderen Tag kopieren</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteMealGroup(${jsArg(cat)},'${date}')">Ganze Mahlzeit löschen</button>`)
+ const ph=mealPhotoOf(items),pbtn=`<button class="secondary" style="margin:8px 0 4px" onclick="mealPhotoStart(${jsArg(cat)},'${date}',true)">📷 ${ph?"Foto ändern oder entfernen":"Foto zur Mahlzeit hinzufügen"}</button>`;
+ modal(cat,`<div class="small">${formatDateLabel(date)} · ${items[0]?.time||""}</div>${ph?`<div class="detailpic" style="height:170px;margin-top:8px"><img src="${ph}" alt=""></div>`:""}${pbtn}${items.map(m=>`<div class="row mealrow"><span style="display:flex;align-items:center;gap:8px;flex:1 1 150px;min-width:0;overflow-wrap:anywhere">${thumbFor(m.food_name,m.e,22)} ${esc(m.food_name||m.items)}</span><div style="display:flex;align-items:center;gap:6px;margin-left:auto"><button class="plus" onclick="adjustMealItem('${m.id}',-10)">−</button><input class="amt" type="text" inputmode="decimal" value="${Math.round(m.grams||0)}" aria-label="Menge in Gramm" onchange="setMealGrams('${m.id}',this.value)"><span class="small">g</span><button class="plus" onclick="adjustMealItem('${m.id}',10)">+</button><button class="plus" style="color:var(--red)" onclick="removeMealItem('${m.id}')">✕</button></div></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:10px"><span>Gesamt</span><b id="mealTotal">${fmt(sumMacro(items,"k"))} kcal</b></div><button class="secondary" style="margin-top:10px" onclick="copyMealDialog(${jsArg(cat)},'${date}')">⎘ Auf anderen Tag kopieren</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteMealGroup(${jsArg(cat)},'${date}')">Ganze Mahlzeit löschen</button>`)
 }
 function adjustMealItem(id,deltaGrams){
  let m=d.meals.find(x=>String(x.id)===String(id));if(!m||!m.grams)return;
@@ -3266,7 +3268,8 @@ function saveGoals(){
 }
 // In der Android-App läuft der Export über die Brücke (Speicherdialog); im Browser als normaler Download
 function exportData(){
- const out=Object.keys(PHOTOS.own).length?{...d,_photos:{own:PHOTOS.own}}:d;   // eigene Fotos gehören ins Backup, Produktbilder nicht (lassen sich neu laden)
+ const ph={};if(Object.keys(PHOTOS.own).length)ph.own=PHOTOS.own;const mph=backupMealPhotos();if(Object.keys(mph).length)ph.meals=mph;
+ const out=Object.keys(ph).length?{...d,_photos:ph}:d;   // eigene Fotos gehören ins Backup, Produktbilder nicht (lassen sich neu laden)
  const json=JSON.stringify(out,null,2);
  if(window.AndroidBridge&&window.AndroidBridge.saveBackup){toast("Speicherort wählen …");window.AndroidBridge.saveBackup(json);return}
  let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([json],{type:"application/json"}));a.download="macrotrack-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);toast("Backup erstellt")
@@ -3337,53 +3340,184 @@ function foodDetails(i,fromPortion){
  else{pic=f[1];cap="Symbol – du kannst ein eigenes Foto hinzufügen"}
  modal(n,`<div class="detailpic">${pic}</div><div class="small" style="margin-bottom:8px">${cap}</div><div class="badge">Nährwerte pro 100 g</div><p style="margin:6px 0 2px"><b>${Math.round(f[2])} kcal</b></p><p class="small" style="margin:0 0 6px">Protein ${r1(f[3])} g · Kohlenhydrate ${r1(f[4])} g · Fett ${r1(f[5])} g</p><p class="small">${esc(foodHint(f))}</p>${fromPortion?`<button class="primary" onclick="modalBack()">Zurück zur Menge</button>`:`<button class="primary" onclick="portion(${i})">Menge wählen &amp; hinzufügen</button>`}<button class="secondary" id="favBtn" onclick="toggleFav(${i})">${isFav(n)?"★ Favorit":"☆ Als Favorit merken"}</button><button class="secondary" onclick="photoStart(${i},${!!fromPortion})">📷 ${own?"Eigenes Foto ändern":"Eigenes Foto hinzufügen"}</button>`)
 }
-// Foto hinzufügen: Menü → Kamera/Galerie → Vorschau → erst „Foto speichern“ speichert wirklich
+// ===== Mahlzeiten-Fotos =====
+// Viele Fotos, deshalb in der Geräte-Datenbank (IndexedDB). Geht die nicht, dient localStorage als Ersatz (dann nur die letzten MP_LS_MAX Fotos).
+// Jede Mahlzeit trägt eine Foto-Kennung `pid` an ihren Einträgen; sie bleibt beim Kopieren, im Rückgängig-Schnappschuss und im Backup erhalten.
+const MP_LS_KEY="napp_mphotos",MP_LS_MAX=40,MEAL_PX=320,BACKUP_MEAL_PHOTOS=100;
+const MP={map:{},backend:"none",db:null};
+let MP_READY=null;
+function pidOk(p){return typeof p==="string"&&/^[A-Za-z0-9]{4,40}$/.test(p)}
+function newPid(){return "p"+Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+const mpHas=k=>Object.prototype.hasOwnProperty.call(MP.map,k);
+function mpOpen(){
+ return new Promise(res=>{
+  let done=false;const fin=v=>{if(!done){done=true;res(v)}};
+  try{
+   if(typeof indexedDB==="undefined"||!indexedDB){fin(null);return}
+   const rq=indexedDB.open("macrotrack",1);
+   rq.onupgradeneeded=()=>{try{rq.result.createObjectStore("p")}catch(e){}};
+   rq.onsuccess=()=>{if(done){try{rq.result.close()}catch(e){}}else fin(rq.result)};
+   rq.onerror=()=>fin(null);rq.onblocked=()=>fin(null);
+   setTimeout(()=>fin(null),4000)
+  }catch(e){fin(null)}
+ })
+}
+function mpTx(mode,fn){
+ return new Promise(res=>{
+  try{const tx=MP.db.transaction("p",mode);tx.oncomplete=()=>res(true);tx.onerror=()=>res(false);tx.onabort=()=>res(false);fn(tx.objectStore("p"))}
+  catch(e){res(false)}
+ })
+}
+function mpLoadAll(){
+ return new Promise(res=>{
+  try{const o={},c=MP.db.transaction("p","readonly").objectStore("p").openCursor();
+   c.onsuccess=()=>{const cur=c.result;if(cur){o[cur.key]=cur.value;cur.continue()}else res(o)};c.onerror=()=>res(null)}
+  catch(e){res(null)}
+ })
+}
+function mpSaveLS(){try{localStorage.setItem(MP_LS_KEY,JSON.stringify(MP.map));return true}catch(e){return false}}
+async function mpInit(){
+ const db=await mpOpen();
+ if(db){MP.db=db;const all=await mpLoadAll();if(all){MP.backend="idb";MP.map=cleanPhotoMap(all)}else{try{db.close()}catch(e){}MP.db=null}}
+ if(MP.backend!=="idb"){MP.backend="ls";try{const o=JSON.parse(localStorage.getItem(MP_LS_KEY)||"null");if(o)MP.map=cleanPhotoMap(o)}catch(e){}}
+ Object.keys(MP.map).forEach(k=>{if(!pidOk(k))delete MP.map[k]});
+ mpGC();
+ if(Object.keys(MP.map).length)render()
+}
+async function mpPut(pid,val){
+ await MP_READY;
+ if(!pidOk(pid)||!cleanPhotoMap({x:val}).x)return false;
+ if(MP.backend==="idb"){const ok=await mpTx("readwrite",st=>{st.put(val,pid)});if(ok)MP.map[pid]=val;return ok}
+ const prev=mpHas(pid)?MP.map[pid]:null,dropped={};
+ MP.map[pid]=val;
+ const others=Object.keys(MP.map).filter(k=>k!==pid);
+ while(others.length+1>MP_LS_MAX){const k=others.shift();dropped[k]=MP.map[k];delete MP.map[k]}
+ if(!mpSaveLS()){delete MP.map[pid];if(prev)MP.map[pid]=prev;Object.assign(MP.map,dropped);return false}
+ return true
+}
+async function mpDel(pid){
+ await MP_READY;
+ if(!mpHas(pid))return true;
+ if(MP.backend==="idb"){const ok=await mpTx("readwrite",st=>{st.delete(pid)});if(ok)delete MP.map[pid];return ok}
+ const prev=MP.map[pid];delete MP.map[pid];
+ if(!mpSaveLS()){MP.map[pid]=prev;return false}
+ return true
+}
+// Aufräumen beim Start: Fotos, die keine Mahlzeit mehr verwendet (Rückgängig-Zeit ist dann längst vorbei)
+function mpGC(){
+ if(!d.meals.length)return;
+ const used=new Set(d.meals.map(m=>m.pid).filter(Boolean));
+ Object.keys(MP.map).forEach(k=>{if(!used.has(k))mpDel(k)})
+}
+const mealItems=(date,cat)=>d.meals.filter(m=>m.date===date&&m.name===cat);
+function mealPid(items){const m=items.find(x=>pidOk(x.pid));return m?m.pid:null}
+function mealPhotoOf(items){const p=mealPid(items);return p&&mpHas(p)?MP.map[p]:null}
+function groupThumb(items,px){const ph=mealPhotoOf(items);return ph?foodThumb("🍽️",ph,px):thumbFor(items[0].food_name,items[0].e||"🍽️",px)}
+// Foto einer Mahlzeit setzen (immer neue Kennung, damit eine Kopie der Mahlzeit ihr altes Foto behält)
+async function setMealPhoto(date,cat,url){
+ const items=mealItems(date,cat);if(!items.length)return false;
+ const old=mealPid(items),pid=newPid();
+ if(!(await mpPut(pid,url)))return false;
+ mealItems(date,cat).forEach(m=>{m.pid=pid});save();
+ if(old&&!d.meals.some(m=>m.pid===old))await mpDel(old);
+ return true
+}
+async function removeMealPhoto(date,cat){
+ const items=mealItems(date,cat),old=mealPid(items);
+ items.forEach(m=>{delete m.pid});save();
+ if(old&&!d.meals.some(m=>m.pid===old))await mpDel(old);
+ return true
+}
+// Backup: die Fotos der neuesten Mahlzeiten (höchstens BACKUP_MEAL_PHOTOS, damit die Datei handlich bleibt)
+function backupMealPhotos(){
+ const out={},seen=new Set();
+ [...d.meals].sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:0).forEach(m=>{
+  if(Object.keys(out).length>=BACKUP_MEAL_PHOTOS||!pidOk(m.pid)||seen.has(m.pid))return;
+  seen.add(m.pid);if(mpHas(m.pid))out[m.pid]=MP.map[m.pid]
+ });
+ return out
+}
+async function restoreMealPhotos(map){
+ const used=new Set(d.meals.map(m=>m.pid).filter(Boolean)),keys=Object.keys(map||{}).filter(k=>pidOk(k)&&used.has(k));
+ let failed=0;
+ for(const k of keys){if(!(await mpPut(k,map[k])))failed++}
+ if(failed)toast(failed+" Mahlzeiten-Fotos aus dem Backup passen nicht in den Speicher");
+ if(keys.length)render()
+}
+MP_READY=mpInit().catch(()=>{MP.backend=MP.backend==="idb"?"idb":"ls"});
+
+// ===== Foto hinzufügen (Lebensmittel oder Mahlzeit): Menü → Kamera/Galerie → Vorschau → erst „Foto speichern“ speichert wirklich =====
 let photoCtx=null,photoDraft=null;
-function photoStart(i,fromPortion){const f=foods[i];if(!f)return;photoCtx={name:f[0],depth:modalStack.length,fromPortion:!!fromPortion};photoDraft=null;photoMenu()}
+const photoSize=()=>photoCtx&&photoCtx.kind==="meal"?MEAL_PX:240;
+const photoHas=()=>photoCtx.kind==="meal"?!!mealPhotoOf(mealItems(photoCtx.date,photoCtx.name)):!!ownPhoto(photoCtx.name);
+function photoStart(i,fromPortion){const f=foods[i];if(!f)return;photoCtx={kind:"food",name:f[0],depth:modalStack.length,origin:true,fromPortion:!!fromPortion};photoDraft=null;photoMenu()}
+function mealPhotoStart(cat,date,fromGroup){
+ cat=decodeURIComponent(cat);if(!mealItems(date,cat).length)return;
+ const origin=$("modal").classList.contains("show");
+ photoCtx={kind:"meal",name:cat,date,depth:origin?modalStack.length:0,origin,fromGroup:!!fromGroup};photoDraft=null;photoMenu()
+}
 function photoMenu(){
- if(!photoCtx)return;const n=photoCtx.name;
- modal("Foto für "+n,`<p class="small">Das Foto bleibt nur auf diesem Gerät und ersetzt in deinen Listen das Symbol. Gespeichert wird erst, wenn du es bestätigst.</p><button class="primary" onclick="photoCamera()">📷 Mit der Kamera aufnehmen</button><input type="file" id="photoFile" accept="image/*" style="display:none" onchange="photoFromFile(event)"><button class="secondary" onclick="$('photoFile').click()">🖼️ Aus der Galerie wählen</button>${ownPhoto(n)?`<button class="secondary" style="color:var(--red)" onclick="photoRemoveAsk()">Eigenes Foto entfernen</button>`:""}<button class="secondary" onclick="modalBack()">Abbrechen</button>`)
+ if(!photoCtx)return;const n=photoCtx.name,meal=photoCtx.kind==="meal";
+ const info=meal?"Das Foto gehört zu dieser Mahlzeit und erscheint in der Liste statt des Symbols."+(MP.backend==="ls"?" Auf diesem Gerät bleiben die letzten "+MP_LS_MAX+" Mahlzeiten-Fotos erhalten.":""):"Das Foto bleibt nur auf diesem Gerät und ersetzt in deinen Listen das Symbol.";
+ modal("Foto für "+n,`<p class="small">${info} Gespeichert wird erst, wenn du es bestätigst.</p><button class="primary" onclick="photoCamera()">📷 Mit der Kamera aufnehmen</button><input type="file" id="photoFile" accept="image/*" style="display:none" onchange="photoFromFile(event)"><button class="secondary" onclick="$('photoFile').click()">🖼️ Aus der Galerie wählen</button>${photoHas()?`<button class="secondary" style="color:var(--red)" onclick="photoRemoveAsk()">${meal?"Foto der Mahlzeit entfernen":"Eigenes Foto entfernen"}</button>`:""}<button class="secondary" onclick="modalBack()">Abbrechen</button>`);
+ photoCtx.menuStack=modalStack.length
 }
 async function photoCamera(){
  modal("Foto aufnehmen",`<video id="photoCam" class="preview" autoplay playsinline muted></video><p class="small" id="photoCamStatus">Kamera wird gestartet…</p><button class="primary" id="photoShot" onclick="photoShot()" disabled>📸 Aufnehmen</button><button class="secondary" onclick="modalBack()">Abbrechen</button>`);
  try{
   const v=$("photoCam");
   if(!(await startCamStream(v)))return;
-  v.onloadedmetadata=()=>{if($("photoShot"))$("photoShot").disabled=false;if($("photoCamStatus"))$("photoCamStatus").textContent="Lebensmittel mittig zeigen und aufnehmen"}
+  v.onloadedmetadata=()=>{if($("photoShot"))$("photoShot").disabled=false;if($("photoCamStatus"))$("photoCamStatus").textContent="Mittig zeigen und aufnehmen"}
  }catch(e){if($("photoCamStatus"))$("photoCamStatus").textContent=cameraErrorMsg(e)}
 }
-function photoShot(){const v=$("photoCam");if(!v||!v.videoWidth)return;imageToDataURL(v).then(photoPreview).catch(()=>toast("Aufnahme fehlgeschlagen"))}
+function photoShot(){const v=$("photoCam");if(!v||!v.videoWidth)return;imageToDataURL(v,photoSize()).then(photoPreview).catch(()=>toast("Aufnahme fehlgeschlagen"))}
 function photoFromFile(e){
  const file=e.target.files&&e.target.files[0];e.target.value="";if(!file)return;
- imageToDataURL(file).then(photoPreview).catch(()=>toast("Diese Datei ist kein lesbares Bild"))
+ imageToDataURL(file,photoSize()).then(photoPreview).catch(()=>toast("Diese Datei ist kein lesbares Bild"))
 }
 function photoPreview(url){
  if(!photoCtx||!cleanPhotoMap({x:url}).x){toast("Bild nicht verwendbar");return}
- photoDraft=url;modalStack.length=Math.min(modalStack.length,photoCtx.depth+1);modalNoPush=true;
+ photoDraft=url;modalStack.length=Math.min(modalStack.length,photoCtx.menuStack||0);modalNoPush=true;
  modal("Foto prüfen",`<div class="detailpic"><img src="${url}" alt=""></div><p class="small">Dieses Foto für <b>${esc(photoCtx.name)}</b> speichern?</p><button class="primary" onclick="photoSave()">✓ Foto speichern</button><button class="secondary" onclick="photoRetake()">Neu aufnehmen / anderes Bild</button><button class="secondary" onclick="photoCancel()">Verwerfen</button>`)
 }
-function photoRetake(){photoDraft=null;modalNoPush=true;photoMenu()}
+function photoRetake(){photoDraft=null;if(photoCtx)modalStack.length=Math.min(modalStack.length,photoCtx.menuStack||0);modalNoPush=true;photoMenu()}
+// zurück dorthin, wo der Foto-Ablauf begonnen hat (Details, Mahlzeit-Fenster, Liste oder Startseite)
 function photoBackToDetails(){
  if(!photoCtx){closeModal();return}
- const i=foodIdx(photoCtx.name);
- if(i<0){closeModal();return}
- modalStack.length=Math.min(modalStack.length,photoCtx.depth);modalNoPush=true;foodDetails(i,photoCtx.fromPortion)
+ const c=photoCtx;
+ if(c.kind==="food"){
+  const i=foodIdx(c.name);
+  if(i<0){closeModal();return}
+  modalStack.length=Math.min(modalStack.length,c.depth);modalNoPush=true;foodDetails(i,c.fromPortion);return
+ }
+ render();
+ if(c.fromGroup&&mealItems(c.date,c.name).length){modalStack.length=Math.min(modalStack.length,c.depth);modalNoPush=true;openMealGroup(encodeURIComponent(c.name),c.date);return}
+ if(c.origin&&!c.fromGroup){modalStack.length=Math.min(modalStack.length,c.depth+1);modalBack();return}
+ closeModal()
 }
 function photoCancel(){photoDraft=null;photoBackToDetails()}
-function photoSave(){
+async function photoSave(){
  if(!photoCtx||!photoDraft)return;
- const n=photoCtx.name,prev=PHOTOS.own[n];
- if(!prev&&Object.keys(PHOTOS.own).length>=OWN_MAX){toast("Höchstens "+OWN_MAX+" eigene Fotos – entferne zuerst eines");return}
- PHOTOS.own[n]=photoDraft;
- if(!savePhotos()){if(prev)PHOTOS.own[n]=prev;else delete PHOTOS.own[n];toast("Foto nicht gespeichert (Speicher voll?)");return}
- photoDraft=null;toast("Foto gespeichert");photoBackToDetails()
+ const c=photoCtx,url=photoDraft;photoDraft=null;   // Doppeltippen verhindert
+ if(c.kind==="meal"){
+  const ok=await setMealPhoto(c.date,c.name,url);
+  if(!ok){photoDraft=url;toast("Foto nicht gespeichert (Speicher voll?)");return}
+  toast("Foto gespeichert");photoBackToDetails();return
+ }
+ const n=c.name,prev=PHOTOS.own[n];
+ if(!prev&&Object.keys(PHOTOS.own).length>=OWN_MAX){photoDraft=url;toast("Höchstens "+OWN_MAX+" eigene Fotos – entferne zuerst eines");return}
+ PHOTOS.own[n]=url;
+ if(!savePhotos()){if(prev)PHOTOS.own[n]=prev;else delete PHOTOS.own[n];photoDraft=url;toast("Foto nicht gespeichert (Speicher voll?)");return}
+ toast("Foto gespeichert");photoBackToDetails()
 }
 function photoRemoveAsk(){
  if(!photoCtx)return;
- modal("Foto entfernen?",`<p class="small">Das eigene Foto von <b>${esc(photoCtx.name)}</b> wird gelöscht. Danach erscheint wieder das Symbol.</p><button class="primary" style="background:var(--red)" onclick="photoRemove()">Ja, Foto entfernen</button><button class="secondary" onclick="modalBack()">Abbrechen</button>`)
+ modal("Foto entfernen?",`<p class="small">${photoCtx.kind==="meal"?"Das Foto dieser Mahlzeit":"Das eigene Foto von <b>"+esc(photoCtx.name)+"</b>"} wird gelöscht. Danach erscheint wieder das Symbol.</p><button class="primary" style="background:var(--red)" onclick="photoRemove()">Ja, Foto entfernen</button><button class="secondary" onclick="modalBack()">Abbrechen</button>`)
 }
-function photoRemove(){
- if(!photoCtx)return;const n=photoCtx.name,prev=PHOTOS.own[n];delete PHOTOS.own[n];
+async function photoRemove(){
+ if(!photoCtx)return;const c=photoCtx;
+ if(c.kind==="meal"){await removeMealPhoto(c.date,c.name);toast("Foto entfernt");photoBackToDetails();return}
+ const n=c.name,prev=PHOTOS.own[n];delete PHOTOS.own[n];
  if(!savePhotos()){if(prev)PHOTOS.own[n]=prev;toast("Foto konnte nicht entfernt werden");return}
  toast("Foto entfernt");photoBackToDetails()
 }
@@ -3391,14 +3525,14 @@ function photoRemove(){
 window.onBackupSaved=ok=>toast(ok?"Backup gespeichert":"Backup nicht gespeichert");
 window.onNativeBarcode=code=>lookupBarcode(code);
 window.onNativeBarcodeError=()=>{toast("Scanner nicht verfügbar – bitte Barcode eintippen");manualBarcode()};
-let pendingImport=null,pendingPhotos={};
+let pendingImport=null,pendingPhotos={own:{},meals:{}};
 function importData(e){
  const input=e.target,file=input.files[0];if(!file)return;
  const r=new FileReader();
  r.onload=()=>{
   try{
    const nd=JSON.parse(r.result);if(!nd||typeof nd!=="object"||!Array.isArray(nd.meals))throw 0;
-   pendingPhotos=nd._photos&&typeof nd._photos==="object"?cleanPhotoMap(nd._photos.own):{};delete nd._photos;
+   pendingPhotos=nd._photos&&typeof nd._photos==="object"?{own:cleanPhotoMap(nd._photos.own),meals:cleanPhotoMap(nd._photos.meals)}:{own:{},meals:{}};delete nd._photos;
    pendingImport=nd;
    const wn=nd.weight&&Array.isArray(nd.weight.entries)?nd.weight.entries.length:0;
    modal("Backup einspielen?",`<p class="small">Die Datei enthält <b>${nd.meals.length}</b> Einträge und <b>${wn}</b> Gewichtswerte.</p><p class="small"><b>Deine aktuellen Daten (${d.meals.length} Einträge) werden dadurch ersetzt.</b> Danach kannst du kurz „Rückgängig“ tippen.</p><button class="primary" onclick="confirmImport()">Backup einspielen</button><button class="secondary" onclick="pendingImport=null;closeModal()">Abbrechen</button>`)
@@ -3411,7 +3545,7 @@ function importData(e){
 function confirmImport(){
  if(!pendingImport)return;
  const snap=JSON.stringify(d);
- try{d=normalizeData(pendingImport);pendingImport=null;foods.length=BASE_FOODS_N;appendExtraFoods();restoreUserFoods();restorePhotos(pendingPhotos);pendingPhotos={};save();closeModal();render();showUndo("Backup eingespielt",snap)}
+ try{d=normalizeData(pendingImport);pendingImport=null;foods.length=BASE_FOODS_N;appendExtraFoods();restoreUserFoods();restorePhotos(pendingPhotos.own);restoreMealPhotos(pendingPhotos.meals);pendingPhotos={own:{},meals:{}};save();closeModal();render();showUndo("Backup eingespielt",snap)}
  catch(x){toast("Ungültige Datei")}
 }
 
