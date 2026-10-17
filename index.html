@@ -1517,168 +1517,79 @@ Acai Püree|70|1|4|5`;
 // Gerichte: Zutatenlisten (Zutat:Gramm je Portion). Jede Zutat ist ein Lebensmittel der Liste; Nährwerte werden daraus berechnet.
 const DISHES_RAW=`Pizza Margherita|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:100
 Pizza Salami|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:90;Salami:50
-Pizza Funghi|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:90;Champignons:80
-Pizza Hawaii|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:90;Schinken gekocht:50;Ananas Dose:60
-Pizza Tonno|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:80;Thunfisch (Dose, Wasser):60;Rote Zwiebel:30
-Pizza Prosciutto|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:90;Schinken gekocht:60
-Pizza Quattro Formaggi|🍕|Pizza|Pizzateig:180;Pizzasauce:50;Mozzarella:60;Gorgonzola:40;Parmesan:20;Emmentaler:40
-Pizza Diavola|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:90;Salami:60;Peperoni:30
-Pizza TK|🍕|Pizza|Pizzateig:150;Pizzasauce:50;Mozzarella:70;Salami:40
-Calzone|🥟|Pizza|Pizzateig:200;Pizzasauce:40;Mozzarella:70;Schinken gekocht:60;Champignons:60
 Flammkuchen|🍕|Pizza|Pizzateig:130;Crème fraîche:80;Zwiebel:50;Bacon:40
-Pizzabrötchen|🥖|Pizza|Pizzateig:90;Pizzasauce:20;Reibekäse:30;Salami:15
-Hamburger|🍔|Burger & Fast Food|Brötchen:45;Rinderhack gebraten:40;Gewürzgurken:8;Zwiebel:8;Ketchup:12;Senf:3
 Cheeseburger|🍔|Burger & Fast Food|Brötchen:45;Rinderhack gebraten:40;Scheibenkäse:15;Gewürzgurken:8;Zwiebel:8;Ketchup:12;Senf:3
 Big Mac|🍔|Burger & Fast Food|Brötchen:70;Rinderhack gebraten:70;Scheibenkäse:15;Eisbergsalat:15;Zwiebel:8;Gewürzgurken:10;Mayonnaise:10;Ketchup:10
 McChicken|🍔|Burger & Fast Food|Brötchen:60;Hähnchenbrust paniert:80;Eisbergsalat:15;Mayonnaise:12
 Chicken McNuggets|🍗|Burger & Fast Food|Chicken Nuggets:110;Barbecuesauce:25
-Whopper|🍔|Burger & Fast Food|Brötchen:80;Rinderhack gebraten:100;Tomate:25;Eisbergsalat:15;Zwiebel:15;Gewürzgurken:10;Mayonnaise:15;Ketchup:15
 Pommes klein|🍟|Burger & Fast Food|Pommes frites:80;Ketchup:20
 Hot Dog|🌭|Burger & Fast Food|Brötchen:60;Wiener Würstchen:60;Ketchup:15;Senf:5;Röstzwiebeln:5
-Corn Dog|🌭|Burger & Fast Food|Wiener Würstchen:60;Weizenmehl:25;Ei:15;Rapsöl:8;Ketchup:10
 Chicken Wings|🍗|Burger & Fast Food|Hähnchenflügel:200;Barbecuesauce:25
-KFC Hähnchen|🍗|Burger & Fast Food|Hähnchenkeule gebraten:140;Paniermehl:20;Rapsöl:8
 Currywurst|🌭|Burger & Fast Food|Bratwurst:160;Currysauce:70;Ketchup:25;Curry Pulver:2
-Bratwurst im Brötchen|🌭|Burger & Fast Food|Bratwurst:100;Brötchen:55;Senf:10
-Frikadellenbrötchen|🥪|Sandwiches|Brötchen:55;Frikadelle:80;Senf:8;Gewürzgurken:10;Ketchup:10
 Sandwich Käse Schinken|🥪|Sandwiches|Toastbrot:60;Schinken gekocht:40;Gouda:40;Butter:8;Eisbergsalat:15;Tomate:30
-Sandwich Hähnchen|🥪|Sandwiches|Toastbrot:60;Hähnchenbrust Aufschnitt:70;Eisbergsalat:20;Tomate:30;Mayonnaise:20;Gurke:20
 Belegtes Brötchen Käse|🥪|Sandwiches|Brötchen:55;Butter:5;Gouda:30
-Belegtes Brötchen Salami|🥪|Sandwiches|Brötchen:55;Butter:5;Salami:20;Gewürzgurken:10
 Belegtes Brötchen Schinken|🥪|Sandwiches|Brötchen:55;Butter:5;Schinken gekocht:35
 Leberkäsebrötchen|🥪|Sandwiches|Brötchen:55;Leberkäse:100;Senf:10
 Fischbrötchen|🥪|Sandwiches|Brötchen:55;Bismarckhering:60;Zwiebel:15;Remoulade:15
 Käsetoast|🥪|Sandwiches|Toastbrot:50;Gouda:40;Butter:5
-Toast Hawaii|🥪|Sandwiches|Toastbrot:50;Schinken gekocht:25;Ananas Dose:30;Gouda:30
-Rührei Toast|🍳|Sandwiches|Rührei:120;Toastbrot:50;Butter:8
 Döner Kebab|🥙|Döner & Orient|Fladenbrot:120;Dönerfleisch:120;Weißkohl:30;Tomate:30;Zwiebel:20;Eisbergsalat:20;Joghurtsauce:40;Knoblauchsauce:15
 Döner Teller|🥙|Döner & Orient|Dönerfleisch:150;Pommes frites:120;Salat gemischt:80;Tomate:30;Joghurtsauce:40
 Dürüm Döner|🌯|Döner & Orient|Wraps Tortilla:90;Dönerfleisch:150;Zwiebel:20;Tomate:30;Eisbergsalat:20;Rotkohl:20;Joghurtsauce:40
 Gyros Teller|🥙|Döner & Orient|Schweinegeschnetzeltes:180;Pommes frites:150;Tzatziki:50;Weißkohl:40;Tomate:40;Zwiebel:20;Olivenöl:10
-Souvlaki|🥙|Döner & Orient|Schweinefilet gebraten:150;Fladenbrot:60;Tzatziki:50;Tomate:30;Zwiebel:20;Olivenöl:8
 Moussaka|🍆|Döner & Orient|Aubergine:150;Rinderhack gebraten:100;Tomatensauce:80;Béchamelsauce:100;Kartoffeln gekocht:60;Olivenöl:8;Reibekäse:20
 Köfte|🧆|Döner & Orient|Lammhack:100;Rinderhack normal:50;Zwiebel:20;Paniermehl:10;Ei:20;Olivenöl:8
 Lahmacun|🫓|Döner & Orient|Pizzateig:100;Rinderhack normal:60;Tomate:30;Zwiebel:20;Paprika rot:20;Olivenöl:5
-Börek|🥟|Döner & Orient|Blätterteig:60;Schafskäse:50;Spinat:30;Ei:15
-Dolma|🥬|Döner & Orient|Reis gekocht:100;Olivenöl:8;Zwiebel:20;Tomatenmark:10;Pinienkerne:5
 Shakshuka|🍳|Döner & Orient|Ei:120;Dosentomaten:200;Paprika rot:60;Zwiebel:40;Olivenöl:5
-Samosa|🥟|Döner & Orient|Weizenmehl:60;Kartoffeln gekocht:90;Erbsen TK:30;Rapsöl:18;Curry Pulver:3
 Burrito|🌯|Mexikanisch|Wraps Tortilla:70;Reis gekocht:80;Kidneybohnen gekocht:60;Hähnchenbrust gebraten:70;Reibekäse:25;Salsa:30;Saure Sahne:20
 Taco|🌮|Mexikanisch|Taco Shells:30;Rinderhack gebraten:60;Eisbergsalat:20;Tomate:30;Reibekäse:15;Salsa:20
 Quesadilla|🧀|Mexikanisch|Wraps Tortilla:60;Reibekäse:60;Hähnchenbrust gebraten:50;Paprika rot:30;Zwiebel:15
 Wrap Hähnchen|🌯|Mexikanisch|Wraps Tortilla:60;Hähnchenbrust gebraten:70;Eisbergsalat:25;Tomate:30;Gurke:20;Joghurtsauce:30;Reibekäse:15
-Burrito Bowl|🥗|Mexikanisch|Reis gekocht:120;Schwarze Bohnen gekocht:70;Hähnchenbrust gebraten:80;Mais (Dose):30;Tomate:40;Avocado:40;Salsa:30;Reibekäse:15
-Enchilada|🌯|Mexikanisch|Maistortilla:80;Hähnchenbrust gebraten:80;Tomatensauce:80;Reibekäse:40
-Fajita|🌯|Mexikanisch|Wraps Tortilla:70;Hähnchenbrust gebraten:90;Paprika rot:50;Zwiebel:40;Olivenöl:8;Saure Sahne:20
 Chili con Carne|🌶️|Mexikanisch|Rinderhack mager:80;Kidneybohnen gekocht:80;Dosentomaten:120;Mais (Dose):30;Zwiebel:30;Paprika rot:40;Olivenöl:5
-Chili sin Carne|🌶️|Mexikanisch|Kidneybohnen gekocht:100;Schwarze Bohnen gekocht:60;Mais (Dose):40;Dosentomaten:120;Paprika rot:50;Zwiebel:30;Olivenöl:5
-Ceviche|🐟|Mexikanisch|Dorade:120;Limette:20;Rote Zwiebel:30;Tomate:40;Mais (Dose):30
 Lasagne|🍝|Pasta & Reis|Nudeln gekocht:80;Bolognese Sauce:150;Béchamelsauce:100;Reibekäse:30
 Spaghetti Bolognese|🍝|Pasta & Reis|Spaghetti gekocht:220;Bolognese Sauce:150;Parmesan:10
 Spaghetti Carbonara|🍝|Pasta & Reis|Spaghetti gekocht:220;Bacon:40;Ei:50;Parmesan:20
 Pasta mit Tomatensauce|🍝|Pasta & Reis|Nudeln gekocht:250;Tomatensauce:150;Parmesan:10
-Gulasch mit Nudeln|🍝|Pasta & Reis|Rindergulasch:150;Nudeln gekocht:170;Zwiebel:40;Paprika rot:30;Tomatenmark:10;Rapsöl:5
-Spaghetti Aglio e Olio|🍝|Pasta & Reis|Spaghetti gekocht:220;Olivenöl:15;Knoblauch:8;Chili:5;Petersilie:3
-Spaghetti Napoli|🍝|Pasta & Reis|Spaghetti gekocht:220;Tomatensauce:150;Parmesan:10
-Penne Arrabbiata|🍝|Pasta & Reis|Penne gekocht:220;Tomatensauce:150;Chili:8;Knoblauch:5;Olivenöl:8
 Tortellini Sahnesauce|🍝|Pasta & Reis|Tortellini:150;Sahnesauce:100;Schinken gekocht:30;Parmesan:10
-Gnocchi Gorgonzola|🍝|Pasta & Reis|Gnocchi:220;Gorgonzola:40;Sahnesauce:60
 Nudelauflauf|🍝|Pasta & Reis|Nudeln gekocht:180;Schinken gekocht:50;Sahnesauce:100;Reibekäse:50
-Gemüselasagne|🍝|Pasta & Reis|Nudeln gekocht:80;Zucchini:80;Aubergine:60;Tomatensauce:100;Béchamelsauce:80;Mozzarella:40
-Cannelloni|🍝|Pasta & Reis|Nudeln gekocht:70;Ricotta:80;Spinat:60;Tomatensauce:100;Mozzarella:50;Parmesan:15
 Risotto|🍚|Pasta & Reis|Reis gekocht:200;Butter:10;Parmesan:20;Zwiebel:20;Wein weiß:30
-Risotto Pilz|🍚|Pasta & Reis|Reis gekocht:200;Champignons braun:80;Butter:10;Parmesan:20;Zwiebel:20
-Paella|🥘|Pasta & Reis|Reis gekocht:200;Garnelen:60;Muscheln:50;Hähnchenbrust gebraten:60;Paprika rot:40;Erbsen TK:30;Olivenöl:10;Tintenfisch:40
 Käsespätzle|🧀|Pasta & Reis|Spätzle gekocht:250;Emmentaler:80;Röstzwiebeln:15
-Ravioli Dose|🥫|Pasta & Reis|Ravioli:120;Tomatensauce:200
 Instantnudeln|🍜|Pasta & Reis|Nudeln roh:75;Rapsöl:12;Gemüsebrühe Pulver:6
 Sushi Maki|🍣|Asiatisch & Indisch|Reis gekocht:120;Lachs:40;Gurke:30;Avocado:20;Sojasauce:8
-Sushi Nigiri|🍣|Asiatisch & Indisch|Reis gekocht:90;Lachs:45;Thunfisch frisch:20;Sojasauce:8
-Sushi California Roll|🍣|Asiatisch & Indisch|Reis gekocht:120;Surimi:40;Avocado:30;Gurke:20;Mayonnaise:8;Sesam:3
 Frühlingsrolle|🥟|Asiatisch & Indisch|Glasnudeln gekocht:40;Karotten:30;Weißkohl:30;Weizenmehl:30;Rapsöl:15;Sojasauce:5;Sweet Chili Sauce:20
-Bratreis|🍚|Asiatisch & Indisch|Reis gekocht:250;Karotten:30;Erbsen TK:30;Frühlingszwiebeln:20;Sojasauce:10;Rapsöl:12
 Gebratene Nudeln|🍜|Asiatisch & Indisch|Eiernudeln gekocht:250;Hähnchenbrust gebraten:60;Karotten:40;Weißkohl:40;Sojasauce:15;Rapsöl:12
 Pad Thai|🍜|Asiatisch & Indisch|Reisnudeln gekocht:250;Garnelen gebraten:70;Ei:50;Erdnüsse:15;Sojasprossen:50;Rapsöl:12;Fischsauce:10;Zucker:5
 Curry mit Reis|🍛|Asiatisch & Indisch|Reis gekocht:200;Hähnchenbrust gebraten:100;Kokosmilch:100;Paprika rot:50;Currypaste:15;Rapsöl:5
 Gebratener Reis mit Ei|🍚|Asiatisch & Indisch|Reis gekocht:250;Ei:80;Erbsen TK:30;Karotten:30;Sojasauce:10;Rapsöl:10
-Wok Gemüse|🥦|Asiatisch & Indisch|Gemüsepfanne TK:250;Sojasauce:15;Rapsöl:10
-Bibimbap|🍚|Asiatisch & Indisch|Reis gekocht:200;Rinderhack gebraten:60;Spinat:40;Karotten:40;Sojasprossen:40;Kimchi:30;Spiegelei:50;Sesamöl:5
-Tempura|🍤|Asiatisch & Indisch|Garnelen:80;Weizenmehl:40;Ei:20;Rapsöl:20;Süßkartoffel gekocht:50;Zucchini:40
 Teriyaki Hähnchen|🍗|Asiatisch & Indisch|Hähnchenbrust gebraten:150;Teriyaki Sauce:50;Reis gekocht:150
 Butter Chicken|🍛|Asiatisch & Indisch|Hähnchenbrust gebraten:130;Tomatensauce:100;Sahne 30%:60;Butter:10;Reis gekocht:150
-Chicken Tikka Masala|🍛|Asiatisch & Indisch|Hähnchenbrust gebraten:130;Tomatensauce:100;Sahne 30%:50;Joghurt 3,5%:40;Reis gekocht:150
-Dal|🍛|Asiatisch & Indisch|Linsen rot gekocht:200;Zwiebel:30;Kokosmilch:30;Rapsöl:5;Tomate:40;Curry Pulver:3
-Palak Paneer|🍛|Asiatisch & Indisch|Paneer:100;Spinat:150;Sahne 30%:30;Zwiebel:30;Rapsöl:5
-Tandoori Chicken|🍗|Asiatisch & Indisch|Hähnchenkeule gebraten:180;Naturjoghurt:40
-Biryani|🍛|Asiatisch & Indisch|Basmati gekocht:220;Hähnchenbrust gebraten:100;Zwiebel:40;Naturjoghurt:40;Ghee:10;Rosinen:10
 Poke Bowl Lachs|🥗|Asiatisch & Indisch|Reis gekocht:150;Lachs:100;Avocado:50;Edamame:40;Gurke:30;Karotten:20;Sojasauce:10;Sesam:5
 Schnitzel paniert|🥩|Hauptgerichte|Schweineschnitzel:130;Paniermehl:20;Ei:25;Weizenmehl:8;Rapsöl:15
-Cordon Bleu|🥩|Hauptgerichte|Schweineschnitzel:120;Schinken gekocht:30;Gouda:30;Paniermehl:25;Ei:25;Weizenmehl:8;Rapsöl:20
-Wiener Schnitzel|🥩|Hauptgerichte|Kalbsschnitzel:130;Paniermehl:25;Ei:25;Weizenmehl:8;Rapsöl:20
 Jägerschnitzel|🥩|Hauptgerichte|Schweineschnitzel:130;Paniermehl:20;Ei:25;Weizenmehl:8;Rapsöl:20;Jägersauce:100;Champignons:40
-Rahmschnitzel|🥩|Hauptgerichte|Schweineschnitzel:130;Sahnesauce:100;Champignons:50;Rapsöl:10;Weizenmehl:8;Sahne 30%:30
 Gulasch|🍲|Hauptgerichte|Rindergulasch:200;Zwiebel:60;Paprika rot:50;Tomatenmark:15;Rapsöl:10
-Kohlroulade|🥬|Hauptgerichte|Weißkohl:120;Schweinehack gemischt:100;Zwiebel:20;Ei:15;Bratensauce:100;Paniermehl:10
-Labskaus|🍳|Hauptgerichte|Corned Beef:100;Kartoffeln gekocht:150;Rote Bete gekocht:60;Zwiebel:30;Spiegelei:60;Gewürzgurken:20
-Grünkohl mit Pinkel|🥬|Hauptgerichte|Grünkohl:250;Mettwurst:100;Kassler:80;Kartoffeln gekocht:150;Schmalz:8
-Sauerkraut mit Wurst|🌭|Hauptgerichte|Sauerkraut:200;Bratwurst:120;Kartoffelpüree:150
-Zwiebelkuchen|🥧|Hauptgerichte|Pizzateig:80;Zwiebel:120;Bacon:25;Saure Sahne:40;Ei:25
 Quiche Lorraine|🥧|Hauptgerichte|Blätterteig:40;Bacon:25;Sahne 30%:30;Ei:40;Emmentaler:20
 Hühnerfrikassee|🍲|Hauptgerichte|Hähnchenbrust gebraten:100;Sahnesauce:100;Champignons:50;Erbsen TK:40;Reis gekocht:150
 Hackbraten|🍖|Hauptgerichte|Schweinehack gemischt:120;Ei:20;Paniermehl:15;Zwiebel:20;Senf:5
-Königsberger Klopse|🍲|Hauptgerichte|Schweinehack gemischt:100;Kapern:10;Sahnesauce:100;Kartoffeln gekocht:150;Ei:15;Paniermehl:10
 Fish and Chips|🐟|Hauptgerichte|Backfisch:150;Pommes frites:150;Remoulade:20
-Ratatouille|🍆|Hauptgerichte|Zucchini:80;Aubergine:80;Paprika rot:60;Tomate:100;Zwiebel:40;Olivenöl:10
-Kartoffelgratin|🥔|Hauptgerichte|Kartoffeln gekocht:250;Sahne 30%:60;Reibekäse:40
 Schlemmerfilet|🐟|Hauptgerichte|Seelachs:120;Sahnesauce:50;Paniermehl:25;Butter:10
 Gemüsesuppe|🍲|Suppen|Suppengemüse:150;Brühe:200;Kartoffeln roh:50;Rapsöl:3
 Tomatensuppe|🍅|Suppen|Passierte Tomaten:200;Brühe:100;Sahne 30%:30;Zwiebel:20
 Hühnersuppe|🍲|Suppen|Hühnerbrühe:250;Hähnchenbrust gebraten:50;Suppengemüse:60;Nudeln gekocht:40
 Linsensuppe|🍲|Suppen|Linsen gekocht:120;Suppengemüse:80;Brühe:200;Wiener Würstchen:50
-Gulaschsuppe|🍲|Suppen|Rindergulasch:100;Paprika rot:60;Zwiebel:50;Kartoffeln gekocht:80;Tomatenmark:10;Brühe:200;Rapsöl:5
-Erbsensuppe|🍲|Suppen|Erbsen TK:150;Kartoffeln gekocht:80;Bockwurst:60;Brühe:200
 Kürbissuppe|🎃|Suppen|Hokkaido Kürbis:200;Kokosmilch:50;Brühe:150;Zwiebel:30
-Kartoffelsuppe|🍲|Suppen|Kartoffeln roh:150;Suppengemüse:50;Brühe:200;Wiener Würstchen:50
-Leberknödelsuppe|🍲|Suppen|Semmelknödel:100;Leberwurst:30;Rinderbrühe:300
-Frittatensuppe|🍲|Suppen|Pfannkuchen:40;Rinderbrühe:300;Schnittlauch:3
-Soljanka|🍲|Suppen|Gewürzgurken:50;Jagdwurst:60;Tomatenmark:15;Zwiebel:40;Brühe:250;Saure Sahne:30;Oliven grün:15
-Pho|🍜|Suppen|Reisnudeln gekocht:150;Rinderbrühe:350;Rindersteak gebraten:60;Sojasprossen:30;Frühlingszwiebeln:15
-Miso Suppe|🍲|Suppen|Miso Paste:20;Tofu:50;Brühe:200;Frühlingszwiebeln:10
 Ramen Nudelsuppe|🍜|Suppen|Mie Nudeln gekocht:150;Hühnerbrühe:350;Schweinebauch gebraten:50;Ei gekocht:50;Frühlingszwiebeln:15;Sojasauce:10
-Linseneintopf|🍲|Suppen|Linsen gekocht:200;Kartoffeln gekocht:100;Suppengemüse:80;Wiener Würstchen:50;Brühe:100
-Bohneneintopf|🍲|Suppen|Bohnen weiß gekocht:200;Kartoffeln gekocht:100;Karotten:60;Bacon:20;Brühe:100
-Eintopf Gemüse|🍲|Suppen|Kartoffeln gekocht:150;Karotten:80;Weißkohl:80;Erbsen TK:50;Brühe:150;Rapsöl:5
 Krautsalat|🥗|Salate|Weißkohl:120;Karotten:20;Mayonnaise:15;Essig:5;Zucker:3
 Nudelsalat|🥗|Salate|Nudeln gekocht:150;Mayonnaise:20;Gewürzgurken:20;Mais (Dose):30;Schinken gekocht:30;Erbsen:20
 Caesar Salat|🥗|Salate|Romanasalat:120;Hähnchenbrust gebraten:80;Croutons:20;Parmesan:15;Caesar Dressing:30
 Griechischer Salat|🥗|Salate|Gurke:100;Tomate:100;Paprika grün:40;Rote Zwiebel:30;Feta:60;Oliven schwarz:20;Olivenöl:12
 Caprese|🍅|Salate|Tomate:120;Mozzarella:100;Olivenöl:10;Frischer Basilikum:5
 Kartoffelsalat|🥗|Salate|Kartoffeln gekocht:200;Mayonnaise:20;Gewürzgurken:20;Zwiebel:15
-Fleischsalat|🥗|Salate|Fleischwurst:50;Gewürzgurken:20;Mayonnaise:25
-Wurstsalat|🥗|Salate|Lyoner:100;Gewürzgurken:40;Zwiebel:30;Essig-Öl Dressing:50
-Tomatensalat|🥗|Salate|Tomate:200;Zwiebel:20;Rapsöl:8
-Gurkensalat|🥗|Salate|Gurke:200;Salatdressing Joghurt:50
-Karottensalat|🥗|Salate|Karotten:150;Zitronensaft:10;Rapsöl:5;Zucker:3
-Rote Bete Salat|🥗|Salate|Rote Bete gekocht:150;Essig-Öl Dressing:20;Zwiebel:15
-Bohnensalat|🥗|Salate|Kidneybohnen gekocht:100;Mais (Dose):40;Paprika rot:40;Zwiebel:20;Essig-Öl Dressing:25
-Linsensalat|🥗|Salate|Linsen gekocht:150;Karotten:30;Zwiebel:20;Essig-Öl Dressing:30
-Couscous Salat|🥗|Salate|Couscous gekocht:150;Paprika rot:50;Gurke:50;Tomate:50;Olivenöl:12;Zitronensaft:10
-Tabouleh|🥗|Salate|Bulgur gekocht:100;Petersilie:40;Tomate:80;Minze:5;Olivenöl:12;Zitronensaft:15
-Waldorfsalat|🥗|Salate|Sellerie:60;Apfel:60;Walnüsse:15;Mayonnaise:25
-Coleslaw|🥗|Salate|Weißkohl:100;Karotten:30;Mayonnaise:25;Zucker:3
-Heringssalat|🥗|Salate|Bismarckhering:60;Rote Bete gekocht:40;Apfel:30;Saure Sahne:30;Gewürzgurken:20;Zwiebel:15;Mayonnaise:15
 Thunfischsalat|🥗|Salate|Thunfisch (Dose, Öl):80;Mais (Dose):40;Mayonnaise:25;Zwiebel:20;Tomate:40;Eisbergsalat:40
-Eiersalat|🥗|Salate|Ei gekocht:70;Mayonnaise:25;Schnittlauch:3
-Nizza Salat|🥗|Salate|Thunfisch (Dose, Wasser):60;Ei gekocht:50;Grüne Bohnen:60;Tomate:80;Kartoffeln gekocht:80;Oliven schwarz:15;Olivenöl:12;Kopfsalat:50
 Buddha Bowl|🥗|Frühstück & Bowls|Quinoa gekocht:120;Kichererbsen gekocht:80;Süßkartoffel gekocht:100;Avocado:50;Spinat:30;Tahini:15;Karotten:30
-Smoothie Bowl|🥣|Frühstück & Bowls|Banane:100;Blaubeeren:60;Naturjoghurt:100;Haferflocken:30;Mandelmus:10;Honig:10
 Acai Bowl|🥣|Frühstück & Bowls|Acai Püree:100;Banane:100;Blaubeeren:50;Granola:40;Erdnussbutter:15;Honig:10;Hafermilch:50
 Overnight Oats|🥣|Frühstück & Bowls|Haferflocken:50;Milch 1,5%:120;Naturjoghurt:60;Chiasamen:8;Blaubeeren:40;Honig:8
 Rührei mit Speck|🍳|Frühstück & Bowls|Rührei:150;Bacon:40
 Omelett mit Käse|🍳|Frühstück & Bowls|Omelett:150;Gouda:40
-Pfannkuchen mit Apfel|🥞|Frühstück & Bowls|Pfannkuchen:140;Apfel:120;Puderzucker:10
 Pancakes mit Ahornsirup|🥞|Frühstück & Bowls|Pancakes:130;Ahornsirup:30;Butter:8
-Waffeln mit Puderzucker|🧇|Frühstück & Bowls|Waffeln:100;Puderzucker:10
 Milchreis mit Zimt|🍚|Frühstück & Bowls|Milchreis:250;Zucker:10;Zimt:2`;
 const DISH_CATS=["Pizza","Burger & Fast Food","Sandwiches","Döner & Orient","Mexikanisch","Pasta & Reis","Asiatisch & Indisch","Hauptgerichte","Suppen","Salate","Frühstück & Bowls"];
 const DISHES=DISHES_RAW.split("\n").map((l,i)=>{const a=l.split("|");return{id:"g"+i,name:a[0],emoji:a[1],cat:a[2],items:a[3].split(";").map(p=>{const j=p.lastIndexOf(":");return{name:p.slice(0,j),grams:+p.slice(j+1)}})}});
