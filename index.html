@@ -31,6 +31,7 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 .chart{display:flex;align-items:end;gap:6px;padding:4px 3px 0}.daycol{flex:1;display:flex;flex-direction:column;align-items:center;min-width:0}.daykcal{font-size:9px;color:var(--muted);height:12px;line-height:12px;white-space:nowrap}.barwrap{height:100px;width:100%;display:flex;align-items:end}.barcol{width:100%;background:linear-gradient(to top,#72db64,#b4f6aa);border-radius:7px 7px 2px 2px;min-height:8px}.barcol.today{background:linear-gradient(to top,#4a9d3c,#7ee66b);box-shadow:0 0 0 1.5px #7ee66b inset}.barcol.over{background:linear-gradient(to top,#c97a2e,#ffad3d)}.daylabel{font-size:10px;color:var(--muted);margin-top:5px;height:12px;line-height:12px}.daylabel.today{color:var(--green);font-weight:750}
 .modal{position:fixed;inset:0;background:#000b;display:none;align-items:end;z-index:50}.modal.show{display:flex}.sheet{width:min(480px,100%);max-height:90vh;overflow:auto;margin:auto;background:#121518;border-radius:24px 24px 0 0;padding:19px}.close{float:right;background:none;border:0;color:#fff;font-size:24px}.preview{width:100%;height:250px;object-fit:cover;border-radius:17px;background:#20252a}.toast{position:fixed;z-index:100;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);background:#22292f;color:#fff;padding:11px 15px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;font-size:13px}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast.withundo{pointer-events:auto}.toast .undo{margin-left:12px;background:none;border:0;color:var(--green);font-weight:800;padding:2px 4px}
 .foodmain{display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer}.foodmain>div{min-width:0}.foodmain>div>b{overflow-wrap:anywhere}.detailpic{width:100%;height:180px;border-radius:18px;background:#22282e;display:grid;place-items:center;overflow:hidden;font-size:84px;margin-bottom:6px}.detailpic img{width:100%;height:100%;object-fit:cover;display:block}
+.dishrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 0;border-bottom:1px solid #252b30}.dishrow:last-child{border:0}.dname{flex:1;min-width:110px}.dname b{display:block;overflow-wrap:anywhere}.dchk{width:30px;height:30px;flex:0 0 30px;border-radius:9px;border:2px solid var(--green);background:var(--green);color:#0b1208;font-weight:900;padding:0;font-size:16px;margin:0}.dishrow.off .dchk{background:transparent;border-color:#4a525a;color:transparent}.dishrow.off .dname b{text-decoration:line-through;opacity:.5}.dishrow.off .dstep{opacity:.4}.dstep{display:flex;align-items:center;gap:4px;margin-left:auto}.dstep button{width:30px;height:30px;padding:0;margin:0;border-radius:9px;border:1px solid #394148;background:#182019;color:#fff;font-size:16px}.dtotal{border:1px solid #2b3137;background:#171b20;border-radius:16px;padding:12px 14px;margin:10px 0}.dtotal b{font-size:22px}.dtotal .small{margin:2px 0 0}
 </style>
 </head>
 <body>
@@ -48,7 +49,8 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 <div class="option" onclick="textLog()"><div class="ico" style="background:#132a3a;color:var(--blue)">✏️</div><div><strong>Beschreibung</strong><small>Beschreibe dein Essen mit Text</small></div></div>
 <div class="option" onclick="searchFood()"><div class="ico" style="background:#271a3a;color:var(--purple)">🔎</div><div><strong>Suche</strong><small>Lebensmittel aus unserer Datenbank suchen</small></div></div>
 <div class="option" onclick="barcode()"><div class="ico" style="background:#3a2a12;color:var(--orange)">▥</div><div><strong>Barcode scannen</strong><small>Verpackung scannen und hinzufügen</small></div></div>
-<div class="option" onclick="go('recipes')"><div class="ico" style="background:#2a1f3a;color:var(--purple)">📖</div><div><strong>Rezepte</strong><small>Gespeicherte Rezepte nutzen oder eigene erstellen</small></div></div>
+<div class="option" onclick="showRecipeTab('Gerichte')"><div class="ico" style="background:#3a1f1a;color:var(--orange)">🍔</div><div><strong>Gerichte</strong><small>Pizza, Burger, Döner &amp; Co. – Zutaten einzeln weglassen oder ändern</small></div></div>
+<div class="option" onclick="showRecipeTab('Alle')"><div class="ico" style="background:#2a1f3a;color:var(--purple)">📖</div><div><strong>Rezepte</strong><small>Gespeicherte Rezepte nutzen oder eigene erstellen</small></div></div>
 <div class="option" onclick="createDish()"><div class="ico" style="background:#1a2a1f;color:var(--green)">🍲</div><div><strong>Gericht erstellen</strong><small>Mehrere Lebensmittel frei kombinieren und als eine Mahlzeit speichern</small></div></div>
 </main></section>
 
@@ -56,6 +58,7 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 <input id="recipeSearch" placeholder="Rezepte suchen" oninput="renderRecipeList()">
 <div class="tabsscroll" id="recipeCatTabs">
 <button class="sel" data-cat="Alle" onclick="selectRecipeCat(this)">Alle</button>
+<button data-cat="Gerichte" onclick="selectRecipeCat(this)">🍔 Gerichte</button>
 <button data-cat="Frühstück" onclick="selectRecipeCat(this)">Frühstück</button>
 <button data-cat="Mittagessen" onclick="selectRecipeCat(this)">Mittagessen</button>
 <button data-cat="Abendessen" onclick="selectRecipeCat(this)">Abendessen</button>
@@ -136,7 +139,7 @@ const foods=[
 // Getränke
 ["Orangensaft","🧃",45,0.7,10,0.2],["Cola","🥤",42,0,10.6,0],["Kokosmilch","🥥",230,2.3,6,24],
 // Fertig/Sonstiges
-["Sojasauce","🍶",53,8,5,0],["Ketchup","🍅",101,1.2,24,0.2],["Pizza Margherita","🍕",266,11,33,10]
+["Sojasauce","🍶",53,8,5,0],["Ketchup","🍅",101,1.2,24,0.2]
 ];
 const MICRO_GOALS={vitA:800,vitC:80,calc:800,iron:14,mag:375,pot:2000,zinc:10,vitD:5,fiber:30,sugar:50,sodium:2300};
 const MICRO_LIMIT={sugar:1,sodium:1};
@@ -332,7 +335,6 @@ Cola|0|10.6|4
 Kokosmilch|0|3|15
 Sojasauce|0.8|1.7|5600
 Ketchup|0.9|22|900
-Pizza Margherita|2|3|550
 Bacon|0|0|1700
 Salami|0|0.5|1800
 Schinken gekocht|0|0.5|1100
@@ -683,13 +685,11 @@ Leberwurst|320|13|2|29
 Teewurst|350|13|1|33
 Bratwurst|300|13|2|27
 Wiener Würstchen|270|12|2|25
-Currywurst|250|12|7|19
 Frikadelle|230|15|5|16
 Fleischkäse|290|12|2|26
 Leberkäse|280|12|1|26
 Chicken Nuggets|250|15|16|14
 Fischstäbchen|195|13|18|8
-Schlemmerfilet|170|11|13|8
 Räucherlachs|180|22|0|10
 Forelle|120|20|0|4
 Hering|200|18|0|14
@@ -817,7 +817,6 @@ Jasminreis gekocht|130|2.7|28|0.3
 Naturreis roh|350|7.5|74|2.5
 Wildreis gekocht|100|4|21|0.3
 Milchreis roh|355|7|78|1
-Risotto|150|3|25|4
 Bulgur gekocht|85|3|19|0.2
 Hirse gekocht|120|3.5|23|1
 Polenta gekocht|70|1.7|15|0.3
@@ -838,7 +837,6 @@ Kartoffeln roh|75|2|15|0.1
 Pommes frites|290|3.5|40|13
 Bratkartoffeln|150|3|20|6
 Kartoffelpüree|90|2|14|3
-Kartoffelsalat|130|2|15|7
 Kartoffelpuffer|230|3|28|12
 Kroketten|210|4|27|10
 Süßkartoffel roh|85|1.6|20|0.1
@@ -897,21 +895,8 @@ Pfifferlinge|15|1.5|0.5|0.5
 Austernpilze|35|3|5|0.4
 Shiitake|35|2.2|7|0.5
 Zucchini gebraten|60|1.5|3|4.5
-Ratatouille|55|1.5|6|3
-Gemüsesuppe|35|1|6|1
-Tomatensuppe|45|1.2|6|2
-Hühnersuppe|40|3|4|1.2
-Linsensuppe|75|4.5|11|1.5
-Gulaschsuppe|80|6|6|4
-Erbsensuppe|80|5|10|2.5
-Kürbissuppe|55|1.2|7|2.5
 Brühe|8|0.5|1|0.2
 Salat gemischt|20|1.3|3|0.3
-Krautsalat|85|1.1|7|6
-Nudelsalat|170|3|20|8
-Caesar Salat|130|5|6|9
-Griechischer Salat|110|3|4|9
-Caprese|180|11|3|14
 Aprikosen|45|1|9|0.1
 Pfirsich|40|0.9|8|0.1
 Nektarine|44|1|9|0.2
@@ -1047,35 +1032,8 @@ Salzstangen|380|10|74|3
 Cracker|440|9|65|16
 Tortilla Chips|490|7|62|24
 Nachos|500|7|60|26
-Hamburger|250|13|30|9
-Cheeseburger|280|15|28|12
-Döner Kebab|215|13|17|11
 Dönerfleisch|220|18|3|15
-Pizza Salami|265|11|30|11
-Pizza Funghi|230|9|31|8
-Pizza TK|240|10|31|9
-Lasagne|140|7|14|6
-Spaghetti Bolognese|130|6|17|4
-Spaghetti Carbonara|190|8|20|8
-Pasta mit Tomatensauce|120|4|22|2
-Chili con Carne|105|8|9|4
-Gulasch mit Nudeln|120|9|12|4
-Schnitzel paniert|230|17|13|12
-Cordon Bleu|255|17|13|15
-Sushi Maki|140|4|27|1.5
-Sushi Nigiri|150|7|26|1.5
-Frühlingsrolle|200|5|25|9
-Bratreis|165|4|26|5
-Gebratene Nudeln|170|5|24|6
-Pad Thai|170|7|22|6
-Curry mit Reis|150|6|22|4
-Burrito|190|8|27|5
-Taco|210|9|20|10
-Quesadilla|260|12|25|13
-Wrap Hähnchen|190|11|21|6
-Bratwurst im Brötchen|290|11|27|15
 Pellkartoffeln|75|2|15|0.1
-Rührei mit Speck|230|13|1|19
 Eierkuchen|200|6|27|8
 Kaiserschmarrn|215|6|28|9
 Apfelstrudel|230|3|34|9
@@ -1118,7 +1076,6 @@ Kreatin|0|0|0|0
 Weight Gainer|390|25|60|5
 Maltodextrin|380|0|95|0
 Haferdrink Barista|55|1|7|2.7
-Ramen Nudelsuppe|105|5.5|13|3.5
 Tzatziki|115|3|3|10
 Guacamole|150|2|6|13
 Hummus light|140|6|10|8
@@ -1189,11 +1146,7 @@ Prosciutto|235|26|0|14
 Bresaola|150|32|0|2.5
 Pancetta|390|17|0|36
 Sülze|90|10|1|5
-Fleischsalat|285|6|3|28
-Wurstsalat|250|10|3|22
-Hackbraten|220|16|5|15
 Hackbällchen|235|14|8|16
-Königsberger Klopse|140|9|8|7
 Rinderroulade gegart|170|27|1|6
 Sauerbraten|165|24|3|6
 Tafelspitz gekocht|190|30|0|8
@@ -1239,12 +1192,8 @@ Jakobsmuscheln|85|17|3|0.8
 Austern|70|10|4|2
 Garnelen gebraten|140|22|1|5
 Backfisch|230|12|17|13
-Fish and Chips|230|9|24|11
 Fischfrikadelle|190|13|11|11
-Thunfischsalat|190|11|8|13
 Lachs Sashimi|140|20|0|6
-Sushi California Roll|140|4|24|3
-Poke Bowl Lachs|150|9|16|5
 Skyr Vanille|80|8.5|9.5|0.2
 Skyr Frucht|85|8|11|0.2
 Kräuterquark|110|8|3|7
@@ -1278,8 +1227,6 @@ Pflanzliche Sahne|170|1.5|3|17
 Veganer Käse|290|0.5|20|23
 Veganer Frischkäse|230|4|6|21
 Ei pochiert|145|12.5|0.7|10
-Eiersalat|250|8|3|23
-Omelett mit Käse|215|12|2|17
 Landbrot|240|7|47|1.2
 Weizenbrot|250|8|49|1.5
 Sauerteigbrot|235|7|46|1.2
@@ -1321,16 +1268,12 @@ Fusilli gekocht|155|5.5|31|1
 Tagliatelle gekocht|160|6|31|1.5
 Tortellini|250|10|37|7
 Ravioli|200|8|28|5
-Ravioli Dose|90|3.5|13|2.5
 Udon gekocht|105|3|21|0.4
 Sobanudeln gekocht|100|5|21|0.1
 Mie Nudeln gekocht|140|4.5|27|1.5
-Instantnudeln|450|9|60|19
 Schupfnudeln|170|4|33|2
 Rösti|180|2.5|20|10
 Kartoffelecken|150|2.5|22|6
-Kartoffelgratin|130|3.5|11|8
-Kartoffelsuppe|60|1.5|8|2.5
 Ofenkartoffel|95|2.5|20|0.2
 Süßkartoffelpommes|230|2.5|35|9
 Hash Browns|220|2.5|24|13
@@ -1356,7 +1299,6 @@ Reismehl|360|6|80|1.4
 Speisestärke|350|0.5|86|0.1
 Hartweizengrieß|340|11|68|1.2
 Granola|450|10|60|18
-Overnight Oats|120|4|17|3.5
 Schoko Cerealien|390|7|78|5
 Proteinmüsli|390|25|42|13
 Reiswaffeln Schoko|430|7|72|13
@@ -1387,17 +1329,6 @@ Ajvar|110|1.5|12|6
 Gemüsepfanne TK|40|2|5|1
 Suppengemüse|35|1.5|6|0.4
 Salatmix|20|1.5|2.5|0.2
-Tomatensalat|55|0.9|4|4
-Gurkensalat|40|1|3|2.8
-Karottensalat|65|0.9|9|3
-Rote Bete Salat|65|1.5|10|2
-Bohnensalat|110|5|12|4
-Linsensalat|130|7|15|4
-Couscous Salat|150|4|22|5
-Tabouleh|140|3|18|6
-Waldorfsalat|220|2|10|19
-Coleslaw|150|1|9|12
-Heringssalat|200|9|8|15
 Rotkohl gekocht|50|1.2|8|1.5
 Gemüsebratling|180|5|20|9
 Veggie Patty|200|14|12|10
@@ -1499,104 +1430,11 @@ Macarons|400|7|56|17
 Churros|440|5|50|25
 Germknödel|215|5|35|6
 Palatschinken|180|6|22|7
-Big Mac|250|13|20|14
-McChicken|245|11|26|11
-Chicken McNuggets|245|15|15|14
-Whopper|235|11|18|13
-Pommes klein|300|3.5|38|15
-Hot Dog|250|10|22|13
-Corn Dog|260|7|27|14
-Chicken Wings|230|20|5|14
-KFC Hähnchen|270|18|12|17
-Döner Teller|180|11|14|9
-Dürüm Döner|210|11|22|9
-Gyros Teller|200|13|15|10
-Souvlaki|180|22|2|9
-Moussaka|140|8|7|9
-Köfte|230|16|5|16
-Lahmacun|230|9|31|8
-Börek|280|8|26|16
-Pizza Hawaii|240|10|28|9
-Pizza Tonno|235|11|27|9
-Pizza Prosciutto|240|11|27|9
-Pizza Quattro Formaggi|270|12|27|13
-Pizza Diavola|265|11|27|13
-Calzone|250|11|29|9
-Flammkuchen|240|9|26|11
-Pizzabrötchen|290|9|30|14
 Knoblauchbrot|350|7|40|18
-Spaghetti Aglio e Olio|180|5|27|6
-Spaghetti Napoli|120|4|23|1.5
-Penne Arrabbiata|125|4|23|2
-Tortellini Sahnesauce|190|8|22|8
-Gnocchi Gorgonzola|190|6|23|8
-Nudelauflauf|150|8|14|7
-Gemüselasagne|110|5|11|5
-Cannelloni|150|8|13|7
-Risotto Pilz|140|3.5|22|4
-Paella|150|9|18|4
-Wiener Schnitzel|240|20|10|13
-Jägerschnitzel|190|15|9|11
-Rahmschnitzel|170|17|3|10
-Gulasch|130|14|3|7
-Kohlroulade|110|7|7|6
-Linseneintopf|85|5|12|2
-Bohneneintopf|90|5|11|3
-Labskaus|150|8|11|8
-Grünkohl mit Pinkel|180|8|5|14
-Sauerkraut mit Wurst|140|7|4|11
-Käsespätzle|230|11|22|11
-Zwiebelkuchen|230|6|21|13
-Quiche Lorraine|270|9|18|18
-Leberknödelsuppe|65|4|6|2.5
-Frittatensuppe|35|2|4|1
-Soljanka|65|4|3|4
-Pho|55|4|7|1
-Wok Gemüse|70|2.5|8|3
-Gebratener Reis mit Ei|165|5|26|4.5
 Sashimi Mix|120|20|0|4
-Miso Suppe|35|2.5|3|1.2
-Bibimbap|130|6|18|3.5
 Kimchi|20|1.5|3|0.3
-Tempura|230|7|25|11
-Teriyaki Hähnchen|150|18|9|4
-Hühnerfrikassee|110|10|5|6
-Butter Chicken|150|12|6|9
-Chicken Tikka Masala|140|11|7|8
-Dal|100|5|14|3
-Palak Paneer|140|6|6|10
-Samosa|260|5|30|13
-Tandoori Chicken|150|22|3|5
-Biryani|160|8|22|4.5
-Shakshuka|85|5|6|5
 Baba Ganoush|130|2|7|11
-Dolma|180|3|23|8
-Burrito Bowl|130|7|17|4
-Enchilada|160|9|15|7
-Fajita|150|13|10|6
 Salsa|35|1.5|7|0.2
-Chili sin Carne|90|4.5|13|2
-Ceviche|90|14|4|1.5
-Buddha Bowl|120|5|17|3.5
-Smoothie Bowl|110|2.5|20|2.5
-Acai Bowl|135|2|22|4
-Nizza Salat|110|8|4|7
-Sandwich Käse Schinken|240|12|26|9
-Sandwich Hähnchen|200|13|23|6
-Belegtes Brötchen Käse|260|12|30|10
-Belegtes Brötchen Salami|270|11|30|12
-Belegtes Brötchen Schinken|230|11|30|7
-Leberkäsebrötchen|270|11|27|13
-Fischbrötchen|210|10|25|7
-Käsetoast|290|13|25|15
-Toast Hawaii|230|11|20|11
-Rührei Toast|250|12|22|12
-Pfannkuchen mit Apfel|170|5|25|5
-Pancakes mit Ahornsirup|225|5|36|6
-Waffeln mit Puderzucker|310|6|42|13
-Milchreis mit Zimt|145|3.5|27|2.5
-Eintopf Gemüse|55|2|8|1.5
-Frikadellenbrötchen|260|13|26|11
 Espresso|2|0.1|0.3|0.2
 Milchkaffee|40|2|3|2
 Kaffee mit Milch|20|1|1.5|1
@@ -1674,9 +1512,179 @@ Reisprotein|375|80|5|3
 Sojaprotein|370|85|3|2
 Collagen Pulver|355|90|0|0
 Protein Pancakes|180|14|18|5
-Protein Chips|400|45|30|10`;
+Protein Chips|400|45|30|10
+Acai Püree|70|1|4|5`;
+// Gerichte: Zutatenlisten (Zutat:Gramm je Portion). Jede Zutat ist ein Lebensmittel der Liste; Nährwerte werden daraus berechnet.
+const DISHES_RAW=`Pizza Margherita|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:100
+Pizza Salami|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:90;Salami:50
+Pizza Funghi|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:90;Champignons:80
+Pizza Hawaii|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:90;Schinken gekocht:50;Ananas Dose:60
+Pizza Tonno|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:80;Thunfisch (Dose, Wasser):60;Rote Zwiebel:30
+Pizza Prosciutto|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:90;Schinken gekocht:60
+Pizza Quattro Formaggi|🍕|Pizza|Pizzateig:180;Pizzasauce:50;Mozzarella:60;Gorgonzola:40;Parmesan:20;Emmentaler:40
+Pizza Diavola|🍕|Pizza|Pizzateig:180;Pizzasauce:70;Mozzarella:90;Salami:60;Peperoni:30
+Pizza TK|🍕|Pizza|Pizzateig:150;Pizzasauce:50;Mozzarella:70;Salami:40
+Calzone|🥟|Pizza|Pizzateig:200;Pizzasauce:40;Mozzarella:70;Schinken gekocht:60;Champignons:60
+Flammkuchen|🍕|Pizza|Pizzateig:130;Crème fraîche:80;Zwiebel:50;Bacon:40
+Pizzabrötchen|🥖|Pizza|Pizzateig:90;Pizzasauce:20;Reibekäse:30;Salami:15
+Hamburger|🍔|Burger & Fast Food|Brötchen:45;Rinderhack gebraten:40;Gewürzgurken:8;Zwiebel:8;Ketchup:12;Senf:3
+Cheeseburger|🍔|Burger & Fast Food|Brötchen:45;Rinderhack gebraten:40;Scheibenkäse:15;Gewürzgurken:8;Zwiebel:8;Ketchup:12;Senf:3
+Big Mac|🍔|Burger & Fast Food|Brötchen:70;Rinderhack gebraten:70;Scheibenkäse:15;Eisbergsalat:15;Zwiebel:8;Gewürzgurken:10;Mayonnaise:10;Ketchup:10
+McChicken|🍔|Burger & Fast Food|Brötchen:60;Hähnchenbrust paniert:80;Eisbergsalat:15;Mayonnaise:12
+Chicken McNuggets|🍗|Burger & Fast Food|Chicken Nuggets:110;Barbecuesauce:25
+Whopper|🍔|Burger & Fast Food|Brötchen:80;Rinderhack gebraten:100;Tomate:25;Eisbergsalat:15;Zwiebel:15;Gewürzgurken:10;Mayonnaise:15;Ketchup:15
+Pommes klein|🍟|Burger & Fast Food|Pommes frites:80;Ketchup:20
+Hot Dog|🌭|Burger & Fast Food|Brötchen:60;Wiener Würstchen:60;Ketchup:15;Senf:5;Röstzwiebeln:5
+Corn Dog|🌭|Burger & Fast Food|Wiener Würstchen:60;Weizenmehl:25;Ei:15;Rapsöl:8;Ketchup:10
+Chicken Wings|🍗|Burger & Fast Food|Hähnchenflügel:200;Barbecuesauce:25
+KFC Hähnchen|🍗|Burger & Fast Food|Hähnchenkeule gebraten:140;Paniermehl:20;Rapsöl:8
+Currywurst|🌭|Burger & Fast Food|Bratwurst:160;Currysauce:70;Ketchup:25;Curry Pulver:2
+Bratwurst im Brötchen|🌭|Burger & Fast Food|Bratwurst:100;Brötchen:55;Senf:10
+Frikadellenbrötchen|🥪|Sandwiches|Brötchen:55;Frikadelle:80;Senf:8;Gewürzgurken:10;Ketchup:10
+Sandwich Käse Schinken|🥪|Sandwiches|Toastbrot:60;Schinken gekocht:40;Gouda:40;Butter:8;Eisbergsalat:15;Tomate:30
+Sandwich Hähnchen|🥪|Sandwiches|Toastbrot:60;Hähnchenbrust Aufschnitt:70;Eisbergsalat:20;Tomate:30;Mayonnaise:20;Gurke:20
+Belegtes Brötchen Käse|🥪|Sandwiches|Brötchen:55;Butter:5;Gouda:30
+Belegtes Brötchen Salami|🥪|Sandwiches|Brötchen:55;Butter:5;Salami:20;Gewürzgurken:10
+Belegtes Brötchen Schinken|🥪|Sandwiches|Brötchen:55;Butter:5;Schinken gekocht:35
+Leberkäsebrötchen|🥪|Sandwiches|Brötchen:55;Leberkäse:100;Senf:10
+Fischbrötchen|🥪|Sandwiches|Brötchen:55;Bismarckhering:60;Zwiebel:15;Remoulade:15
+Käsetoast|🥪|Sandwiches|Toastbrot:50;Gouda:40;Butter:5
+Toast Hawaii|🥪|Sandwiches|Toastbrot:50;Schinken gekocht:25;Ananas Dose:30;Gouda:30
+Rührei Toast|🍳|Sandwiches|Rührei:120;Toastbrot:50;Butter:8
+Döner Kebab|🥙|Döner & Orient|Fladenbrot:120;Dönerfleisch:120;Weißkohl:30;Tomate:30;Zwiebel:20;Eisbergsalat:20;Joghurtsauce:40;Knoblauchsauce:15
+Döner Teller|🥙|Döner & Orient|Dönerfleisch:150;Pommes frites:120;Salat gemischt:80;Tomate:30;Joghurtsauce:40
+Dürüm Döner|🌯|Döner & Orient|Wraps Tortilla:90;Dönerfleisch:150;Zwiebel:20;Tomate:30;Eisbergsalat:20;Rotkohl:20;Joghurtsauce:40
+Gyros Teller|🥙|Döner & Orient|Schweinegeschnetzeltes:180;Pommes frites:150;Tzatziki:50;Weißkohl:40;Tomate:40;Zwiebel:20;Olivenöl:10
+Souvlaki|🥙|Döner & Orient|Schweinefilet gebraten:150;Fladenbrot:60;Tzatziki:50;Tomate:30;Zwiebel:20;Olivenöl:8
+Moussaka|🍆|Döner & Orient|Aubergine:150;Rinderhack gebraten:100;Tomatensauce:80;Béchamelsauce:100;Kartoffeln gekocht:60;Olivenöl:8;Reibekäse:20
+Köfte|🧆|Döner & Orient|Lammhack:100;Rinderhack normal:50;Zwiebel:20;Paniermehl:10;Ei:20;Olivenöl:8
+Lahmacun|🫓|Döner & Orient|Pizzateig:100;Rinderhack normal:60;Tomate:30;Zwiebel:20;Paprika rot:20;Olivenöl:5
+Börek|🥟|Döner & Orient|Blätterteig:60;Schafskäse:50;Spinat:30;Ei:15
+Dolma|🥬|Döner & Orient|Reis gekocht:100;Olivenöl:8;Zwiebel:20;Tomatenmark:10;Pinienkerne:5
+Shakshuka|🍳|Döner & Orient|Ei:120;Dosentomaten:200;Paprika rot:60;Zwiebel:40;Olivenöl:5
+Samosa|🥟|Döner & Orient|Weizenmehl:60;Kartoffeln gekocht:90;Erbsen TK:30;Rapsöl:18;Curry Pulver:3
+Burrito|🌯|Mexikanisch|Wraps Tortilla:70;Reis gekocht:80;Kidneybohnen gekocht:60;Hähnchenbrust gebraten:70;Reibekäse:25;Salsa:30;Saure Sahne:20
+Taco|🌮|Mexikanisch|Taco Shells:30;Rinderhack gebraten:60;Eisbergsalat:20;Tomate:30;Reibekäse:15;Salsa:20
+Quesadilla|🧀|Mexikanisch|Wraps Tortilla:60;Reibekäse:60;Hähnchenbrust gebraten:50;Paprika rot:30;Zwiebel:15
+Wrap Hähnchen|🌯|Mexikanisch|Wraps Tortilla:60;Hähnchenbrust gebraten:70;Eisbergsalat:25;Tomate:30;Gurke:20;Joghurtsauce:30;Reibekäse:15
+Burrito Bowl|🥗|Mexikanisch|Reis gekocht:120;Schwarze Bohnen gekocht:70;Hähnchenbrust gebraten:80;Mais (Dose):30;Tomate:40;Avocado:40;Salsa:30;Reibekäse:15
+Enchilada|🌯|Mexikanisch|Maistortilla:80;Hähnchenbrust gebraten:80;Tomatensauce:80;Reibekäse:40
+Fajita|🌯|Mexikanisch|Wraps Tortilla:70;Hähnchenbrust gebraten:90;Paprika rot:50;Zwiebel:40;Olivenöl:8;Saure Sahne:20
+Chili con Carne|🌶️|Mexikanisch|Rinderhack mager:80;Kidneybohnen gekocht:80;Dosentomaten:120;Mais (Dose):30;Zwiebel:30;Paprika rot:40;Olivenöl:5
+Chili sin Carne|🌶️|Mexikanisch|Kidneybohnen gekocht:100;Schwarze Bohnen gekocht:60;Mais (Dose):40;Dosentomaten:120;Paprika rot:50;Zwiebel:30;Olivenöl:5
+Ceviche|🐟|Mexikanisch|Dorade:120;Limette:20;Rote Zwiebel:30;Tomate:40;Mais (Dose):30
+Lasagne|🍝|Pasta & Reis|Nudeln gekocht:80;Bolognese Sauce:150;Béchamelsauce:100;Reibekäse:30
+Spaghetti Bolognese|🍝|Pasta & Reis|Spaghetti gekocht:220;Bolognese Sauce:150;Parmesan:10
+Spaghetti Carbonara|🍝|Pasta & Reis|Spaghetti gekocht:220;Bacon:40;Ei:50;Parmesan:20
+Pasta mit Tomatensauce|🍝|Pasta & Reis|Nudeln gekocht:250;Tomatensauce:150;Parmesan:10
+Gulasch mit Nudeln|🍝|Pasta & Reis|Rindergulasch:150;Nudeln gekocht:170;Zwiebel:40;Paprika rot:30;Tomatenmark:10;Rapsöl:5
+Spaghetti Aglio e Olio|🍝|Pasta & Reis|Spaghetti gekocht:220;Olivenöl:15;Knoblauch:8;Chili:5;Petersilie:3
+Spaghetti Napoli|🍝|Pasta & Reis|Spaghetti gekocht:220;Tomatensauce:150;Parmesan:10
+Penne Arrabbiata|🍝|Pasta & Reis|Penne gekocht:220;Tomatensauce:150;Chili:8;Knoblauch:5;Olivenöl:8
+Tortellini Sahnesauce|🍝|Pasta & Reis|Tortellini:150;Sahnesauce:100;Schinken gekocht:30;Parmesan:10
+Gnocchi Gorgonzola|🍝|Pasta & Reis|Gnocchi:220;Gorgonzola:40;Sahnesauce:60
+Nudelauflauf|🍝|Pasta & Reis|Nudeln gekocht:180;Schinken gekocht:50;Sahnesauce:100;Reibekäse:50
+Gemüselasagne|🍝|Pasta & Reis|Nudeln gekocht:80;Zucchini:80;Aubergine:60;Tomatensauce:100;Béchamelsauce:80;Mozzarella:40
+Cannelloni|🍝|Pasta & Reis|Nudeln gekocht:70;Ricotta:80;Spinat:60;Tomatensauce:100;Mozzarella:50;Parmesan:15
+Risotto|🍚|Pasta & Reis|Reis gekocht:200;Butter:10;Parmesan:20;Zwiebel:20;Wein weiß:30
+Risotto Pilz|🍚|Pasta & Reis|Reis gekocht:200;Champignons braun:80;Butter:10;Parmesan:20;Zwiebel:20
+Paella|🥘|Pasta & Reis|Reis gekocht:200;Garnelen:60;Muscheln:50;Hähnchenbrust gebraten:60;Paprika rot:40;Erbsen TK:30;Olivenöl:10;Tintenfisch:40
+Käsespätzle|🧀|Pasta & Reis|Spätzle gekocht:250;Emmentaler:80;Röstzwiebeln:15
+Ravioli Dose|🥫|Pasta & Reis|Ravioli:120;Tomatensauce:200
+Instantnudeln|🍜|Pasta & Reis|Nudeln roh:75;Rapsöl:12;Gemüsebrühe Pulver:6
+Sushi Maki|🍣|Asiatisch & Indisch|Reis gekocht:120;Lachs:40;Gurke:30;Avocado:20;Sojasauce:8
+Sushi Nigiri|🍣|Asiatisch & Indisch|Reis gekocht:90;Lachs:45;Thunfisch frisch:20;Sojasauce:8
+Sushi California Roll|🍣|Asiatisch & Indisch|Reis gekocht:120;Surimi:40;Avocado:30;Gurke:20;Mayonnaise:8;Sesam:3
+Frühlingsrolle|🥟|Asiatisch & Indisch|Glasnudeln gekocht:40;Karotten:30;Weißkohl:30;Weizenmehl:30;Rapsöl:15;Sojasauce:5;Sweet Chili Sauce:20
+Bratreis|🍚|Asiatisch & Indisch|Reis gekocht:250;Karotten:30;Erbsen TK:30;Frühlingszwiebeln:20;Sojasauce:10;Rapsöl:12
+Gebratene Nudeln|🍜|Asiatisch & Indisch|Eiernudeln gekocht:250;Hähnchenbrust gebraten:60;Karotten:40;Weißkohl:40;Sojasauce:15;Rapsöl:12
+Pad Thai|🍜|Asiatisch & Indisch|Reisnudeln gekocht:250;Garnelen gebraten:70;Ei:50;Erdnüsse:15;Sojasprossen:50;Rapsöl:12;Fischsauce:10;Zucker:5
+Curry mit Reis|🍛|Asiatisch & Indisch|Reis gekocht:200;Hähnchenbrust gebraten:100;Kokosmilch:100;Paprika rot:50;Currypaste:15;Rapsöl:5
+Gebratener Reis mit Ei|🍚|Asiatisch & Indisch|Reis gekocht:250;Ei:80;Erbsen TK:30;Karotten:30;Sojasauce:10;Rapsöl:10
+Wok Gemüse|🥦|Asiatisch & Indisch|Gemüsepfanne TK:250;Sojasauce:15;Rapsöl:10
+Bibimbap|🍚|Asiatisch & Indisch|Reis gekocht:200;Rinderhack gebraten:60;Spinat:40;Karotten:40;Sojasprossen:40;Kimchi:30;Spiegelei:50;Sesamöl:5
+Tempura|🍤|Asiatisch & Indisch|Garnelen:80;Weizenmehl:40;Ei:20;Rapsöl:20;Süßkartoffel gekocht:50;Zucchini:40
+Teriyaki Hähnchen|🍗|Asiatisch & Indisch|Hähnchenbrust gebraten:150;Teriyaki Sauce:50;Reis gekocht:150
+Butter Chicken|🍛|Asiatisch & Indisch|Hähnchenbrust gebraten:130;Tomatensauce:100;Sahne 30%:60;Butter:10;Reis gekocht:150
+Chicken Tikka Masala|🍛|Asiatisch & Indisch|Hähnchenbrust gebraten:130;Tomatensauce:100;Sahne 30%:50;Joghurt 3,5%:40;Reis gekocht:150
+Dal|🍛|Asiatisch & Indisch|Linsen rot gekocht:200;Zwiebel:30;Kokosmilch:30;Rapsöl:5;Tomate:40;Curry Pulver:3
+Palak Paneer|🍛|Asiatisch & Indisch|Paneer:100;Spinat:150;Sahne 30%:30;Zwiebel:30;Rapsöl:5
+Tandoori Chicken|🍗|Asiatisch & Indisch|Hähnchenkeule gebraten:180;Naturjoghurt:40
+Biryani|🍛|Asiatisch & Indisch|Basmati gekocht:220;Hähnchenbrust gebraten:100;Zwiebel:40;Naturjoghurt:40;Ghee:10;Rosinen:10
+Poke Bowl Lachs|🥗|Asiatisch & Indisch|Reis gekocht:150;Lachs:100;Avocado:50;Edamame:40;Gurke:30;Karotten:20;Sojasauce:10;Sesam:5
+Schnitzel paniert|🥩|Hauptgerichte|Schweineschnitzel:130;Paniermehl:20;Ei:25;Weizenmehl:8;Rapsöl:15
+Cordon Bleu|🥩|Hauptgerichte|Schweineschnitzel:120;Schinken gekocht:30;Gouda:30;Paniermehl:25;Ei:25;Weizenmehl:8;Rapsöl:20
+Wiener Schnitzel|🥩|Hauptgerichte|Kalbsschnitzel:130;Paniermehl:25;Ei:25;Weizenmehl:8;Rapsöl:20
+Jägerschnitzel|🥩|Hauptgerichte|Schweineschnitzel:130;Paniermehl:20;Ei:25;Weizenmehl:8;Rapsöl:20;Jägersauce:100;Champignons:40
+Rahmschnitzel|🥩|Hauptgerichte|Schweineschnitzel:130;Sahnesauce:100;Champignons:50;Rapsöl:10;Weizenmehl:8;Sahne 30%:30
+Gulasch|🍲|Hauptgerichte|Rindergulasch:200;Zwiebel:60;Paprika rot:50;Tomatenmark:15;Rapsöl:10
+Kohlroulade|🥬|Hauptgerichte|Weißkohl:120;Schweinehack gemischt:100;Zwiebel:20;Ei:15;Bratensauce:100;Paniermehl:10
+Labskaus|🍳|Hauptgerichte|Corned Beef:100;Kartoffeln gekocht:150;Rote Bete gekocht:60;Zwiebel:30;Spiegelei:60;Gewürzgurken:20
+Grünkohl mit Pinkel|🥬|Hauptgerichte|Grünkohl:250;Mettwurst:100;Kassler:80;Kartoffeln gekocht:150;Schmalz:8
+Sauerkraut mit Wurst|🌭|Hauptgerichte|Sauerkraut:200;Bratwurst:120;Kartoffelpüree:150
+Zwiebelkuchen|🥧|Hauptgerichte|Pizzateig:80;Zwiebel:120;Bacon:25;Saure Sahne:40;Ei:25
+Quiche Lorraine|🥧|Hauptgerichte|Blätterteig:40;Bacon:25;Sahne 30%:30;Ei:40;Emmentaler:20
+Hühnerfrikassee|🍲|Hauptgerichte|Hähnchenbrust gebraten:100;Sahnesauce:100;Champignons:50;Erbsen TK:40;Reis gekocht:150
+Hackbraten|🍖|Hauptgerichte|Schweinehack gemischt:120;Ei:20;Paniermehl:15;Zwiebel:20;Senf:5
+Königsberger Klopse|🍲|Hauptgerichte|Schweinehack gemischt:100;Kapern:10;Sahnesauce:100;Kartoffeln gekocht:150;Ei:15;Paniermehl:10
+Fish and Chips|🐟|Hauptgerichte|Backfisch:150;Pommes frites:150;Remoulade:20
+Ratatouille|🍆|Hauptgerichte|Zucchini:80;Aubergine:80;Paprika rot:60;Tomate:100;Zwiebel:40;Olivenöl:10
+Kartoffelgratin|🥔|Hauptgerichte|Kartoffeln gekocht:250;Sahne 30%:60;Reibekäse:40
+Schlemmerfilet|🐟|Hauptgerichte|Seelachs:120;Sahnesauce:50;Paniermehl:25;Butter:10
+Gemüsesuppe|🍲|Suppen|Suppengemüse:150;Brühe:200;Kartoffeln roh:50;Rapsöl:3
+Tomatensuppe|🍅|Suppen|Passierte Tomaten:200;Brühe:100;Sahne 30%:30;Zwiebel:20
+Hühnersuppe|🍲|Suppen|Hühnerbrühe:250;Hähnchenbrust gebraten:50;Suppengemüse:60;Nudeln gekocht:40
+Linsensuppe|🍲|Suppen|Linsen gekocht:120;Suppengemüse:80;Brühe:200;Wiener Würstchen:50
+Gulaschsuppe|🍲|Suppen|Rindergulasch:100;Paprika rot:60;Zwiebel:50;Kartoffeln gekocht:80;Tomatenmark:10;Brühe:200;Rapsöl:5
+Erbsensuppe|🍲|Suppen|Erbsen TK:150;Kartoffeln gekocht:80;Bockwurst:60;Brühe:200
+Kürbissuppe|🎃|Suppen|Hokkaido Kürbis:200;Kokosmilch:50;Brühe:150;Zwiebel:30
+Kartoffelsuppe|🍲|Suppen|Kartoffeln roh:150;Suppengemüse:50;Brühe:200;Wiener Würstchen:50
+Leberknödelsuppe|🍲|Suppen|Semmelknödel:100;Leberwurst:30;Rinderbrühe:300
+Frittatensuppe|🍲|Suppen|Pfannkuchen:40;Rinderbrühe:300;Schnittlauch:3
+Soljanka|🍲|Suppen|Gewürzgurken:50;Jagdwurst:60;Tomatenmark:15;Zwiebel:40;Brühe:250;Saure Sahne:30;Oliven grün:15
+Pho|🍜|Suppen|Reisnudeln gekocht:150;Rinderbrühe:350;Rindersteak gebraten:60;Sojasprossen:30;Frühlingszwiebeln:15
+Miso Suppe|🍲|Suppen|Miso Paste:20;Tofu:50;Brühe:200;Frühlingszwiebeln:10
+Ramen Nudelsuppe|🍜|Suppen|Mie Nudeln gekocht:150;Hühnerbrühe:350;Schweinebauch gebraten:50;Ei gekocht:50;Frühlingszwiebeln:15;Sojasauce:10
+Linseneintopf|🍲|Suppen|Linsen gekocht:200;Kartoffeln gekocht:100;Suppengemüse:80;Wiener Würstchen:50;Brühe:100
+Bohneneintopf|🍲|Suppen|Bohnen weiß gekocht:200;Kartoffeln gekocht:100;Karotten:60;Bacon:20;Brühe:100
+Eintopf Gemüse|🍲|Suppen|Kartoffeln gekocht:150;Karotten:80;Weißkohl:80;Erbsen TK:50;Brühe:150;Rapsöl:5
+Krautsalat|🥗|Salate|Weißkohl:120;Karotten:20;Mayonnaise:15;Essig:5;Zucker:3
+Nudelsalat|🥗|Salate|Nudeln gekocht:150;Mayonnaise:20;Gewürzgurken:20;Mais (Dose):30;Schinken gekocht:30;Erbsen:20
+Caesar Salat|🥗|Salate|Romanasalat:120;Hähnchenbrust gebraten:80;Croutons:20;Parmesan:15;Caesar Dressing:30
+Griechischer Salat|🥗|Salate|Gurke:100;Tomate:100;Paprika grün:40;Rote Zwiebel:30;Feta:60;Oliven schwarz:20;Olivenöl:12
+Caprese|🍅|Salate|Tomate:120;Mozzarella:100;Olivenöl:10;Frischer Basilikum:5
+Kartoffelsalat|🥗|Salate|Kartoffeln gekocht:200;Mayonnaise:20;Gewürzgurken:20;Zwiebel:15
+Fleischsalat|🥗|Salate|Fleischwurst:50;Gewürzgurken:20;Mayonnaise:25
+Wurstsalat|🥗|Salate|Lyoner:100;Gewürzgurken:40;Zwiebel:30;Essig-Öl Dressing:50
+Tomatensalat|🥗|Salate|Tomate:200;Zwiebel:20;Rapsöl:8
+Gurkensalat|🥗|Salate|Gurke:200;Salatdressing Joghurt:50
+Karottensalat|🥗|Salate|Karotten:150;Zitronensaft:10;Rapsöl:5;Zucker:3
+Rote Bete Salat|🥗|Salate|Rote Bete gekocht:150;Essig-Öl Dressing:20;Zwiebel:15
+Bohnensalat|🥗|Salate|Kidneybohnen gekocht:100;Mais (Dose):40;Paprika rot:40;Zwiebel:20;Essig-Öl Dressing:25
+Linsensalat|🥗|Salate|Linsen gekocht:150;Karotten:30;Zwiebel:20;Essig-Öl Dressing:30
+Couscous Salat|🥗|Salate|Couscous gekocht:150;Paprika rot:50;Gurke:50;Tomate:50;Olivenöl:12;Zitronensaft:10
+Tabouleh|🥗|Salate|Bulgur gekocht:100;Petersilie:40;Tomate:80;Minze:5;Olivenöl:12;Zitronensaft:15
+Waldorfsalat|🥗|Salate|Sellerie:60;Apfel:60;Walnüsse:15;Mayonnaise:25
+Coleslaw|🥗|Salate|Weißkohl:100;Karotten:30;Mayonnaise:25;Zucker:3
+Heringssalat|🥗|Salate|Bismarckhering:60;Rote Bete gekocht:40;Apfel:30;Saure Sahne:30;Gewürzgurken:20;Zwiebel:15;Mayonnaise:15
+Thunfischsalat|🥗|Salate|Thunfisch (Dose, Öl):80;Mais (Dose):40;Mayonnaise:25;Zwiebel:20;Tomate:40;Eisbergsalat:40
+Eiersalat|🥗|Salate|Ei gekocht:70;Mayonnaise:25;Schnittlauch:3
+Nizza Salat|🥗|Salate|Thunfisch (Dose, Wasser):60;Ei gekocht:50;Grüne Bohnen:60;Tomate:80;Kartoffeln gekocht:80;Oliven schwarz:15;Olivenöl:12;Kopfsalat:50
+Buddha Bowl|🥗|Frühstück & Bowls|Quinoa gekocht:120;Kichererbsen gekocht:80;Süßkartoffel gekocht:100;Avocado:50;Spinat:30;Tahini:15;Karotten:30
+Smoothie Bowl|🥣|Frühstück & Bowls|Banane:100;Blaubeeren:60;Naturjoghurt:100;Haferflocken:30;Mandelmus:10;Honig:10
+Acai Bowl|🥣|Frühstück & Bowls|Acai Püree:100;Banane:100;Blaubeeren:50;Granola:40;Erdnussbutter:15;Honig:10;Hafermilch:50
+Overnight Oats|🥣|Frühstück & Bowls|Haferflocken:50;Milch 1,5%:120;Naturjoghurt:60;Chiasamen:8;Blaubeeren:40;Honig:8
+Rührei mit Speck|🍳|Frühstück & Bowls|Rührei:150;Bacon:40
+Omelett mit Käse|🍳|Frühstück & Bowls|Omelett:150;Gouda:40
+Pfannkuchen mit Apfel|🥞|Frühstück & Bowls|Pfannkuchen:140;Apfel:120;Puderzucker:10
+Pancakes mit Ahornsirup|🥞|Frühstück & Bowls|Pancakes:130;Ahornsirup:30;Butter:8
+Waffeln mit Puderzucker|🧇|Frühstück & Bowls|Waffeln:100;Puderzucker:10
+Milchreis mit Zimt|🍚|Frühstück & Bowls|Milchreis:250;Zucker:10;Zimt:2`;
+const DISH_CATS=["Pizza","Burger & Fast Food","Sandwiches","Döner & Orient","Mexikanisch","Pasta & Reis","Asiatisch & Indisch","Hauptgerichte","Suppen","Salate","Frühstück & Bowls"];
+const DISHES=DISHES_RAW.split("\n").map((l,i)=>{const a=l.split("|");return{id:"g"+i,name:a[0],emoji:a[1],cat:a[2],items:a[3].split(";").map(p=>{const j=p.lastIndexOf(":");return{name:p.slice(0,j),grams:+p.slice(j+1)}})}});
 const BASE_FOODS_N=foods.length;
-const FOOD_EMOJI_RAW=`Entenbrust|🦆
+const FOOD_EMOJI_RAW=`Acai Püree|🫐
+Entenbrust|🦆
 Gans|🍗
 Kaninchen|🐇
 Tatar|🥩
@@ -1731,7 +1739,6 @@ Pita|🫓
 Ciabatta|🥖
 Pierogi|🥟
 Basmati gekocht|🍚
-Risotto|🍚
 Bulgur gekocht|🍚
 Hirse gekocht|🌾
 Polenta gekocht|🌽
@@ -1764,9 +1771,7 @@ Falafel|🧆
 Linsen rot gekocht|🫘
 Kichererbsen Dose|🫘
 Kidneybohnen Dose|🫘
-Ratatouille|🍆
 Brühe|🍲
-Caprese|🍅
 Pflaumen|🍑
 Clementine|🍊
 Papaya|🥭
@@ -1828,11 +1833,6 @@ Oreo|🍪
 Spekulatius|🍪
 Salzstangen|🥨
 Cracker|🍘
-Lasagne|🍝
-Cordon Bleu|🍗
-Frühlingsrolle|🥟
-Pad Thai|🍜
-Quesadilla|🌮
 Kaiserschmarrn|🥞
 Fanta|🥤
 Sprite|🥤
@@ -1850,7 +1850,6 @@ Kreatin|💪
 Weight Gainer|💪
 Maltodextrin|⚡
 Haferdrink Barista|🥛
-Ramen Nudelsuppe|🍜
 Tzatziki|🥒
 Guacamole|🥑
 Hummus light|🥙
@@ -1912,11 +1911,7 @@ Prosciutto|🍖
 Bresaola|🥩
 Pancetta|🥓
 Sülze|🍖
-Fleischsalat|🥗
-Wurstsalat|🥗
-Hackbraten|🍖
 Hackbällchen|🧆
-Königsberger Klopse|🧆
 Rinderroulade gegart|🥩
 Sauerbraten|🥩
 Tafelspitz gekocht|🥩
@@ -1962,12 +1957,8 @@ Jakobsmuscheln|🐚
 Austern|🐚
 Garnelen gebraten|🦐
 Backfisch|🐟
-Fish and Chips|🐟
 Fischfrikadelle|🐟
-Thunfischsalat|🥗
 Lachs Sashimi|🍣
-Sushi California Roll|🍣
-Poke Bowl Lachs|🥗
 Skyr Vanille|🥛
 Skyr Frucht|🥛
 Kräuterquark|🥛
@@ -2001,8 +1992,6 @@ Pflanzliche Sahne|🌱
 Veganer Käse|🌱
 Veganer Frischkäse|🌱
 Ei pochiert|🥚
-Eiersalat|🥗
-Omelett mit Käse|🍳
 Landbrot|🍞
 Weizenbrot|🍞
 Sauerteigbrot|🍞
@@ -2044,16 +2033,12 @@ Fusilli gekocht|🍝
 Tagliatelle gekocht|🍝
 Tortellini|🥟
 Ravioli|🥟
-Ravioli Dose|🥫
 Udon gekocht|🍜
 Sobanudeln gekocht|🍜
 Mie Nudeln gekocht|🍜
-Instantnudeln|🍜
 Schupfnudeln|🥟
 Rösti|🥔
 Kartoffelecken|🥔
-Kartoffelgratin|🥔
-Kartoffelsuppe|🍲
 Ofenkartoffel|🥔
 Süßkartoffelpommes|🍟
 Hash Browns|🥔
@@ -2079,7 +2064,6 @@ Reismehl|🌾
 Speisestärke|🌾
 Hartweizengrieß|🌾
 Granola|🥣
-Overnight Oats|🥣
 Schoko Cerealien|🥣
 Proteinmüsli|🥣
 Reiswaffeln Schoko|🍫
@@ -2110,17 +2094,6 @@ Ajvar|🌶️
 Gemüsepfanne TK|🥬
 Suppengemüse|🥕
 Salatmix|🥗
-Tomatensalat|🍅
-Gurkensalat|🥒
-Karottensalat|🥕
-Rote Bete Salat|🥗
-Bohnensalat|🥗
-Linsensalat|🥗
-Couscous Salat|🥗
-Tabouleh|🥗
-Waldorfsalat|🥗
-Coleslaw|🥗
-Heringssalat|🥗
 Rotkohl gekocht|🥬
 Gemüsebratling|🥕
 Veggie Patty|🌱
@@ -2222,104 +2195,11 @@ Macarons|🍪
 Churros|🥖
 Germknödel|🥟
 Palatschinken|🥞
-Big Mac|🍔
-McChicken|🍔
-Chicken McNuggets|🍗
-Whopper|🍔
-Pommes klein|🍟
-Hot Dog|🌭
-Corn Dog|🌭
-Chicken Wings|🍗
-KFC Hähnchen|🍗
-Döner Teller|🌯
-Dürüm Döner|🌯
-Gyros Teller|🍖
-Souvlaki|🍢
-Moussaka|🍆
-Köfte|🧆
-Lahmacun|🫓
-Börek|🥟
-Pizza Hawaii|🍕
-Pizza Tonno|🍕
-Pizza Prosciutto|🍕
-Pizza Quattro Formaggi|🍕
-Pizza Diavola|🍕
-Calzone|🍕
-Flammkuchen|🍕
-Pizzabrötchen|🥖
 Knoblauchbrot|🍞
-Spaghetti Aglio e Olio|🍝
-Spaghetti Napoli|🍝
-Penne Arrabbiata|🍝
-Tortellini Sahnesauce|🥟
-Gnocchi Gorgonzola|🥟
-Nudelauflauf|🍝
-Gemüselasagne|🍝
-Cannelloni|🍝
-Risotto Pilz|🍚
-Paella|🥘
-Wiener Schnitzel|🥩
-Jägerschnitzel|🥩
-Rahmschnitzel|🥩
-Gulasch|🍲
-Kohlroulade|🥬
-Linseneintopf|🍲
-Bohneneintopf|🍲
-Labskaus|🍲
-Grünkohl mit Pinkel|🥬
-Sauerkraut mit Wurst|🍖
-Käsespätzle|🧀
-Zwiebelkuchen|🥧
-Quiche Lorraine|🥧
-Leberknödelsuppe|🍲
-Frittatensuppe|🍲
-Soljanka|🍲
-Pho|🍜
-Wok Gemüse|🥬
-Gebratener Reis mit Ei|🍚
 Sashimi Mix|🍣
-Miso Suppe|🍲
-Bibimbap|🍚
 Kimchi|🥬
-Tempura|🍤
-Teriyaki Hähnchen|🍗
-Hühnerfrikassee|🍲
-Butter Chicken|🍛
-Chicken Tikka Masala|🍛
-Dal|🍛
-Palak Paneer|🍛
-Samosa|🥟
-Tandoori Chicken|🍗
-Biryani|🍚
-Shakshuka|🍳
 Baba Ganoush|🍆
-Dolma|🥬
-Burrito Bowl|🥗
-Enchilada|🌯
-Fajita|🌯
 Salsa|🍅
-Chili sin Carne|🍲
-Ceviche|🐟
-Buddha Bowl|🥗
-Smoothie Bowl|🥣
-Acai Bowl|🥣
-Nizza Salat|🥗
-Sandwich Käse Schinken|🥪
-Sandwich Hähnchen|🥪
-Belegtes Brötchen Käse|🥖
-Belegtes Brötchen Salami|🥖
-Belegtes Brötchen Schinken|🥖
-Leberkäsebrötchen|🥖
-Fischbrötchen|🥖
-Käsetoast|🥪
-Toast Hawaii|🥪
-Rührei Toast|🍳
-Pfannkuchen mit Apfel|🥞
-Pancakes mit Ahornsirup|🥞
-Waffeln mit Puderzucker|🧇
-Milchreis mit Zimt|🍚
-Eintopf Gemüse|🍲
-Frikadellenbrötchen|🥖
 Espresso|☕
 Milchkaffee|☕
 Kaffee mit Milch|☕
@@ -2414,11 +2294,9 @@ Schweinekotelett|🥩
 Schweinebraten|🥩
 Schweineleber|🥩
 Speck gebraten|🥓
-Currywurst|🌭
 Bratwurst|🌭
 Fleischkäse|🍖
 Leberkäse|🍖
-Schlemmerfilet|🐟
 Thunfisch Steak|🐟
 Tintenfisch|🦑
 Muscheln|🐚
@@ -2435,10 +2313,7 @@ Lauch|🥬
 Knoblauch|🧄
 Rucola|🥬
 Zucchini gebraten|🥒
-Gemüsesuppe|🍲
 Salat gemischt|🥗
-Caesar Salat|🥗
-Griechischer Salat|🥗
 Himbeeren|🍓
 Brombeeren|🍇
 Johannisbeeren|🍒
@@ -2464,11 +2339,6 @@ Schwarzwälder Kirschtorte|🍰
 Fruchteis Sorbet|🍨
 Wassereis|🍧
 Erdnussflips|🥜
-Cheeseburger|🍔
-Pizza Salami|🍕
-Chili con Carne|🍲
-Bratwurst im Brötchen|🌭
-Rührei mit Speck|🍳
 Eierkuchen|🥞
 Apfelstrudel|🥧
 Eistee|🥤
@@ -2903,13 +2773,109 @@ function modalBack(){
 }
 function closeModal(){modalStack=[];modalNoPush=false;stopCam();$("modal").classList.remove("show")}
 
+
+// ---------------------------------------------------------------- Gerichte (anpassbare Zutatenlisten)
+let _fm=null,_fmN=-1,dishSheet=null,dishAddActive=false;
+function foodMap(){if(_fmN!==foods.length){_fm=new Map();foods.forEach(f=>{if(!_fm.has(f[0]))_fm.set(f[0],f)});_fmN=foods.length}return _fm}
+function dishByName(n){return DISHES.find(x=>x.name===n)}
+function dishTotals(g){let k=0,p=0,c=0,f=0;g.items.forEach(it=>{const x=foodMap().get(it.name);if(!x)return;const m=it.grams/100;k+=x[2]*m;p+=x[3]*m;c+=x[4]*m;f+=x[5]*m});return{k,p,c,f}}
+function dishRow(g){const t=dishTotals(g);return `<div class="foodrow"><div class="foodmain" onclick="openDish('${g.id}')"><div class="foodimg">${foodThumb(g.emoji,null,32)}</div><div><b>${esc(g.name)}</b><div class="small">≈ ${Math.round(t.k)} kcal · ${g.items.length} Zutaten · anpassbar</div></div></div><button class="plus" aria-label="${esc(g.name)} anpassen" onclick="openDish('${g.id}')">✎</button></div>`}
+function dishStepSize(it){return it.g0>=100?25:it.g0>=40?10:it.g0>=15?5:2}
+function dishFactor(){const e=parseNum($("dPortions")?$("dPortions").value:"1");return e>=0.25&&e<=20?e:null}
+function dishCalc(){const s=dishSheet,fa=dishFactor()??1;let k=0,p=0,c=0,f=0,n=0;s.items.forEach(it=>{if(it.on&&it.g>0){const m=it.g*fa/100;k+=it.per[0]*m;p+=it.per[1]*m;c+=it.per[2]*m;f+=it.per[3]*m;n++}});return{k,p,c,f,n}}
+function dishChanged(){const s=dishSheet;return s.items.some(it=>it.extra||!it.on||it.g!==it.g0)}
+function openDish(id){
+ const g=DISHES.find(x=>x.id===id);if(!g)return;
+ dishAddActive=false;
+ dishSheet={id,name:g.name,emoji:g.emoji,cat:g.cat,depth:0,where:currentAddCat(),base:dishTotals(g).k,
+  items:g.items.map(it=>{const f=foodMap().get(it.name);return f?{name:it.name,e:f[1],g0:it.grams,g:it.grams,on:true,extra:false,per:[f[2],f[3],f[4],f[5]]}:null}).filter(Boolean)};
+ renderDishSheet(true)
+}
+function renderDishSheet(first){
+ const s=dishSheet;if(!s)return;
+ const cats=["Frühstück","Mittagessen","Abendessen","Snack"];
+ const rows=s.items.map((it,i)=>`<div class="dishrow${it.on?"":" off"}" id="dr${i}"><button class="dchk" aria-pressed="${it.on}" aria-label="${esc(it.name)} ${it.on?"weglassen":"wieder dazunehmen"}" onclick="dishToggle(${i})">✓</button><div class="dname"><b>${esc(it.name)}</b><span class="small" id="dk${i}"></span></div><div class="dstep"><button aria-label="weniger ${esc(it.name)}" onclick="dishStep(${i},-1)">−</button><input id="dg${i}" class="amt" type="text" inputmode="decimal" value="${it.g}" aria-label="Gramm ${esc(it.name)}" oninput="dishInput(${i},this.value)" onchange="dishSet(${i},this.value)"><span class="small">g</span><button aria-label="mehr ${esc(it.name)}" onclick="dishStep(${i},1)">+</button></div></div>`).join("");
+ modal(s.name,`<div class="badge">${esc(s.cat)}</div><p class="small" style="margin:6px 0 0">Tippe ✓, um eine Zutat wegzulassen. Mit − und + oder per Eintippen änderst du die Menge.</p><div id="dRows">${rows}</div><div class="dtotal"><b id="dtK"></b><div class="small" id="dtM"></div><div class="small" id="dtD"></div></div><div class="row"><span>Ich esse</span><span style="display:flex;align-items:center;gap:6px"><input id="dPortions" class="amt" type="text" inputmode="decimal" value="${s.portions||1}" oninput="dishRefresh()" aria-label="Anzahl Portionen"><span class="small">× Portion</span></span></div><div class="row"><span>Eintragen als</span><select id="dWhere" style="max-width:62%" onchange="dishSheet.where=this.value">${cats.map(c=>`<option value="${c}"${c===s.where?" selected":""}>${c}</option>`).join("")}<option value="__own"${s.where==="__own"?" selected":""}>Eigene Mahlzeit „${esc(s.name)}“</option></select></div><p class="small">📅 ${esc(formatDateLabel(currentAddDate()))}</p><button class="primary" id="dAdd" onclick="dishAddToLog()">Hinzufügen</button><div style="display:flex;gap:8px;margin-top:8px"><button class="secondary" style="flex:1;margin:0" onclick="dishAddIngredient()">+ Zutat</button><button class="secondary" style="flex:1;margin:0" id="dFav" onclick="dishToggleFav()"></button></div><button class="secondary" style="margin-top:8px" onclick="dishSaveRecipe()">📖 Als Rezept speichern</button><button class="secondary" style="margin-top:8px" onclick="dishReset()">↺ Zurücksetzen</button>`);
+ if(first)s.depth=modalStack.length;
+ dishRefresh()
+}
+function dishRefresh(){
+ const s=dishSheet;if(!s||!$("dtK"))return;
+ const fa=dishFactor();
+ s.items.forEach((it,i)=>{
+  const r=$("dr"+i),k=$("dk"+i);if(!r||!k)return;
+  r.classList.toggle("off",!it.on);const b=r.querySelector(".dchk");if(b){b.setAttribute("aria-pressed",String(it.on))}
+  k.textContent=it.on?Math.round(it.per[0]*it.g/100)+" kcal"+(it.extra?" · extra":""):"weggelassen"
+ });
+ if(fa==null){$("dtK").textContent="–";$("dtM").textContent="Bitte eine Portionszahl zwischen 0,25 und 20 eingeben";$("dtD").textContent="";$("dAdd").textContent="Hinzufügen";if($("dFav"))$("dFav").textContent=isFav(s.name)?"★ Favorit":"☆ Favorit";return}
+ const t=dishCalc(),d0=Math.round(t.k-s.base*fa);
+ $("dtK").textContent=Math.round(t.k)+" kcal";
+ $("dtM").textContent=`P ${Math.round(t.p)} g · K ${Math.round(t.c)} g · F ${Math.round(t.f)} g · ${t.n} Zutat${t.n===1?"":"en"}`;
+ $("dtD").textContent=dishChanged()?(d0===0?"wie im Standard":(d0>0?"+":"−")+Math.abs(d0)+" kcal gegenüber dem Standard"):"Standard";
+ $("dAdd").textContent="Hinzufügen · "+Math.round(t.k)+" kcal";
+ if($("dFav"))$("dFav").textContent=isFav(s.name)?"★ Favorit":"☆ Favorit"
+}
+function dishToggle(i){const it=dishSheet&&dishSheet.items[i];if(!it)return;it.on=!it.on;dishRefresh()}
+function dishStep(i,dir){const it=dishSheet&&dishSheet.items[i];if(!it)return;it.g=Math.min(5000,Math.max(1,it.g+dir*dishStepSize(it)));it.on=true;const e=$("dg"+i);if(e)e.value=it.g;dishRefresh()}
+function dishInput(i,v){const it=dishSheet&&dishSheet.items[i];if(!it)return;const n=parseNum(v);if(n>0&&n<=5000){it.g=Math.round(n);it.on=true;dishRefresh()}}
+function dishSet(i,v){const it=dishSheet&&dishSheet.items[i];if(!it)return;const n=parseNum(v);if(n===0&&String(v).trim()!==""){it.on=false}else if(n>0&&n<=5000){it.g=Math.round(n);it.on=true}else toast("Bitte eine Menge zwischen 1 und 5000 g eingeben");const e=$("dg"+i);if(e)e.value=it.g;dishRefresh()}
+function dishReset(){const g=dishSheet&&DISHES.find(x=>x.id===dishSheet.id);if(!g)return;const w=dishSheet.where,p=dishFactor()??1,dp=dishSheet.depth;openDish(g.id);dishSheet.where=w;dishSheet.portions=p;dishSheet.depth=dp;modalNoPush=true;renderDishSheet(false)}
+function dishToggleFav(){const s=dishSheet;if(!s)return;if(isFav(s.name))d.favs=d.favs.filter(x=>x!==s.name);else{if(!d.favs)d.favs=[];d.favs.push(s.name)}save();dishRefresh()}
+function dishAddIngredient(){
+ const s=dishSheet;if(!s)return;
+ const pe=$("dPortions");if(pe){const v=parseNum(pe.value);if(v>=0.25&&v<=20)s.portions=v}
+ dishAddActive=true;
+ modal("Zutat hinzufügen",`<input id="q" placeholder="z.B. Käse" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p><p class="small" style="opacity:.7">Tippe auf ＋, um die Zutat zu „${esc(s.name)}“ hinzuzufügen.</p><button class="secondary" style="margin-top:10px" onclick="createCustomFood()">+ Eigenes Lebensmittel erstellen</button>`);results()
+}
+function addIngredientToDishSheet(i){
+ const f=foods[i],amount=parseNum($("grams").value),unit=$("unit").value||"g",grams=amount*(UNIT_G[unit]||1);
+ if(!(amount>0)||amount>20000){toast("Bitte eine gültige Menge eingeben");return}
+ const g=Math.min(5000,Math.max(1,Math.round(grams)));
+ dishSheet.items.push({name:f[0],e:f[1],g0:g,g,on:true,extra:true,per:[f[2],f[3],f[4],f[5]]});
+ rememberFood(i);dishAddActive=false;
+ modalStack.length=Math.min(modalStack.length,dishSheet.depth);modalNoPush=true;renderDishSheet(false)
+}
+function dishPicked(){return dishSheet.items.filter(it=>it.on&&it.g>0)}
+function dishAddToLog(){
+ const s=dishSheet;if(!s)return;
+ const fa=dishFactor();
+ if(fa==null){toast("Bitte eine Portionszahl zwischen 0,25 und 20 eingeben");return}
+ const its=dishPicked();
+ if(!its.length){toast("Mindestens eine Zutat muss bleiben");return}
+ const mk=it=>{const g=Math.min(20000,Math.max(1,Math.round(it.g*fa))),m=g/100;return{name:it.name,grams:g,k:it.per[0]*m,p:it.per[1]*m,c:it.per[2]*m,f:it.per[3]*m}};
+ if(dishBuilderActive){
+  its.forEach(it=>{const x=mk(it);window.newDish.items.push({...x,e:s.emoji,img:null})});
+  dishBuilderActive=false;dishSheet=null;closeModal();renderDishBuilder();toast(s.name+" übernommen");return
+ }
+ const own=s.where==="__own",grp=own?s.name:s.where,time=new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}),dateNow=currentAddDate();
+ its.forEach(it=>{const x=mk(it);d.meals.push({id:Date.now()+Math.random(),date:dateNow,name:grp,time,items:`${x.name} · ${x.grams} g`,food_name:x.name,grams:x.grams,k:x.k,p:x.p,c:x.c,f:x.f,e:s.emoji})});
+ noteRecent(s.name);
+ dishSheet=null;save();closeModal();go("home");toast(s.name+" hinzugefügt");selectedAddDate=null;selectedAddCat=null
+}
+function dishSaveRecipe(){
+ const s=dishSheet;if(!s)return;
+ const its=dishPicked();
+ if(!its.length){toast("Mindestens eine Zutat muss bleiben");return}
+ const name=s.name+(dishChanged()?" (angepasst)":"");
+ if(!d.recipes)d.recipes=[];
+ d.recipes.push({id:Date.now()+Math.random(),name,category:["Frühstück","Mittagessen","Abendessen","Snack"].includes(s.where)?s.where:currentAddCat(),emoji:s.emoji,portions:1,items:its.map(it=>({name:it.name,grams:it.g,k:it.per[0]*it.g/100,p:it.per[1]*it.g/100,c:it.per[2]*it.g/100,f:it.per[3]*it.g/100}))});
+ save();toast("Als Rezept gespeichert: "+name)
+}
+
 let recipeCat="Alle",recipeBuilderActive=false;
 function recipePortions(r){const n=Math.round(Number(r&&r.portions));return n>=1&&n<=100?n:1}
 function recipeTotals(r){return r.items.reduce((s,it)=>({k:s.k+it.k,p:s.p+it.p,c:s.c+it.c,f:s.f+it.f}),{k:0,p:0,c:0,f:0})}
-function selectRecipeCat(btn){document.querySelectorAll("#recipeCatTabs button").forEach(b=>b.classList.remove("sel"));btn.classList.add("sel");recipeCat=btn.dataset.cat;renderRecipeList()}
+function selectRecipeCat(btn){document.querySelectorAll("#recipeCatTabs button").forEach(b=>b.classList.remove("sel"));btn.classList.add("sel");recipeCat=btn.dataset.cat;if($("recipeSearch"))$("recipeSearch").placeholder=recipeCat==="Gerichte"?"Gerichte suchen":"Rezepte suchen";renderRecipeList()}
+// Rezepte-Bildschirm mit gewähltem Reiter öffnen („Alle“ = Rezepte, „Gerichte“ = anpassbare Gerichte)
+function showRecipeTab(cat){const b=[...document.querySelectorAll("#recipeCatTabs button")].find(x=>x.dataset.cat===cat);if($("recipeSearch"))$("recipeSearch").value="";if(b)selectRecipeCat(b);else recipeCat=cat;go("recipes")}
 function renderRecipeList(){
  if(!$("recipeList"))return;
  let q=($("recipeSearch")?.value||"").toLowerCase();
+ if(recipeCat==="Gerichte"){
+  const L=DISHES.filter(x=>x.name.toLowerCase().includes(q)||x.cat.toLowerCase().includes(q));
+  $("recipeList").innerHTML=DISH_CATS.map(c=>{const M=L.filter(x=>x.cat===c);return M.length?`<div class="small" style="margin:12px 0 2px">${esc(c)} (${M.length})</div>`+M.map(dishRow).join(""):""}).join("")||`<div class="small">Keine Gerichte gefunden.</div>`;
+  return
+ }
  let list=(d.recipes||[]).filter(r=>(recipeCat==="Alle"||r.category===recipeCat)&&r.name.toLowerCase().includes(q));
  $("recipeList").innerHTML=list.length?list.map(r=>{let t=recipeTotals(r),n=recipePortions(r),q=1/n;return `<div class="meal" style="cursor:pointer" onclick="openRecipe('${r.id}')"><div class="foodimg">${foodThumb(r.emoji||"🍽️",null,50)}</div><div><h3>${esc(r.name)}</h3><p>${Math.round(t.k*q)} kcal${n>1?" / Portion":""} · P ${Math.round(t.p*q)} · K ${Math.round(t.c*q)} · F ${Math.round(t.f*q)}${n>1?` · ${n} Portionen`:""}</p></div></div>`}).join(""):`<div class="small">Keine Rezepte gefunden.</div>`
 }
@@ -2929,7 +2895,7 @@ let selectedAddDate=null,selectedAddCat=null;
 function currentAddDate(){return selectedAddDate||todayISO()}
 function currentAddCat(){return selectedAddCat||mealCategoryNow()}
 function updateAddDateLabel(){if($("addDateLabel"))$("addDateLabel").textContent=formatDateLabel(currentAddDate())+" · "+currentAddCat()}
-function pickAddDate(){modal("Datum & Mahlzeit",`<p class="small">Datum und Mahlzeit wählen, dann direkt Lebensmittel hinzufügen.</p><input id="addDateInput" type="date" value="${currentAddDate()}" max="${todayISO()}"><select id="addCatInput" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===currentAddCat()?"selected":""}>${c}</option>`).join("")}</select><button class="primary" onclick="confirmAddDate();searchFood()">🔎 Lebensmittel suchen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();textLog()">✏️ Mit Text beschreiben</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();barcode()">▥ Barcode scannen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();closeModal();go('recipes')">📖 Rezept nutzen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();createDish()">🍲 Gericht erstellen</button>${selectedAddDate||selectedAddCat?`<button class="secondary" style="margin-top:14px;color:var(--red)" onclick="resetAddDate()">Auf Jetzt zurücksetzen</button>`:""}`)}
+function pickAddDate(){modal("Datum & Mahlzeit",`<p class="small">Datum und Mahlzeit wählen, dann direkt Lebensmittel hinzufügen.</p><input id="addDateInput" type="date" value="${currentAddDate()}" max="${todayISO()}"><select id="addCatInput" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===currentAddCat()?"selected":""}>${c}</option>`).join("")}</select><button class="primary" onclick="confirmAddDate();searchFood()">🔎 Lebensmittel suchen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();textLog()">✏️ Mit Text beschreiben</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();barcode()">▥ Barcode scannen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();closeModal();showRecipeTab('Alle')">📖 Rezept nutzen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();createDish()">🍲 Gericht erstellen</button>${selectedAddDate||selectedAddCat?`<button class="secondary" style="margin-top:14px;color:var(--red)" onclick="resetAddDate()">Auf Jetzt zurücksetzen</button>`:""}`)}
 function confirmAddDate(){let v=$("addDateInput").value;if(v)selectedAddDate=v;selectedAddCat=$("addCatInput").value;updateAddDateLabel()}
 function resetAddDate(){selectedAddDate=null;selectedAddCat=null;closeModal();updateAddDateLabel()}
 function addRecipeToLog(){
@@ -3000,7 +2966,7 @@ function renderDishBuilder(){
 }
 function addDishIngredientText(){syncDishFields();dishBuilderActive=true;textLog()}
 function addDishIngredientBarcode(){syncDishFields();dishBuilderActive=true;barcode()}
-function addDishIngredientRecipe(){syncDishFields();dishBuilderActive=true;closeModal();go('recipes')}
+function addDishIngredientRecipe(){syncDishFields();dishBuilderActive=true;closeModal();showRecipeTab('Alle')}
 function addDishIngredient(){
  syncDishFields();
  dishBuilderActive=true;
@@ -3026,7 +2992,7 @@ function saveDish(){
  }
  save();window.newDish=null;closeModal();go("home");toast(name+" gespeichert"+(alsRezept?" (auch als Rezept)":""));selectedAddDate=null;selectedAddCat=null
 }
-function searchFood(){recipeBuilderActive=false;dishBuilderActive=false;modal("Lebensmittel suchen",`<input id="q" placeholder="z.B. Hähnchen" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p><p class="small" style="opacity:.7">Tippe auf Name oder Symbol für Details und eigenes Foto, auf ＋ zum Hinzufügen.</p><button class="secondary" style="margin-top:10px" onclick="createCustomFood()">+ Eigenes Lebensmittel erstellen</button>`);results()}
+function searchFood(){recipeBuilderActive=false;dishBuilderActive=false;dishAddActive=false;modal("Lebensmittel suchen",`<input id="q" placeholder="z.B. Hähnchen" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p><p class="small" style="opacity:.7">Tippe auf Name oder Symbol für Details und eigenes Foto, auf ＋ zum Hinzufügen.</p><button class="secondary" style="margin-top:10px" onclick="createCustomFood()">+ Eigenes Lebensmittel erstellen</button>`);results()}
 function createCustomFood(){
  modal("Eigenes Lebensmittel",`<input id="cfName" placeholder="Name"><div style="display:flex;gap:8px;margin-top:8px"><input id="cfK" type="text" inputmode="decimal" placeholder="kcal/100g(ml)" style="flex:1"><input id="cfP" type="text" inputmode="decimal" placeholder="Protein g" style="flex:1"></div><div style="display:flex;gap:8px;margin-top:8px"><input id="cfC" type="text" inputmode="decimal" placeholder="Kohlenh. g" style="flex:1"><input id="cfF" type="text" inputmode="decimal" placeholder="Fett g" style="flex:1"></div><p class="small">Werte pro 100 g — bei Flüssigkeiten (z. B. Saft, Milch) entspricht das auch 100 ml. Beim späteren Hinzufügen kannst du dann zwischen Gramm, Esslöffel, Teelöffel, Tasse und Milliliter wählen. Ein passendes Symbol wird automatisch gewählt.</p><button class="primary" onclick="saveCustomFood()">Speichern</button>`)
 }
@@ -3038,7 +3004,7 @@ function saveCustomFood(){
  let cf=[name,guessEmoji(name),k,p,c,f];
  if(!d.customFoods)d.customFoods=[];
  d.customFoods.push(cf);foods.push(cf);save();toast(name+" gespeichert");
- modalStack.pop();modalNoPush=true;if(recipeBuilderActive)addRecipeIngredient();else if(dishBuilderActive)addDishIngredient();else searchFood()
+ modalStack.pop();modalNoPush=true;if(dishAddActive)dishAddIngredient();else if(recipeBuilderActive)addRecipeIngredient();else if(dishBuilderActive)addDishIngredient();else searchFood()
 }
 let searchDebounce=null,searchGen=0;
 function results(){let q=($("q")?.value||"").trim();renderLocalResults(q);clearTimeout(searchDebounce);const gen=++searchGen;if($("searchStatus"))$("searchStatus").textContent="";if(q.length<2)return;if($("searchStatus"))$("searchStatus").textContent="Suche bei Open Food Facts…";searchDebounce=setTimeout(()=>fetchRemoteResults(q,gen),450)}
@@ -3049,15 +3015,18 @@ function isFav(name){return (d.favs||[]).includes(name)}
 function toggleFav(i){const n=foods[i][0];if(isFav(n))d.favs=d.favs.filter(x=>x!==n);else{d.favs.push(n);rememberFood(i)}save();const b=$("favBtn");if(b)b.textContent=isFav(n)?"★ Favorit":"☆ Als Favorit merken"}
 function renderLocalResults(q){
  let ql=q.toLowerCase(),html="";
+ const dishOK=!recipeBuilderActive&&!dishBuilderActive&&!dishAddActive;   // Gerichte nur in der normalen Suche
  if(!ql){
-  const sec=(t,names)=>{const rows=names.map(foodIdx).filter(i=>i>=0).map(i=>foodRow(foods[i],i)).join("");return rows?`<div class="small" style="margin:10px 0 2px">${t}</div>${rows}`:""};
+  const sec=(t,names)=>{const rows=names.map(n=>{const i=foodIdx(n);if(i>=0)return foodRow(foods[i],i);const g=dishOK?dishByName(n):null;return g?dishRow(g):""}).join("");return rows?`<div class="small" style="margin:10px 0 2px">${t}</div>${rows}`:""};
   html=sec("★ Favoriten",d.favs||[])+sec("Zuletzt gegessen",d.recent||[]);
   html+=`<div class="small" style="margin:10px 0 2px">Alle Lebensmittel (Auswahl) – tippe oben, um unter ${foods.length} zu suchen</div>`+foods.slice(0,40).map((f,i)=>foodRow(f,i)).join("")
  }else{
   const qa=applyAliases(ql);
-  const hits=foods.map((f,i)=>[f,i]).filter(([f])=>{const n=f[0].toLowerCase();return n.includes(ql)||n.includes(qa)});
-  hits.sort((a,b)=>{const sa=a[0][0].toLowerCase().startsWith(ql)?0:1,sb=b[0][0].toLowerCase().startsWith(ql)?0:1;return sa-sb||(isFav(b[0][0])-isFav(a[0][0]))});
-  html=hits.slice(0,80).map(([f,i])=>foodRow(f,i)).join("")+(hits.length>80?`<div class="small" style="padding:8px 0">${hits.length-80} weitere – Suchbegriff genauer eingeben.</div>`:"")
+  const hits=foods.map((f,i)=>({f,i,n:f[0]})).filter(x=>{const n=x.n.toLowerCase();return n.includes(ql)||n.includes(qa)});
+  if(dishOK)DISHES.forEach(g=>{const n=g.name.toLowerCase(),nm=n.includes(ql)||n.includes(qa);if(nm||(ql.length>=3&&g.cat.toLowerCase().includes(ql)))hits.push({g,n:g.name,co:!nm})});   // co = nur über die Kategorie gefunden (z. B. „pizza“ → Calzone)
+  const rank=x=>[x.n.toLowerCase().startsWith(ql)?0:x.co?2:1,isFav(x.n)?0:1,x.g?0:1];
+  hits.sort((a,b)=>{const ra=rank(a),rb=rank(b);return ra[0]-rb[0]||ra[1]-rb[1]||ra[2]-rb[2]});
+  html=hits.slice(0,80).map(x=>x.g?dishRow(x.g):foodRow(x.f,x.i)).join("")+(hits.length>80?`<div class="small" style="padding:8px 0">${hits.length-80} weitere – Suchbegriff genauer eingeben.</div>`:"")
  }
  $("results").innerHTML=html
 }
@@ -3087,7 +3056,7 @@ async function fetchRemoteResults(q,gen){
   if($("searchStatus"))$("searchStatus").textContent=hinzugefuegt.length?`+${hinzugefuegt.length} Treffer von Open Food Facts`:"Keine weiteren Treffer bei Open Food Facts";
  }catch(e){console.warn("Open Food Facts Suche fehlgeschlagen (offline?)",e);if(gen===searchGen&&$("searchStatus"))$("searchStatus").textContent="⚠️ Open Food Facts nicht erreichbar (offline oder kein Zugriff)"}
 }
-function portion(i){let f=foods[i];modal(f[1]+" "+f[0],`<div class="badge">Nährwerte pro 100 g</div><p class="small">Menge</p><div style="display:flex;gap:8px"><input id="grams" type="text" inputmode="decimal" value="100" style="flex:1"><select id="unit" style="flex:1"><option value="g">Gramm</option><option value="tbsp">Esslöffel (≈15 g)</option><option value="tsp">Teelöffel (≈5 g)</option><option value="cup">Tasse (≈240 g)</option><option value="ml">Milliliter (≈1 g)</option></select></div><p class="small">Löffel/Tasse/ml sind ungefähre Umrechnungen – abhängig von der Zutat.</p><button class="secondary" id="favBtn" style="margin-top:6px" onclick="toggleFav(${i})">${isFav(f[0])?"★ Favorit":"☆ Als Favorit merken"}</button><button class="secondary" onclick="foodDetails(${i},true)">ⓘ Details &amp; Foto</button><button class="primary" onclick="${recipeBuilderActive?`addIngredientToRecipe(${i})`:dishBuilderActive?`addIngredientToDish(${i})`:`add(${i})`}">Hinzufügen</button>`)}
+function portion(i){let f=foods[i];modal(f[1]+" "+f[0],`<div class="badge">Nährwerte pro 100 g</div><p class="small">Menge</p><div style="display:flex;gap:8px"><input id="grams" type="text" inputmode="decimal" value="100" style="flex:1"><select id="unit" style="flex:1"><option value="g">Gramm</option><option value="tbsp">Esslöffel (≈15 g)</option><option value="tsp">Teelöffel (≈5 g)</option><option value="cup">Tasse (≈240 g)</option><option value="ml">Milliliter (≈1 g)</option></select></div><p class="small">Löffel/Tasse/ml sind ungefähre Umrechnungen – abhängig von der Zutat.</p><button class="secondary" id="favBtn" style="margin-top:6px" onclick="toggleFav(${i})">${isFav(f[0])?"★ Favorit":"☆ Als Favorit merken"}</button><button class="secondary" onclick="foodDetails(${i},true)">ⓘ Details &amp; Foto</button><button class="primary" onclick="${dishAddActive?`addIngredientToDishSheet(${i})`:recipeBuilderActive?`addIngredientToRecipe(${i})`:dishBuilderActive?`addIngredientToDish(${i})`:`add(${i})`}">Hinzufügen</button>`)}
 function add(i){
  let f=foods[i],unit=$("unit")?.value||"g",amount=parseNum($("grams").value);
  if(!(amount>0)||amount>20000){toast("Bitte eine gültige Menge eingeben");return}
@@ -3103,10 +3072,10 @@ function voiceInput(){
 }
 function escapeRegex(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}
 const PIECE_G={ei:60,banane:120,apfel:180,orange:150,birne:170,kiwi:75,tomate:80,mandarine:80,clementine:70,avocado:150,zwiebel:80,paprika:150,brötchen:55,brezel:80,croissant:60,wiener:50,bratwurst:120,frikadelle:100,pfirsich:150,nektarine:140,zitrone:80,kartoffeln:90,möhre:70,karotten:70,muffin:80,donut:60,riegel:45,keks:10,kekse:10,kuchen:100,rührkuchen:100,toast:25,waffel:30,reiswaffeln:9};
-Object.assign(PIECE_G,{snickers:50,mars:51,twix:50,bounty:57,duplo:18,hanuta:18,knoppers:25,raffaello:10,ferrero:12,magnum:72,cornetto:70,macarons:12,cupcake:80,cookie:50,pralinen:12,bonbons:5,marshmallows:5,oreo:11,butterkeks:4,spekulatius:8,lebkuchen:40,zimtsterne:8,vanillekipferl:12,prinzenrolle:14,löffelbiskuit:8,proteinriegel:60,müsliriegel:25,schokoriegel:45,energieriegel:55,bockwurst:100,weißwurst:70,knackwurst:60,landjäger:50,hot:150,big:215,mcchicken:155,whopper:270,chicken:20,hähnchenflügel:40,hähnchenkeule:150,hähnchenschenkel:140,garnelen:15,sardinen:30,fischstäbchen:28,frühlingsrolle:80,sushi:28,kartoffelknödel:120,semmelknödel:100,maultaschen:80,pfannkuchen:100,pancakes:50,crêpes:70,waffeln:30,brownie:60,berliner:70,laugenstange:90,laugenbrötchen:70,laugenbrezel:100,mohnbrötchen:55,dinkelbrötchen:55,käsebrötchen:80,franzbrötchen:90,zimtschnecke:100,apfeltasche:100,windbeutel:90,eclair:70,amerikaner:90,bagel:100,pita:60,naan:90,wraps:60,spiegelei:60,wachtelei:12,eigelb:18,eiklar:33,pflaumen:40,aprikosen:45,kirschen:8,erdbeeren:15,weintrauben:6,datteln:20,feigen:50,oliven:4,cherrytomaten:15,radieschen:15,champignons:20,knoblauch:5});
+Object.assign(PIECE_G,{snickers:50,mars:51,twix:50,bounty:57,duplo:18,hanuta:18,knoppers:25,raffaello:10,ferrero:12,magnum:72,cornetto:70,macarons:12,cupcake:80,cookie:50,pralinen:12,bonbons:5,marshmallows:5,oreo:11,butterkeks:4,spekulatius:8,lebkuchen:40,zimtsterne:8,vanillekipferl:12,prinzenrolle:14,löffelbiskuit:8,proteinriegel:60,müsliriegel:25,schokoriegel:45,energieriegel:55,bockwurst:100,weißwurst:70,knackwurst:60,landjäger:50,chicken:20,hähnchenflügel:40,hähnchenkeule:150,hähnchenschenkel:140,garnelen:15,sardinen:30,fischstäbchen:28,kartoffelknödel:120,semmelknödel:100,maultaschen:80,pfannkuchen:100,pancakes:50,crêpes:70,waffeln:30,brownie:60,berliner:70,laugenstange:90,laugenbrötchen:70,laugenbrezel:100,mohnbrötchen:55,dinkelbrötchen:55,käsebrötchen:80,franzbrötchen:90,zimtschnecke:100,apfeltasche:100,windbeutel:90,eclair:70,amerikaner:90,bagel:100,pita:60,naan:90,wraps:60,spiegelei:60,wachtelei:12,eigelb:18,eiklar:33,pflaumen:40,aprikosen:45,kirschen:8,erdbeeren:15,weintrauben:6,datteln:20,feigen:50,oliven:4,cherrytomaten:15,radieschen:15,champignons:20,knoblauch:5});
 const SLICE_G={brot:45,toast:25,vollkornbrot:50,mischbrot:50,weißbrot:30,käse:25,gouda:25,schinken:20,salami:6,wurst:15,leberwurst:20,lachs:30,knäckebrot:10,bacon:10,speck:10,kuchen:100,rührkuchen:100};
-const STUECK_G={pizza:120,kuchen:100,rührkuchen:100,torte:100,käse:25,schokolade:5,brot:45,wurst:60};
-const SERVING_G={reis:180,nudeln:250,spaghetti:250,pasta:250,penne:250,pommes:150,kartoffeln:200,pizza:350,lasagne:350,burger:200,döner:350,currywurst:250,schnitzel:150,hähnchenbrust:150,lachs:150,steak:200,suppe:300,eintopf:350,salat:100,müsli:60,haferflocken:50,joghurt:150,quark:150,skyr:150,hüttenkäse:150,pudding:150,eis:100,eiscreme:100,kuchen:100,rührkuchen:100,schokolade:25,chips:50,mandeln:30,walnüsse:30,erdnüsse:30,nüsse:30,kaffee:200,tee:200,milch:200,saft:200,cola:330,bier:330,wein:150,sekt:100,wasser:250,rührei:150};
+const STUECK_G={kuchen:100,rührkuchen:100,torte:100,käse:25,schokolade:5,brot:45,wurst:60};
+const SERVING_G={reis:180,nudeln:250,spaghetti:250,pasta:250,penne:250,pommes:150,kartoffeln:200,hähnchenbrust:150,lachs:150,steak:200,salat:100,müsli:60,haferflocken:50,joghurt:150,quark:150,skyr:150,hüttenkäse:150,pudding:150,eis:100,eiscreme:100,kuchen:100,rührkuchen:100,schokolade:25,chips:50,mandeln:30,walnüsse:30,erdnüsse:30,nüsse:30,kaffee:200,tee:200,milch:200,saft:200,cola:330,bier:330,wein:150,sekt:100,wasser:250,rührei:150};
 const NUM_WORDS={ein:1,eine:1,einen:1,einem:1,einer:1,eines:1,eins:1,zwei:2,zwo:2,drei:3,vier:4,fünf:5,sechs:6,sieben:7,acht:8,neun:9,zehn:10,elf:11,zwölf:12};
 const TXT_UNIT_RE="kilogramm|kilo|kg|gramm|gr|g|milliliter|ml|cl|dl|liter|l|esslöffel|el|teelöffel|tl|tassen|tasse|gläser|glas|becher|schalen|schale|portionen|portion|scheiben|scheibe|stücke|stück|stk|handvoll";
 const TXT_UNIT_G={kilogramm:1000,kilo:1000,kg:1000,gramm:1,gr:1,g:1,milliliter:1,ml:1,cl:10,dl:100,liter:1000,l:1000,esslöffel:15,el:15,teelöffel:5,tl:5,tassen:240,tasse:240,gläser:200,glas:200,becher:150,schalen:150,schale:150,handvoll:30};
@@ -3197,7 +3166,7 @@ function parseFoodText(raw){
 }
 function parseText(){
  const found=parseFoodText($("txt").value);
- if(!found.length){modal("Nichts erkannt",`<p class="small">Keines unserer Lebensmittel wurde im Text gefunden. Nutze die Suche für eine gezielte Auswahl oder versuch eine andere Formulierung (z. B. genau den Lebensmittelnamen).</p><button class="secondary" onclick="searchFood()">Zur Suche</button>`);return}
+ if(!found.length){modal("Nichts erkannt",`<p class="small">Keines unserer Lebensmittel wurde im Text gefunden. Nutze die Suche für eine gezielte Auswahl oder versuch eine andere Formulierung (z. B. genau den Lebensmittelnamen). Fertige Gerichte wie Pizza oder Burger findest du unter „Gerichte“.</p><button class="secondary" onclick="searchFood()">Zur Suche</button><button class="secondary" style="margin-top:8px" onclick="closeModal();showRecipeTab('Gerichte')">🍔 Gerichte</button>`);return}
  window.found=found;
  showParsedItems()
 }
