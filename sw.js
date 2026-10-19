@@ -1,4 +1,4 @@
-const CACHE_NAME = "macrotrack-v14";
+const CACHE_NAME = "macrotrack-v17";
 const ASSETS = ["./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./privacy.html"];
 
 self.addEventListener("install", (event) => {
