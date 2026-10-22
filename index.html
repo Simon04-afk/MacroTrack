@@ -14,7 +14,7 @@
 <style>
 :root{--bg:#090b0d;--card:#15181c;--card2:#1b2025;--line:#292f35;--text:#f5f7f8;--muted:#8d969f;--green:#7ee66b;--blue:#69a7ff;--purple:#b48cff;--orange:#ffad3d;--red:#ff6b6b}
 *{box-sizing:border-box}html,body{margin:0;background:#000;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}button,input,textarea,select{font:inherit}
-.app{max-width:480px;margin:auto;min-height:100vh;background:var(--bg);padding-bottom:92px}.screen{display:none}.screen.active{display:block}
+.app{max-width:480px;margin:auto;min-height:100vh;background:var(--bg);padding-bottom:140px}   /* so viel Platz, dass der letzte Knopf nicht unter dem runden + liegt */.screen{display:none}.screen.active{display:block}
 header{padding:22px 18px 10px;display:flex;justify-content:space-between;align-items:center;gap:10px}.title{font-size:25px;font-weight:850}.sub,.small{color:var(--muted);font-size:12px}.streak{background:#17231a;color:var(--green);padding:8px 11px;border-radius:20px;font-size:13px}
 main{padding:8px 15px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin:10px 0}.hero{text-align:center;padding:18px}
 .ring{width:170px;height:170px;border-radius:50%;margin:0 auto 12px;background:conic-gradient(var(--green) 0 68%,#2a3035 68%);display:grid;place-items:center}.ring:after{content:"";width:136px;height:136px;border-radius:50%;background:var(--card);position:absolute}.ringin{position:relative;z-index:1}.kcal{font-size:31px;font-weight:900}
@@ -27,7 +27,7 @@ main{padding:8px 15px}.card{background:var(--card);border:1px solid var(--line);
 input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;color:#fff;border-radius:13px;padding:12px;outline:none}textarea{min-height:92px}.primary,.secondary{width:100%;border-radius:14px;padding:13px;margin-top:9px}.primary{border:0;background:var(--green);color:#081008;font-weight:850}.secondary{border:1px solid #333a40;background:#1a1f24;color:#fff}
 .anav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0}.navbtn{width:44px;height:40px;border:1px solid #2b3137;background:#171b20;color:#fff;border-radius:12px;font-size:20px}.navbtn:disabled{opacity:.3}.navlabel{flex:1;text-align:center;font-weight:700;font-size:15px}.navlabel .small{font-weight:400}.tabs{display:flex;gap:5px;background:#15191d;padding:5px;border-radius:12px}.tabs button{flex:1;background:transparent;border:0;color:var(--muted);padding:8px;border-radius:9px;font-size:12px}.tabs .sel{background:#2a3036;color:#fff}
 .tabsscroll{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;-webkit-overflow-scrolling:touch}.tabsscroll button{flex:0 0 auto;background:#15191d;border:0;color:var(--muted);padding:8px 14px;border-radius:20px;font-size:12px;white-space:nowrap}.tabsscroll .sel{background:#2a3036;color:#fff}
-.mealrow{flex-wrap:wrap}.camrow{margin-left:auto}.camrow+.cal{margin-left:0}.meal h3{overflow-wrap:anywhere}.meal>div:nth-child(2){min-width:0}.row,.foodrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #252b30}.row:last-child,.foodrow:last-child{border:0}.plus{margin-left:auto;border:1px solid #394148;background:#182019;color:var(--green);border-radius:10px;padding:5px 9px}.rmrow{background:none;border:0;color:var(--muted);font-size:15px;line-height:1;min-width:34px;min-height:34px;padding:0;border-radius:10px;margin:0 -4px 0 auto;flex:none}.sechead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:10px 0 2px}.rmall{background:none;border:0;color:var(--muted);font-size:11px;padding:6px 0 6px 10px;margin:-6px 0;text-decoration:underline}.rmrow+.plus{margin-left:0}.amt{width:64px!important;text-align:center;padding:6px 4px!important;font-size:13px;border-radius:10px!important;margin:0}.badge.warn{background:#3a2f12;color:#f2c14e}.estnote{font-size:10px;color:#f2c14e;margin-top:2px}.badge{display:inline-block;background:#20262b;color:var(--muted);border-radius:8px;padding:5px 8px;font-size:10px}
+.mealrow{flex-wrap:wrap}.camrow{margin-left:auto}.camrow+.cal{margin-left:0}.meal h3{overflow-wrap:anywhere}.meal>div:nth-child(2){min-width:0}.row,.foodrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #252b30}.row:last-child,.foodrow:last-child{border:0}.plus{margin-left:auto;border:1px solid #394148;background:#182019;color:var(--green);border-radius:10px;padding:5px 9px}.rmrow{background:none;border:0;color:var(--muted);font-size:15px;line-height:1;min-width:34px;min-height:34px;padding:0;border-radius:10px;margin:0 -4px 0 auto;flex:none}.sechead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:10px 0 2px}.rmall{background:none;border:0;color:var(--muted);font-size:11px;padding:6px 0 6px 10px;margin:-6px 0;text-decoration:underline}.rmrow+.plus{margin-left:0}.stepedit{display:flex;gap:10px;margin:10px 0}.stepnum{flex:none;width:26px;height:26px;margin-top:8px;border-radius:50%;background:#20262b;color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:12px}.stepbody{flex:1;min-width:0}.stepbody textarea{min-height:68px;margin:0;resize:vertical}.stepbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px}.stepbar label{display:flex;align-items:center;gap:6px}.stepbar>span{display:flex;gap:6px}.stepbar .plus{margin:0;min-width:36px;min-height:34px}.stepbar .plus:disabled{opacity:.35}.steps{margin:4px 0 0;padding-left:22px}.steps li{margin:8px 0;line-height:1.45;overflow-wrap:anywhere}.cookprog{height:6px;border-radius:3px;background:#20262b;overflow:hidden;margin:6px 0 4px}.cookprog>span{display:block;height:100%;background:var(--green);transition:width .2s}.cooktext{font-size:21px;line-height:1.45;margin:18px 0;overflow-wrap:anywhere}.cooktimer{background:#182019;border:1px solid #2a3a2d;border-radius:18px;padding:14px;text-align:center;margin:14px 0}.cooktimer.done{background:#3a1f1a;border-color:#5a2b24}.cooktimer.done .cooktime{color:#ff8a7a}.cooktime{font-size:46px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.15}.cooktbtn{display:flex;gap:8px;margin-top:6px}.cooktbtn .primary{flex:1;margin:0}.cooktbtn .secondary{width:56px;margin:0}.cookbtns{display:flex;gap:8px;margin:14px 0 4px}.cookbtns button{flex:1;margin:0}.cookbtns button:disabled{opacity:.4}.cookruns{display:flex;flex-direction:column;gap:6px;margin:8px 0}.cookrun{background:#20262b;border:1px solid #2f373d;color:#fff;border-radius:12px;padding:9px 12px;text-align:left}.cookrun.alarm{background:#3a1f1a;border-color:#5a2b24}.amt{width:64px!important;text-align:center;padding:6px 4px!important;font-size:13px;border-radius:10px!important;margin:0}.badge.warn{background:#3a2f12;color:#f2c14e}.estnote{font-size:10px;color:#f2c14e;margin-top:2px}.badge{display:inline-block;background:#20262b;color:var(--muted);border-radius:8px;padding:5px 8px;font-size:10px}
 .chart{display:flex;align-items:end;gap:6px;padding:4px 3px 0}.daycol{flex:1;display:flex;flex-direction:column;align-items:center;min-width:0}.daykcal{font-size:9px;color:var(--muted);height:12px;line-height:12px;white-space:nowrap}.barwrap{height:100px;width:100%;display:flex;align-items:end}.barcol{width:100%;background:linear-gradient(to top,#72db64,#b4f6aa);border-radius:7px 7px 2px 2px;min-height:8px}.barcol.today{background:linear-gradient(to top,#4a9d3c,#7ee66b);box-shadow:0 0 0 1.5px #7ee66b inset}.barcol.over{background:linear-gradient(to top,#c97a2e,#ffad3d)}.daylabel{font-size:10px;color:var(--muted);margin-top:5px;height:12px;line-height:12px}.daylabel.today{color:var(--green);font-weight:750}
 .modal{position:fixed;inset:0;background:#000b;display:none;align-items:end;z-index:50}.modal.show{display:flex}.sheet{width:min(480px,100%);max-height:90vh;overflow:auto;margin:auto;background:#121518;border-radius:24px 24px 0 0;padding:19px}.close{float:right;background:none;border:0;color:#fff;font-size:24px}.preview{width:100%;height:250px;object-fit:cover;border-radius:17px;background:#20252a}.toast{position:fixed;z-index:100;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);background:#22292f;color:#fff;padding:11px 15px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;font-size:13px}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast.withundo{pointer-events:auto}.toast .undo{margin-left:12px;background:none;border:0;color:var(--green);font-weight:800;padding:2px 4px}
 .foodmain{display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer}.foodmain>div{min-width:0}.foodmain>div>b{overflow-wrap:anywhere}.detailpic{width:100%;height:180px;border-radius:18px;background:#22282e;display:grid;place-items:center;overflow:hidden;font-size:84px;margin-bottom:6px}.detailpic img{width:100%;height:100%;object-fit:cover;display:block}
@@ -439,6 +439,26 @@ const DEFAULT_RECIPES=[
    {name:"Walnüsse",grams:20,k:130.8,p:3,c:2.8,f:13},
    {name:"Honig",grams:10,k:30.4,p:0.03,c:8.2,f:0}]}
 ];
+// Zubereitungsschritte der Standard-Rezepte ({t:Text, m:Timer in Minuten, 0 = kein Timer})
+const DEFAULT_STEPS={
+ r1:[{t:"Milch in einem kleinen Topf erwärmen, sie soll nicht kochen.",m:3},{t:"Haferflocken einrühren und unter Rühren quellen lassen.",m:5},{t:"Banane in Scheiben schneiden.",m:0},{t:"Haferbrei in eine Schüssel geben und mit der Banane belegen.",m:0}],
+ r2:[{t:"Reis nach Packungsangabe in Salzwasser kochen.",m:12},{t:"Hähnchenbrust in mundgerechte Stücke schneiden und mit Salz und Pfeffer würzen.",m:0},{t:"Hähnchen in einer Pfanne mit etwas Öl rundherum goldbraun braten.",m:8},{t:"Brokkoli in Röschen teilen und in Salzwasser bissfest garen.",m:4},{t:"Reis, Hähnchen und Brokkoli in einer Schüssel anrichten.",m:0}],
+ r3:[{t:"Backofen auf 200 °C vorheizen.",m:0},{t:"Süßkartoffel schälen, in Würfel schneiden und auf einem Blech im Ofen backen.",m:15},{t:"Lachs würzen, zu den Süßkartoffeln aufs Blech legen und weiterbacken.",m:12},{t:"Brokkoli in Salzwasser bissfest garen.",m:4},{t:"Alles anrichten.",m:0}],
+ r4:[{t:"Eier, Haferflocken und Skyr in einer Schüssel zu einem glatten Teig verrühren.",m:0},{t:"Teig quellen lassen.",m:5},{t:"Pfanne leicht einfetten und den Teig portionsweise von jeder Seite goldbraun backen.",m:6}],
+ r5:[{t:"Magerquark in eine Schüssel geben und glatt rühren.",m:0},{t:"Erdbeeren waschen, putzen und in Stücke schneiden.",m:0},{t:"Beeren auf den Quark geben und mit Honig beträufeln.",m:0}],
+ r6:[{t:"Kopfsalat waschen, trocken schleudern und in mundgerechte Stücke zupfen.",m:0},{t:"Avocado halbieren, entkernen und in Scheiben schneiden.",m:0},{t:"Thunfisch abtropfen lassen und mit Salat und Avocado mischen.",m:0},{t:"Mit Olivenöl, Salz und Pfeffer abschmecken.",m:0}],
+ r7:[{t:"Kartoffeln waschen und in Salzwasser garen.",m:20},{t:"Steak aus dem Kühlschrank nehmen, trocken tupfen und salzen.",m:0},{t:"Pfanne stark erhitzen und das Steak von jeder Seite scharf anbraten.",m:4},{t:"Steak vor dem Anschneiden ruhen lassen.",m:5},{t:"Grüne Bohnen in Salzwasser bissfest garen.",m:8},{t:"Alles anrichten.",m:0}],
+ r8:[{t:"Reis nach Packungsangabe kochen.",m:12},{t:"Kokosöl in einem Topf erhitzen und Currypulver kurz anrösten.",m:1},{t:"Linsen dazugeben, mit etwas Wasser ablöschen und köcheln lassen.",m:10},{t:"Mit Salz und Pfeffer abschmecken und mit dem Reis servieren.",m:0}],
+ r9:[{t:"Apfel waschen, entkernen und in Spalten schneiden.",m:0},{t:"Erdnussbutter zum Dippen dazu reichen.",m:0}],
+ r10:[{t:"Joghurt in eine Schale geben.",m:0},{t:"Walnüsse grob hacken und darüberstreuen.",m:0},{t:"Mit Honig beträufeln.",m:0}]
+};
+DEFAULT_RECIPES.forEach(r=>{r.steps=DEFAULT_STEPS[r.id]||[]});
+// Schritte bereinigen: nur Objekte mit Text, höchstens 40 Schritte, Text höchstens 500 Zeichen, Timer 0–600 Minuten
+function cleanSteps(a){
+ if(!Array.isArray(a))return [];
+ return a.filter(x=>x&&typeof x.t==="string"&&x.t.trim()).slice(0,40).map(x=>({t:x.t.trim().slice(0,500),m:Math.min(600,Math.max(0,Math.round(Number(x.m))||0))}))
+}
+function recipeSteps(r){return r?cleanSteps(r.steps):[]}
 const UNIT_G={g:1,tbsp:15,tsp:5,cup:240,ml:1};
 const UNIT_LABEL={g:"g",tbsp:"EL",tsp:"TL",cup:"Tasse",ml:"ml"};
 // Passendes Symbol zu Name/Kategorie: Reihenfolge = Priorität (Speziellstes zuerst).
@@ -632,6 +652,11 @@ function normalizeData(x){
  if(!Array.isArray(x.offFoods))x.offFoods=[];
  if(!Array.isArray(x.favs))x.favs=[];
  if(!Array.isArray(x.recent))x.recent=[];
+ x.recipes.forEach(r=>{
+  if(!r||typeof r!=="object")return;
+  if(Array.isArray(r.steps))r.steps=cleanSteps(r.steps);
+  else{const def=DEFAULT_RECIPES.find(z=>z.id===r.id&&z.name===r.name);r.steps=def?JSON.parse(JSON.stringify(def.steps)):[]}   // Standard-Rezepte aus älteren Daten bekommen ihre Schritte; eigene Rezepte starten ohne
+ });
  if(!Array.isArray(x.hiddenDishes))x.hiddenDishes=[];x.hiddenDishes=x.hiddenDishes.filter(n=>typeof n==="string");   // gelöschte (ausgeblendete) Gerichte
  if(!Array.isArray(x.body))x.body=[];
  if(!x.plan||typeof x.plan!=="object")x.plan={mode:"keep",rate:0.5};
@@ -2697,7 +2722,20 @@ function showDeletedDishes(){
 function restoreDish(name){name=decodeURIComponent(name);d.hiddenDishes=(d.hiddenDishes||[]).filter(n=>n!==name);save();renderRecipeList();modalNoPush=true;showDeletedDishes()}
 function restoreAllDishes(){d.hiddenDishes=[];save();renderRecipeList();closeModal();toast("Alle Gerichte zurückgeholt")}
 function dishTotals(g){let k=0,p=0,c=0,f=0;g.items.forEach(it=>{const x=foodMap().get(it.name);if(!x)return;const m=it.grams/100;k+=x[2]*m;p+=x[3]*m;c+=x[4]*m;f+=x[5]*m});return{k,p,c,f}}
-function dishRow(g,x){const t=dishTotals(g);return `<div class="foodrow"><div class="foodmain" onclick="openDish('${g.id}')"><div class="foodimg">${foodThumb(g.emoji,null,32)}</div><div><b>${esc(g.name)}</b><div class="small">≈ ${Math.round(t.k)} kcal · ${g.items.length} Zutaten · anpassbar</div></div></div>${x||""}<button class="plus" aria-label="${esc(g.name)} anpassen" onclick="openDish('${g.id}')">✎</button></div>`}
+function dishRow(g,x){const t=dishTotals(g);return `<div class="foodrow"><div class="foodmain" onclick="openDish('${g.id}')"><div class="foodimg">${foodThumb(g.emoji,null,32)}</div><div><b>${esc(g.name)}</b><div class="small">≈ ${Math.round(t.k)} kcal · ${g.items.length} Zutaten · Name antippen zum Anpassen</div></div></div>${x||""}<button class="plus" aria-label="${esc(g.name)} als Standardportion eintragen" onclick="dishQuickAdd('${g.id}')">＋</button></div>`}
+// Schnellwahl: ein Tipp trägt die Standardportion (alle Zutaten, Standardmengen) ein; Anpassen geht über den Namen
+function dishQuickAdd(id){
+ const g=DISHES.find(x=>x.id===id);if(!g||dishHidden(g.name))return;
+ const its=g.items.map(it=>{const f=foodMap().get(it.name);return f?{name:it.name,grams:it.grams,per:[f[2],f[3],f[4],f[5]]}:null}).filter(Boolean);
+ if(!its.length)return;
+ const cat=currentAddCat(),dateNow=currentAddDate(),time=new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
+ const ids=[],oldRecent=[...(d.recent||[])];let kc=0;
+ its.forEach(it=>{const m=it.grams/100,x={id:Date.now()+Math.random(),date:dateNow,name:cat,time,items:`${it.name} · ${it.grams} g`,food_name:it.name,grams:it.grams,k:it.per[0]*m,p:it.per[1]*m,c:it.per[2]*m,f:it.per[3]*m,e:g.emoji};d.meals.push(x);ids.push(x.id);kc+=x.k});
+ noteRecent(g.name);save();refreshStartList();
+ const wo=(dateNow===todayISO()?"":formatDateLabel(dateNow)+" · ")+cat;
+ selectedAddDate=null;selectedAddCat=null;updateAddDateLabel();render();
+ showUndo(g.name+" · "+Math.round(kc)+" kcal · "+wo,null,()=>{const sset=new Set(ids);d.meals=d.meals.filter(m=>!sset.has(m.id));d.recent=oldRecent;save();refreshStartList();render();toast("Rückgängig gemacht")})
+}
 function dishStepSize(it){return it.g0>=100?25:it.g0>=40?10:it.g0>=15?5:2}
 function dishFactor(){const e=parseNum($("dPortions")?$("dPortions").value:"1");return e>=0.25&&e<=20?e:null}
 function dishCalc(){const s=dishSheet,fa=dishFactor()??1;let k=0,p=0,c=0,f=0,n=0;s.items.forEach(it=>{if(it.on&&it.g>0){const m=it.g*fa/100;k+=it.per[0]*m;p+=it.per[1]*m;c+=it.per[2]*m;f+=it.per[3]*m;n++}});return{k,p,c,f,n}}
@@ -2792,11 +2830,11 @@ function renderRecipeList(){
  if(recipeCat==="Gerichte"){
   const L=dishList().filter(x=>x.name.toLowerCase().includes(q)||x.cat.toLowerCase().includes(q));
   const del=g=>`<button class="rmrow" aria-label="${esc(g.name)} löschen" onclick="deleteDish('${g.id}')">🗑</button>`,nh=hiddenDishList().length;
-  $("recipeList").innerHTML=(DISH_CATS.map(c=>{const M=L.filter(x=>x.cat===c);return M.length?`<div class="small" style="margin:12px 0 2px">${esc(c)} (${M.length})</div>`+M.map(g=>dishRow(g,del(g))).join(""):""}).join("")||`<div class="small">Keine Gerichte gefunden.</div>`)+(nh?`<button class="secondary" style="margin-top:14px" onclick="showDeletedDishes()">Gelöschte Gerichte (${nh}) · zurückholen</button>`:"");
+  $("recipeList").innerHTML=(L.length?`<p class="small" style="margin:6px 0 0">＋ trägt die Standardportion direkt ein. Tippe auf den Namen, um Zutaten wegzulassen oder Mengen zu ändern.</p>`:"")+(DISH_CATS.map(c=>{const M=L.filter(x=>x.cat===c);return M.length?`<div class="small" style="margin:12px 0 2px">${esc(c)} (${M.length})</div>`+M.map(g=>dishRow(g,del(g))).join(""):""}).join("")||`<div class="small">Keine Gerichte gefunden.</div>`)+(nh?`<button class="secondary" style="margin-top:14px" onclick="showDeletedDishes()">Gelöschte Gerichte (${nh}) · zurückholen</button>`:"");
   return
  }
  let list=(d.recipes||[]).filter(r=>(recipeCat==="Alle"||r.category===recipeCat)&&r.name.toLowerCase().includes(q));
- $("recipeList").innerHTML=list.length?list.map(r=>{let t=recipeTotals(r),n=recipePortions(r),q=1/n;return `<div class="meal" style="cursor:pointer" onclick="openRecipe('${r.id}')"><div class="foodimg">${foodThumb(r.emoji||"🍽️",null,50)}</div><div><h3>${esc(r.name)}</h3><p>${Math.round(t.k*q)} kcal${n>1?" / Portion":""} · P ${Math.round(t.p*q)} · K ${Math.round(t.c*q)} · F ${Math.round(t.f*q)}${n>1?` · ${n} Portionen`:""}</p></div></div>`}).join(""):`<div class="small">Keine Rezepte gefunden.</div>`
+ $("recipeList").innerHTML=list.length?list.map(r=>{let t=recipeTotals(r),n=recipePortions(r),q=1/n;return `<div class="meal" style="cursor:pointer" onclick="openRecipe('${r.id}')"><div class="foodimg">${foodThumb(r.emoji||"🍽️",null,50)}</div><div><h3>${esc(r.name)}</h3><p>${Math.round(t.k*q)} kcal${n>1?" / Portion":""} · P ${Math.round(t.p*q)} · K ${Math.round(t.c*q)} · F ${Math.round(t.f*q)}${n>1?` · ${n} Portionen`:""}${recipeSteps(r).length?` · ${recipeSteps(r).length} Schritte`:""}</p></div></div>`}).join(""):`<div class="small">Keine Rezepte gefunden.</div>`
 }
 function recipeFactor(r){const e=parseNum($("rpEat")?.value);return e>=0.1&&e<=100?e/recipePortions(r):null}
 function updateRecipeEat(){
@@ -2807,8 +2845,8 @@ function updateRecipeEat(){
 }
 function openRecipe(id){
  let r=(d.recipes||[]).find(x=>String(x.id)===String(id));if(!r)return;
- let t=recipeTotals(r),n=recipePortions(r);window.openingRecipe=r;
- modal(r.name,`<div class="badge">${r.category}</div>${r.items.map(it=>`<div class="row"><span>${esc(it.name)}</span><span class="small">${Math.round(it.grams)} g</span></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>${n>1?`Ganzes Rezept (${n} Portionen)`:"Gesamt"}</span><b>${Math.round(t.k)} kcal</b></div><div class="row"><span>Ich esse</span><span style="display:flex;align-items:center;gap:6px"><input id="rpEat" class="amt" type="text" inputmode="decimal" value="1" oninput="updateRecipeEat()" aria-label="Anzahl Portionen"><span class="small">${n>1?"Portion(en)":"× Rezept"}</span></span></div><div class="row"><span>Das sind</span><b id="rpKcal">${Math.round(t.k/n)} kcal</b></div><p class="small" id="rpMacro">P ${Math.round(t.p/n)} g · K ${Math.round(t.c/n)} g · F ${Math.round(t.f/n)} g</p><button class="primary" onclick="addRecipeToLog()">${dishBuilderActive?"Zum Gericht hinzufügen":"Hinzufügen: "+formatDateLabel(currentAddDate())+" · "+currentAddCat()}</button><button class="secondary" style="margin-top:10px" onclick="editRecipe('${r.id}')">Rezept bearbeiten</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteRecipe('${r.id}')">Rezept löschen</button>`)
+ let t=recipeTotals(r),n=recipePortions(r),stp=recipeSteps(r);window.openingRecipe=r;
+ modal(r.name,`<div class="badge">${r.category}</div>${stp.length?`<button class="secondary" style="margin:10px 0 4px" onclick="startCooking('${r.id}')">👨‍🍳 Kochen · ${stp.length} Schritt${stp.length===1?"":"e"}</button>`:""}${r.items.map(it=>`<div class="row"><span>${esc(it.name)}</span><span class="small">${Math.round(it.grams)} g</span></div>`).join("")}<div class="sectiontitle" style="margin:14px 0 4px"><h2 style="font-size:14px;margin:0">Zubereitung</h2></div>${stp.length?`<ol class="steps">${stp.map(z=>`<li>${esc(z.t)}${z.m?` <span class="small">· ⏱ ${z.m} Min.</span>`:""}</li>`).join("")}</ol>`:`<div class="small">Noch keine Zubereitung. <span class="link" onclick="editRecipe('${r.id}')">Schritte hinzufügen</span></div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>${n>1?`Ganzes Rezept (${n} Portionen)`:"Gesamt"}</span><b>${Math.round(t.k)} kcal</b></div><div class="row"><span>Ich esse</span><span style="display:flex;align-items:center;gap:6px"><input id="rpEat" class="amt" type="text" inputmode="decimal" value="1" oninput="updateRecipeEat()" aria-label="Anzahl Portionen"><span class="small">${n>1?"Portion(en)":"× Rezept"}</span></span></div><div class="row"><span>Das sind</span><b id="rpKcal">${Math.round(t.k/n)} kcal</b></div><p class="small" id="rpMacro">P ${Math.round(t.p/n)} g · K ${Math.round(t.c/n)} g · F ${Math.round(t.f/n)} g</p><button class="primary" onclick="addRecipeToLog()">${dishBuilderActive?"Zum Gericht hinzufügen":"Hinzufügen: "+formatDateLabel(currentAddDate())+" · "+currentAddCat()}</button><button class="secondary" style="margin-top:10px" onclick="editRecipe('${r.id}')">Rezept bearbeiten</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteRecipe('${r.id}')">Rezept löschen</button>`)
 }
 let selectedAddDate=null,selectedAddCat=null;
 function currentAddDate(){return selectedAddDate||todayISO()}
@@ -2831,25 +2869,119 @@ function addRecipeToLog(){
  save();closeModal();go("home");toast(r.name+" hinzugefügt");selectedAddDate=null;selectedAddCat=null
 }
 function deleteRecipe(id){const snap=JSON.stringify(d);d.recipes=(d.recipes||[]).filter(r=>String(r.id)!==String(id));save();closeModal();renderRecipeList();showUndo("Rezept gelöscht",snap)}
+// ---------------------------------------------------------------- Kochmodus: Schritt für Schritt kochen, Timer je Schritt
+let cook=null,cookTimerId=null,cookWakeLock=null,cookWakeWatch=null,cookAudio=null;
+function fmtTimer(sec){sec=Math.max(0,Math.round(sec));return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
+function cookShown(){return !!cook&&$("modal").classList.contains("show")&&$("mt").textContent===cook.title}
+function startCooking(id){
+ const r=(d.recipes||[]).find(x=>String(x.id)===String(id));if(!r)return;
+ const st=recipeSteps(r);if(!st.length){toast("Dieses Rezept hat noch keine Schritte");return}
+ const sig=JSON.stringify(st);
+ if(!(cook&&String(cook.id)===String(r.id)&&cook.sig===sig))cook={id:r.id,name:r.name,title:"👨‍🍳 "+r.name,sig,steps:st,items:r.items.map(it=>({name:it.name,grams:it.grams})),n:recipePortions(r),i:0,showIng:false,timers:{}};   // gleiches Rezept, gleiche Schritte: dort weitermachen
+ renderCook();cookWake(true)
+}
+function cookTimerOf(i){const c=cook;if(!c.timers[i]){const sec=(c.steps[i].m||0)*60;c.timers[i]={sec,left:sec,end:0,done:false}}return c.timers[i]}
+function cookLeft(i){const t=cook&&cook.timers[i];if(!t)return cook?(cook.steps[i].m||0)*60:0;return t.end?Math.max(0,Math.ceil((t.end-Date.now())/1000)):t.left}
+function renderCook(){
+ const c=cook;if(!c)return;
+ const n=c.steps.length,z=c.steps[c.i],last=c.i===n-1,t=c.timers[c.i],hasT=z.m>0;
+ const left=cookLeft(c.i),running=!!(t&&t.end),done=!!(t&&t.done);
+ const others=Object.keys(c.timers).map(Number).filter(k=>k!==c.i&&(c.timers[k].end||c.timers[k].done)).sort((a,b)=>a-b).map(k=>c.timers[k].done?`<button class="cookrun alarm" onclick="cookGo(${k})">🔔 Schritt ${k+1}: Zeit abgelaufen</button>`:`<button class="cookrun" onclick="cookGo(${k})">⏱ Schritt ${k+1}: <b data-ck="${k}">${fmtTimer(cookLeft(k))}</b></button>`).join("");
+ const ing=c.showIng?`<div style="margin-top:6px">${c.items.map(it=>`<div class="row"><span>${esc(it.name)}</span><span class="small">${Math.round(it.grams)} g</span></div>`).join("")}${c.n>1?`<div class="small" style="margin-top:6px">Mengen für das ganze Rezept (${c.n} Portionen).</div>`:""}</div>`:"";
+ modal(c.title,`<div class="small">Schritt ${c.i+1} von ${n}</div><div class="cookprog" role="progressbar" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${c.i+1}"><span style="width:${Math.round((c.i+1)/n*100)}%"></span></div>${others?`<div class="cookruns">${others}</div>`:""}<div class="cooktext">${esc(z.t)}</div>${hasT?`<div class="cooktimer${done?" done":""}"><div class="small" id="ckLbl">${done?"Zeit abgelaufen":"Timer"}</div><div class="cooktime" id="ckTime">${fmtTimer(done?0:left)}</div><div class="cooktbtn"><button class="primary" onclick="cookTimer('toggle')">${running?"⏸ Pause":done?"▶ Noch einmal":(t&&left<t.sec?"▶ Weiter":"▶ Start")}</button><button class="secondary" aria-label="Timer zurücksetzen" onclick="cookTimer('reset')">↺</button></div></div>`:""}<div class="cookbtns"><button class="secondary" onclick="cookStep(-1)"${c.i===0?" disabled":""}>‹ Zurück</button><button class="primary" onclick="cookStep(1)">${last?"✓ Fertig":"Weiter ›"}</button></div><button class="secondary" onclick="cookToggleIng()">🧾 Zutaten ${c.showIng?"ausblenden":"anzeigen"}</button>${ing}<div style="text-align:center;margin-top:14px"><span class="link" style="font-size:12px" onclick="cookRestart()">↺ Von vorn beginnen</span></div>`)
+}
+function cookStep(dir){const c=cook;if(!c)return;const j=c.i+dir;if(j<0)return;if(j>=c.steps.length){cookFinish();return}c.i=j;renderCook();const b=$("mb");if(b)b.scrollTop=0}
+function cookGo(i){const c=cook;if(!c||i<0||i>=c.steps.length)return;c.i=i;renderCook()}
+function cookToggleIng(){if(!cook)return;cook.showIng=!cook.showIng;renderCook()}
+function cookRestart(){const c=cook;if(!c)return;c.i=0;c.timers={};cookEnsureTick();renderCook()}
+function cookFinish(){stopCooking();modalBack();toast("Guten Appetit!")}
+function stopCooking(){cook=null;cookEnsureTick();cookWake(false)}
+function cookTimer(act){
+ const c=cook;if(!c||!(c.steps[c.i].m>0))return;const t=cookTimerOf(c.i);
+ if(act==="reset"){t.end=0;t.left=t.sec;t.done=false}
+ else if(t.end){t.left=cookLeft(c.i);t.end=0}
+ else{if(t.done||t.left<=0){t.left=t.sec;t.done=false}t.end=Date.now()+t.left*1000;cookAudioInit()}
+ cookEnsureTick();renderCook()
+}
+function cookEnsureTick(){
+ const run=!!cook&&Object.values(cook.timers).some(t=>t.end);
+ if(run&&!cookTimerId)cookTimerId=setInterval(cookTick,500);
+ if(!run&&cookTimerId){clearInterval(cookTimerId);cookTimerId=null}
+}
+function cookTick(){
+ const c=cook;if(!c){cookEnsureTick();return}
+ let fin=[];
+ Object.keys(c.timers).forEach(k=>{const t=c.timers[k];if(t.end&&Date.now()>=t.end){t.end=0;t.left=0;t.done=true;fin.push(+k)}});
+ fin.forEach(cookAlarm);
+ if(cookShown()){
+  if(fin.length)renderCook();
+  else{const e=$("ckTime");if(e)e.textContent=fmtTimer(cookLeft(c.i));document.querySelectorAll("[data-ck]").forEach(el=>{el.textContent=fmtTimer(cookLeft(+el.getAttribute("data-ck")))})}
+ }
+ cookEnsureTick()
+}
+function cookAlarm(i){
+ const c=cook;if(!c)return;
+ try{if(typeof navigator!=="undefined"&&navigator.vibrate)navigator.vibrate([400,200,400,200,800])}catch(_){}
+ cookBeep();
+ if(!cookShown()||c.i!==i)toast("⏱ Schritt "+(i+1)+" ("+c.name+"): Zeit abgelaufen")
+}
+function cookAudioInit(){try{if(!cookAudio){const A=window.AudioContext||window.webkitAudioContext;if(A)cookAudio=new A()}if(cookAudio&&cookAudio.state==="suspended")cookAudio.resume()}catch(_){}}
+function cookBeep(){
+ try{const ac=cookAudio;if(!ac)return;[0,0.35,0.7].forEach(dt=>{const o=ac.createOscillator(),g=ac.createGain();o.type="sine";o.frequency.value=880;g.gain.value=0.25;o.connect(g);g.connect(ac.destination);o.start(ac.currentTime+dt);o.stop(ac.currentTime+dt+0.2)})}catch(_){}
+}
+// Bildschirm anlassen, solange der Kochmodus offen ist (wo der Browser/WebView das erlaubt; sonst keine Wirkung)
+async function cookWake(on){
+ try{
+  if(on){
+   if(!cookWakeLock&&typeof navigator!=="undefined"&&navigator.wakeLock){cookWakeLock=await navigator.wakeLock.request("screen");cookWakeLock.addEventListener("release",()=>{cookWakeLock=null})}
+   if(cookWakeLock&&!cookWakeWatch)cookWakeWatch=setInterval(()=>{if(!cookShown())cookWake(false)},1500)
+  }else{
+   if(cookWakeWatch){clearInterval(cookWakeWatch);cookWakeWatch=null}
+   if(cookWakeLock){const w=cookWakeLock;cookWakeLock=null;await w.release()}
+  }
+ }catch(_){cookWakeLock=null}
+}
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&cook&&cookShown())cookWake(true)});
 let editingRecipeId=null;
 function editRecipe(id){
  let r=(d.recipes||[]).find(x=>String(x.id)===String(id));if(!r)return;
  editingRecipeId=r.id;
  window.newRecipe=JSON.parse(JSON.stringify(r));
+ if(!Array.isArray(window.newRecipe.steps))window.newRecipe.steps=[];
  renderRecipeBuilder()
 }
-function startNewRecipe(){editingRecipeId=null;window.newRecipe={name:"",category:"Frühstück",portions:1,items:[]};renderRecipeBuilder()}
+function startNewRecipe(){editingRecipeId=null;window.newRecipe={name:"",category:"Frühstück",portions:1,items:[],steps:[]};renderRecipeBuilder()}
 function renderRecipeBuilder(){
  let r=window.newRecipe,t=recipeTotals(r);
- modal(editingRecipeId?"Rezept bearbeiten":"Neues Rezept",`<input id="rName" placeholder="Rezeptname" value="${esc(r.name)}"><select id="rCat" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===r.category?"selected":""}>${c}</option>`).join("")}</select><div class="row"><span>Ergibt Portionen</span><input id="rPortions" class="amt" type="text" inputmode="numeric" value="${recipePortions(r)}" aria-label="Anzahl Portionen"></div><div class="sectiontitle" style="margin:16px 0 6px"><h2 style="font-size:14px;margin:0">Zutaten</h2><span class="link" onclick="addRecipeIngredient()">+ Zutat</span></div>${r.items.length?r.items.map((it,i)=>`<div class="row"><span>${esc(it.name)} · ${Math.round(it.grams)} g</span><span style="display:flex;align-items:center;gap:8px">${Math.round(it.k)} kcal<button class="plus" onclick="removeRecipeIngredient(${i})">✕</button></span></div>`).join(""):`<div class="small">Noch keine Zutaten hinzugefügt.</div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div><button class="primary" onclick="saveRecipe()">${editingRecipeId?"Änderungen speichern":"Rezept speichern"}</button>${editingRecipeId?`<button class="secondary" style="color:var(--red);margin-top:8px" onclick="deleteRecipe(editingRecipeId)">Rezept löschen</button>`:""}`)
+ modal(editingRecipeId?"Rezept bearbeiten":"Neues Rezept",`<input id="rName" placeholder="Rezeptname" value="${esc(r.name)}"><select id="rCat" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===r.category?"selected":""}>${c}</option>`).join("")}</select><div class="row"><span>Ergibt Portionen</span><input id="rPortions" class="amt" type="text" inputmode="numeric" value="${recipePortions(r)}" aria-label="Anzahl Portionen"></div><div class="sectiontitle" style="margin:16px 0 6px"><h2 style="font-size:14px;margin:0">Zutaten</h2><span class="link" onclick="addRecipeIngredient()">+ Zutat</span></div>${r.items.length?r.items.map((it,i)=>`<div class="row"><span>${esc(it.name)} · ${Math.round(it.grams)} g</span><span style="display:flex;align-items:center;gap:8px">${Math.round(it.k)} kcal<button class="plus" onclick="removeRecipeIngredient(${i})">✕</button></span></div>`).join(""):`<div class="small">Noch keine Zutaten hinzugefügt.</div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div>${recipeStepsEditor(r)}<button class="primary" onclick="saveRecipe()">${editingRecipeId?"Änderungen speichern":"Rezept speichern"}</button>${editingRecipeId?`<button class="secondary" style="color:var(--red);margin-top:8px" onclick="deleteRecipe(editingRecipeId)">Rezept löschen</button>`:""}`)
 }
+// Zubereitung im Rezept-Editor: Textfelder rs<i> (Schritt) und rm<i> (Timer-Minuten); vor jedem Neuzeichnen mit syncRecipeSteps() übernehmen
+function recipeStepsEditor(r){
+ const st=Array.isArray(r.steps)?r.steps:[];
+ return `<div class="sectiontitle" style="margin:18px 0 6px"><h2 style="font-size:14px;margin:0">Zubereitung</h2><span class="link" onclick="addRecipeStep()">+ Schritt</span></div>${st.length?st.map((z,i)=>`<div class="stepedit"><div class="stepnum">${i+1}</div><div class="stepbody"><textarea id="rs${i}" maxlength="500" placeholder="z. B. Reis in Salzwasser kochen" aria-label="Schritt ${i+1}">${esc(z.t||"")}</textarea><div class="stepbar"><label class="small">⏱ <input id="rm${i}" class="amt" type="text" inputmode="numeric" maxlength="3" value="${z.m>0?z.m:""}" placeholder="–" aria-label="Timer in Minuten, Schritt ${i+1}"> Min.</label><span><button class="plus" aria-label="Schritt ${i+1} nach oben"${i===0?" disabled":""} onclick="moveRecipeStep(${i},-1)">▲</button><button class="plus" aria-label="Schritt ${i+1} nach unten"${i===st.length-1?" disabled":""} onclick="moveRecipeStep(${i},1)">▼</button><button class="plus" aria-label="Schritt ${i+1} löschen" onclick="removeRecipeStep(${i})">✕</button></span></div></div></div>`).join(""):`<div class="small">Noch keine Schritte. Schreibe die Zubereitung auf, dann kannst du später Schritt für Schritt kochen, mit Timer.</div>`}`
+}
+function syncRecipeSteps(){
+ const n=window.newRecipe;if(!n||!Array.isArray(n.steps))return;
+ n.steps.forEach((z,i)=>{const t=$("rs"+i),m=$("rm"+i);if(t&&typeof t.value==="string")z.t=t.value;if(m&&typeof m.value==="string"){const v=Math.round(parseNum(m.value));z.m=v>0?Math.min(600,v):0}})
+}
+function addRecipeStep(){
+ syncRecipeFields();const n=window.newRecipe;if(!n)return;if(!Array.isArray(n.steps))n.steps=[];
+ if(n.steps.length>=40){toast("Höchstens 40 Schritte");return}
+ n.steps.push({t:"",m:0});renderRecipeBuilder();
+ const e=$("rs"+(n.steps.length-1));if(e){try{e.scrollIntoView({block:"center"});e.focus()}catch(_){}}
+}
+function moveRecipeStep(i,dir){
+ syncRecipeFields();const a=window.newRecipe&&window.newRecipe.steps,j=i+dir;if(!a||j<0||j>=a.length||i<0||i>=a.length)return;
+ [a[i],a[j]]=[a[j],a[i]];renderRecipeBuilder()
+}
+function removeRecipeStep(i){syncRecipeFields();const a=window.newRecipe&&window.newRecipe.steps;if(!a||i<0||i>=a.length)return;a.splice(i,1);renderRecipeBuilder()}
 function addRecipeIngredient(){
  syncRecipeFields();
  recipeBuilderActive=true;
  modal("Zutat hinzufügen",`<input id="q" placeholder="z.B. Hähnchen" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p><p class="small" style="opacity:.7">Tippe auf Name oder Symbol für Details und eigenes Foto, auf ＋ zum Hinzufügen.</p><button class="secondary" style="margin-top:10px" onclick="createCustomFood()">+ Eigenes Lebensmittel erstellen</button>`);results()
 }
 // Eingaben aus dem Fenster in das Arbeitsobjekt übernehmen, bevor das Fenster neu gezeichnet wird (sonst gehen Name/Kategorie verloren)
-function syncRecipeFields(){const n=window.newRecipe;if(!n)return;const a=$("rName");if(a)n.name=a.value;const c=$("rCat");if(c)n.category=c.value;const pe=$("rPortions");if(pe)n.portions=Math.min(100,Math.max(1,Math.round(parseNum(pe.value))||1))}
+function syncRecipeFields(){const n=window.newRecipe;if(!n)return;const a=$("rName");if(a)n.name=a.value;const c=$("rCat");if(c)n.category=c.value;const pe=$("rPortions");if(pe)n.portions=Math.min(100,Math.max(1,Math.round(parseNum(pe.value))||1));syncRecipeSteps()}
 function syncDishFields(){const n=window.newDish;if(!n)return;const a=$("dishName");if(a)n.name=a.value;const c=$("dishSaveRecipe");if(c)n.saveRecipe=c.checked}
 function removeRecipeIngredient(i){syncRecipeFields();window.newRecipe.items.splice(i,1);renderRecipeBuilder()}
 function parseNum(v){return Number(String(v??"").trim().replace(",","."))}
@@ -2863,7 +2995,7 @@ function saveRecipe(){
  let name=($("rName").value||"").trim();
  if(!name){toast("Bitte einen Namen eingeben");return}
  if(!window.newRecipe.items.length){toast("Bitte mindestens eine Zutat hinzufügen");return}
- syncRecipeFields();window.newRecipe.name=name;
+ syncRecipeFields();window.newRecipe.name=name;window.newRecipe.steps=cleanSteps(window.newRecipe.steps);
  if(!d.recipes)d.recipes=[];
  if(editingRecipeId){
   window.newRecipe.id=editingRecipeId;
