@@ -23,7 +23,7 @@ main{padding:8px 15px}.card{background:var(--card);border:1px solid var(--line);
 .meal{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid #252b30}.meal:last-child{border:0}.foodimg{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:#22282e}.meal h3{margin:0;font-size:14px}.meal p{margin:4px 0 0;color:var(--muted);font-size:11px}.cal{margin-left:auto;font-weight:750;font-size:13px}
 .nav{position:fixed;z-index:20;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);height:74px;background:#101317f5;backdrop-filter:blur(18px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}.nav button{background:none;border:0;color:var(--muted);font-size:10px}.nav button.active{color:var(--green)}.nav span{display:block;font-size:20px;margin-bottom:2px}
 .add{position:fixed;z-index:21;bottom:68px;left:50%;transform:translateX(-50%);width:61px;height:61px;border-radius:50%;border:5px solid var(--bg);background:#fff;color:#000;font-size:30px}
-.option{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:10px 0;text-align:left}.ico{flex:none;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:21px}.option strong{display:block}.option>div:last-child{min-width:0}.meal>div:nth-child(2){min-width:0;flex:1}.meal p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pprev{margin:10px 0 4px;padding:10px 12px;border-radius:12px;background:var(--card2,#1a1f24);font-size:13px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}.pprev b{white-space:nowrap}.fabhide .add{display:none}.option small{color:var(--muted);display:block;margin-top:4px}
+.option{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:10px 0;text-align:left}.ico{flex:none;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:21px}.option strong{display:block}.option>div:last-child{min-width:0}.meal>div:nth-child(2){min-width:0;flex:1}.meal p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pprev{margin:10px 0 4px;padding:10px 12px;border-radius:12px;background:var(--card2,#1a1f24);font-size:13px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}.pprev b{white-space:nowrap}.fabhide .add{display:none}.qchips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.qchip{min-height:36px;padding:6px 10px;border-radius:18px;border:1px solid var(--line,#2a3138);background:transparent;color:var(--text);font-size:13px}.option small{color:var(--muted);display:block;margin-top:4px}
 input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;color:#fff;border-radius:13px;padding:12px;outline:none}textarea{min-height:92px}.primary,.secondary{width:100%;border-radius:14px;padding:13px;margin-top:9px}.primary{border:0;background:var(--green);color:#081008;font-weight:850}.secondary{border:1px solid #333a40;background:#1a1f24;color:#fff}
 .anav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0}.navbtn{width:44px;height:40px;border:1px solid #2b3137;background:#171b20;color:#fff;border-radius:12px;font-size:20px}.navbtn:disabled{opacity:.3}.navlabel{flex:1;text-align:center;font-weight:700;font-size:15px}.navlabel .small{font-weight:400}.tabs{display:flex;gap:5px;background:#15191d;padding:5px;border-radius:12px}.tabs button{flex:1;background:transparent;border:0;color:var(--muted);padding:8px;border-radius:9px;font-size:12px}.tabs .sel{background:#2a3036;color:#fff}
 .tabsscroll{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;-webkit-overflow-scrolling:touch}.tabsscroll button{flex:0 0 auto;background:#15191d;border:0;color:var(--muted);padding:8px 14px;border-radius:20px;font-size:12px;white-space:nowrap}.tabsscroll .sel{background:#2a3036;color:#fff}
@@ -35,6 +35,10 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 .modal{position:fixed;inset:0;background:#000b;display:none;align-items:end;z-index:50}.modal.show{display:flex}.sheet{width:min(480px,100%);max-height:90vh;overflow:auto;margin:auto;background:#121518;border-radius:24px 24px 0 0;padding:19px}.close{float:right;background:none;border:0;color:#fff;font-size:24px}.preview{width:100%;height:250px;object-fit:cover;border-radius:17px;background:#20252a}.toast{position:fixed;z-index:100;left:50%;bottom:88px;transform:translateX(-50%) translateY(20px);background:#22292f;color:#fff;padding:11px 15px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;font-size:13px}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast.withundo{pointer-events:auto}.toast .undo{margin-left:12px;background:none;border:0;color:var(--green);font-weight:800;padding:2px 4px}
 .foodmain{display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer}.foodmain>div{min-width:0}.foodmain>div>b{overflow-wrap:anywhere}.detailpic{width:100%;height:180px;border-radius:18px;background:#22282e;display:grid;place-items:center;overflow:hidden;font-size:84px;margin-bottom:6px}.detailpic img{width:100%;height:100%;object-fit:cover;display:block}
 .dishrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 0;border-bottom:1px solid #252b30}.dishrow:last-child{border:0}.dname{flex:1;min-width:110px}.dname b{display:block;overflow-wrap:anywhere}.dchk{width:30px;height:30px;flex:0 0 30px;border-radius:9px;border:2px solid var(--green);background:var(--green);color:#0b1208;font-weight:900;padding:0;font-size:16px;margin:0}.dishrow.off .dchk{background:transparent;border-color:#4a525a;color:transparent}.dishrow.off .dname b{text-decoration:line-through;opacity:.5}.dishrow.off .dstep{opacity:.4}.dstep{display:flex;align-items:center;gap:4px;margin-left:auto}.dstep button{width:30px;height:30px;padding:0;margin:0;border-radius:9px;border:1px solid #394148;background:#182019;color:#fff;font-size:16px}.dtotal{border:1px solid #2b3137;background:#171b20;border-radius:16px;padding:12px 14px;margin:10px 0}.dtotal b{font-size:22px}.dtotal .small{margin:2px 0 0}
+.qchip.sel{border-color:var(--green);color:var(--green)}
+.shrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #252b30}.shrow:last-child{border:0}.shchk{flex:0 0 34px;width:34px;height:34px;border-radius:10px;border:2px solid #4a525a;background:transparent;color:#0b1208;font-weight:900;padding:0;margin:0;font-size:17px}.shrow.done .shchk{background:var(--green);border-color:var(--green)}.shname{flex:1;min-width:0;overflow-wrap:anywhere;font-weight:600}.shrow.done .shname{text-decoration:line-through;opacity:.5}.shamt{white-space:nowrap}.shrow .rmrow{margin:0}
+.plh{margin:16px 0 4px}.plh h2{font-size:15px;flex:1}.plh .plus{margin-left:8px;min-width:44px;min-height:40px}.plrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #252b30;cursor:pointer}.plemo{font-size:22px;flex:none;width:30px;text-align:center}.plmain{flex:1;min-width:0}.plmain b{display:block;overflow-wrap:anywhere}.plrow.done{opacity:.55}.plst{color:var(--muted);flex:none;padding:0 4px}.plempty{padding:4px 0 6px}
+.planbtns{display:flex;gap:8px;margin-top:6px}.planbtns button{flex:1;margin:0;min-width:0}
 </style>
 </head>
 <body>
@@ -65,13 +69,14 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 <button data-cat="Snack" onclick="selectRecipeCat(this)">Snack</button>
 </div>
 <div id="recipeList"></div>
-<button class="secondary" style="margin-top:6px" onclick="startNewRecipe()">+ Eigenes Rezept erstellen</button>
+<div class="planbtns"><button class="secondary" onclick="openPlan()">📅 Wochenplan</button><button class="secondary" onclick="openShop()">🛒 Einkaufsliste <span id="shopCount"></span></button></div>
+<button class="secondary" style="margin-top:8px" onclick="startNewRecipe()">+ Eigenes Rezept erstellen</button>
 <button class="secondary" onclick="openRecipeImport()">⤓ Rezepte importieren</button><input type="file" id="impFile" accept=".json,.txt,.md,text/plain,application/json" style="display:none" onchange="importRecipeFile(event)">
 </main></section>
 
 <section id="meals" class="screen"><header><button class="secondary" style="width:auto;margin:0" onclick="go('home')">‹</button><div class="title">Verlauf</div><span></span></header><main><div id="allMeals"></div></main></section>
 
-<section id="analysis" class="screen"><header><div class="title">Analyse</div></header><main><div class="tabs" id="analysisTabs"><button class="sel" data-p="tag" onclick="setAnalysisPeriod('tag',this)">Tag</button><button data-p="woche" onclick="setAnalysisPeriod('woche',this)">Woche</button><button data-p="monat" onclick="setAnalysisPeriod('monat',this)">Monat</button><button data-p="jahr" onclick="setAnalysisPeriod('jahr',this)">Jahr</button></div><div class="anav" id="analysisNav"></div><div class="card" id="analysisCard"></div><div class="card"><h2 style="font-size:16px;margin:0 0 10px">Kalorienverteilung</h2><div id="macroDonut"></div><button class="secondary" style="margin-top:12px" onclick="openMicros()">Nährstoffe anzeigen</button></div><div class="card" id="trendCard"><h2 style="font-size:16px" id="chartTitle">Letzte 7 Tage</h2><div class="chart" id="weekChart"></div></div></main></section>
+<section id="analysis" class="screen"><header><div class="title">Analyse</div></header><main><div class="tabs" id="analysisTabs"><button class="sel" data-p="tag" onclick="setAnalysisPeriod('tag',this)">Tag</button><button data-p="woche" onclick="setAnalysisPeriod('woche',this)">Woche</button><button data-p="monat" onclick="setAnalysisPeriod('monat',this)">Monat</button><button data-p="jahr" onclick="setAnalysisPeriod('jahr',this)">Jahr</button></div><div class="anav" id="analysisNav"></div><div class="card" id="analysisCard"></div><div class="card" id="analysisNutr" style="display:none"></div><div class="card"><h2 style="font-size:16px;margin:0 0 10px">Kalorienverteilung</h2><div id="macroDonut"></div><button class="secondary" style="margin-top:12px" onclick="openMicros()">Nährstoffe anzeigen</button></div><div class="card" id="trendCard"><h2 style="font-size:16px" id="chartTitle">Letzte 7 Tage</h2><div class="chart" id="weekChart"></div></div></main></section>
 
 <section id="micros" class="screen"><header><button class="secondary" style="width:auto;margin:0" onclick="go('analysis')">‹</button><div class="title">Mikronährstoffe</div><span></span></header><main><div class="card"><h2 style="margin-top:0;font-size:16px">Heute</h2><div id="microList"></div></div></main></section>
 
@@ -92,7 +97,7 @@ input,textarea,select{width:100%;background:#171b20;border:1px solid #2b3137;col
 <div class="card" id="bodyCard"></div>
 </main></section>
 
-<section id="profile" class="screen"><header><div class="title">Profil</div></header><main><div class="card"><h2 style="margin-top:0">Ziele</h2><div class="row"><span>Kalorien</span><b id="pg"></b></div><div class="row"><span>Protein</span><b id="pp"></b></div><div class="row"><span>Kohlenhydrate</span><b id="pc"></b></div><div class="row"><span>Fett</span><b id="pf"></b></div><button class="secondary" onclick="editGoals()">Ziele bearbeiten</button></div><div class="card" id="settingsCard"><h2 style="margin-top:0">Einstellungen</h2><div class="row"><span class="setlbl"><b>🔔 Erinnerungs-Hinweis</b><span class="small">Hinweis auf „Heute“, wenn noch nichts eingetragen ist</span></span><label class="sw"><input type="checkbox" id="setRemind" role="switch" aria-label="Erinnerungs-Hinweis" onchange="setRemind(this.checked)"><span class="knob"></span></label></div><div class="row"><span class="setlbl"><b>🕒 Mahlzeiten-Zeiten</b><span class="small" id="setMealSum"></span></span><button class="plus" onclick="editMealTimes()">Ändern</button></div><div class="row"><span class="setlbl"><b>💾 Sicherungs-Hinweis</b><span class="small">Hinweis auf „Heute“, wenn die letzte Sicherung länger als 14 Tage her ist</span></span><label class="sw"><input type="checkbox" id="setBackup" role="switch" aria-label="Sicherungs-Hinweis" onchange="setBackup(this.checked)"><span class="knob"></span></label></div><div class="row"><span class="setlbl"><b>📅 Wochenstart</b><span class="small">Für die Wochenansicht in der Analyse</span></span><select id="setWeek" aria-label="Wochenstart" style="width:auto;min-width:112px;margin:0" onchange="setWeekStart(this.value)"><option value="1">Montag</option><option value="0">Sonntag</option></select></div><div class="small" style="margin:14px 0 0"><b>👨‍🍳 Kochmodus</b></div><div class="row"><span class="setlbl"><b>Bildschirm anlassen</b><span class="small">Solange der Kochmodus offen ist</span></span><label class="sw"><input type="checkbox" id="setCookAwake" role="switch" aria-label="Bildschirm anlassen" onchange="setCook('awake',this.checked)"><span class="knob"></span></label></div><div class="row"><span class="setlbl"><b>Alarmton</b><span class="small">Piepton, wenn ein Timer abläuft</span></span><label class="sw"><input type="checkbox" id="setCookSound" role="switch" aria-label="Alarmton" onchange="setCook('sound',this.checked)"><span class="knob"></span></label></div><div class="row"><span class="setlbl"><b>Vibration</b><span class="small">Beim Ablauf eines Timers</span></span><label class="sw"><input type="checkbox" id="setCookVib" role="switch" aria-label="Vibration" onchange="setCook('vibrate',this.checked)"><span class="knob"></span></label></div><div class="row"><span class="setlbl"><b style="color:var(--red)">🗑 Alle Daten zurücksetzen</b><span class="small">Löscht alles in der App und beginnt von vorn</span></span><button class="plus" style="color:var(--red)" onclick="openReset()">Zurücksetzen</button></div></div><div class="card"><div class="row"><span>↕️ Daten exportieren</span><button class="plus" onclick="exportData()">Export</button></div><div class="row"><span>↥ Daten importieren</span><button class="plus" onclick="document.getElementById('import').click()">Import</button></div><input id="import" type="file" accept=".json" hidden onchange="importData(event)"></div><div class="card"><a href="privacy.html" target="_blank" class="link" style="font-size:12px">Datenschutzerklärung</a></div></main></section>
+<section id="profile" class="screen"><header><div class="title">Profil</div></header><main><div class="card"><h2 style="margin-top:0">Ziele</h2><div class="row"><span>Kalorien</span><b id="pg"></b></div><div class="row"><span>Protein</span><b id="pp"></b></div><div class="row"><span>Kohlenhydrate</span><b id="pc"></b></div><div class="row"><span>Fett</span><b id="pf"></b></div><button class="secondary" onclick="editGoals()">Ziele bearbeiten</button></div><div class="card" id="settingsCard"><h2 style="margin-top:0">Einstellungen</h2><div class="row"><span class="setlbl"><b>🔔 Erinnerungs-Hinweis</b><span class="small">Hinweis auf „Heute“, wenn noch nichts eingetragen ist</span></span><label class="sw"><input type="checkbox" id="setRemind" role="switch" aria-label="Erinnerungs-Hinweis" onchange="setRemind(this.checked)"><span class="knob"></span></label></div><div class="row"><span class="setlbl"><b>🕒 Mahlzeiten-Zeiten</b><span class="small" id="setMealSum"></span></span><button class="plus" onclick="editMealTimes()">Ändern</button></div><div class="row" id="setNotifRow" style="display:none"><span class="setlbl"><b>⏰ Tägliche Erinnerung</b><span class="small">Benachrichtigung am Handy, nur wenn du heute noch nichts eingetragen hast</span></span><label class="sw"><input type="checkbox" id="setNotif" role="switch" aria-label="Tägliche Erinnerung" onchange="setNotif(this.checked)"><span class="knob"></span></label></div><div class="row" id="setNotifTimeRow" style="display:none"><span>Uhrzeit der Erinnerung</span><input type="time" id="setNotifTime" onchange="setNotifTime(this.value)" style="width:auto;min-width:110px"></div><div class="row"><span class="setlbl"><b>📊 Wochen-Check</b><span class="small">Einmal pro Woche ein neues Kalorienziel vorschlagen (nur mit gemessenem Bedarf)</span></span><label class="sw"><input type="checkbox" id="setWeekly" role="switch" aria-label="Wochen-Check" onchange="setWeekly(this.checked)"><span class="knob"></span></label></div><div class="row"><span class="setlbl"><b>💾 Sicherungs-Hinweis</b><span class="small">Hinweis auf „Heute“, wenn die letzte Sicherung länger als 14 Tage her ist</span></span><label class="sw"><input type="checkbox" id="setBackup" role="switch" aria-label="Sicherungs-Hinweis" onchange="setBackup(this.checked)"><span class="knob"></span></label></div><div class="row" id="setAutoRow" style="display:none"><span class="setlbl"><b>☁️ Automatische Sicherung</b><span class="small" id="setAutoSum"></span></span><select id="setAuto" aria-label="Automatische Sicherung" style="width:auto;min-width:118px;margin:0" onchange="setAutoMode(this.value)"><option value="off">Aus</option><option value="downloads">Downloads</option><option value="folder">Eigener Ordner</option></select></div><div class="row" id="setAutoFolderRow" style="display:none"><span class="setlbl"><b>📁 Sicherungsordner</b><span class="small" id="setAutoFolder"></span></span><button class="plus" onclick="pickAutoFolder()">Ändern</button></div><div class="row"><span class="setlbl"><b>📅 Wochenstart</b><span class="small">Für die Wochenansicht in der Analyse</span></span><select id="setWeek" aria-label="Wochenstart" style="width:auto;min-width:112px;margin:0" onchange="setWeekStart(this.value)"><option value="1">Montag</option><option value="0">Sonntag</option></select></div><div class="small" style="margin:14px 0 0"><b>👨‍🍳 Kochmodus</b></div><div class="row"><span class="setlbl"><b>Bildschirm anlassen</b><span class="small">Solange der Kochmodus offen ist</span></span><label class="sw"><input type="checkbox" id="setCookAwake" role="switch" aria-label="Bildschirm anlassen" onchange="setCook('awake',this.checked)"><span class="knob"></span></label></div><div class="row"><span class="setlbl"><b>Alarmton</b><span class="small">Piepton, wenn ein Timer abläuft</span></span><label class="sw"><input type="checkbox" id="setCookSound" role="switch" aria-label="Alarmton" onchange="setCook('sound',this.checked)"><span class="knob"></span></label></div><div class="row"><span class="setlbl"><b>Vibration</b><span class="small">Beim Ablauf eines Timers</span></span><label class="sw"><input type="checkbox" id="setCookVib" role="switch" aria-label="Vibration" onchange="setCook('vibrate',this.checked)"><span class="knob"></span></label></div><div class="row"><span class="setlbl"><b style="color:var(--red)">🗑 Alle Daten zurücksetzen</b><span class="small">Löscht alles in der App und beginnt von vorn</span></span><button class="plus" style="color:var(--red)" onclick="openReset()">Zurücksetzen</button></div></div><div class="card"><div class="row"><span>↕️ Daten exportieren</span><button class="plus" onclick="exportData()">Export</button></div><div class="row"><span>↥ Daten importieren</span><button class="plus" onclick="document.getElementById('import').click()">Import</button></div><input id="import" type="file" accept=".json" hidden onchange="importData(event)"></div><div class="card"><a href="privacy.html" target="_blank" class="link" style="font-size:12px">Datenschutzerklärung</a></div></main></section>
 
 <button class="add" onclick="go('add')">+</button><nav class="nav"><button id="n0" class="active" onclick="go('home')"><span>⌂</span>Heute</button><button id="n1" onclick="go('progress')"><span>📈</span>Fortschritt</button><button id="n2" onclick="analysisOffset=0;go('analysis')"><span>⌁</span>Analyse</button><button id="n3" onclick="go('profile')"><span>♙</span>Profil</button></nav>
 </div>
@@ -669,19 +674,28 @@ function normalizeData(x){
  if(!Array.isArray(x.favs))x.favs=[];
  if(!Array.isArray(x.recent))x.recent=[];
  if(!x.lastAmt||typeof x.lastAmt!=="object"||Array.isArray(x.lastAmt))x.lastAmt={};   // zuletzt benutzte Menge je Lebensmittel
- x.meals.forEach(m=>{["k","p","c","f"].forEach(k=>{if(!isFinite(m[k]))m[k]=0})});   // kaputte Zahlen in Einträgen abfangen
+ x.meals.forEach(m=>{["k","p","c","f"].forEach(k=>{if(m[k]==null||m[k]===""||!isFinite(m[k]))m[k]=0})});   // kaputte Zahlen in Einträgen abfangen (NaN wird beim Speichern zu null)
  x.recipes.forEach(r=>{
   if(!r||typeof r!=="object")return;
   if(Array.isArray(r.steps))r.steps=cleanSteps(r.steps);
   else{const def=DEFAULT_RECIPES.find(z=>z.id===r.id&&z.name===r.name);r.steps=def?JSON.parse(JSON.stringify(def.steps)):[]}   // Standard-Rezepte aus älteren Daten bekommen ihre Schritte; eigene Rezepte starten ohne
  });
  if(!x.tpl32){const n0=x.recipes.length;x.recipes=x.recipes.filter(r=>!tplCopy(r));tplRemoved+=n0-x.recipes.length;x.tpl32=true}   // einmalig: unveränderte Kopien der 32 Vorlagen-Rezepte entfernen
+ x.recipes.forEach(r=>{if(r&&typeof r==="object"){const c=Math.round(Number(r.cookedG));if(c>=10&&c<=50000)r.cookedG=c;else delete r.cookedG}});   // fertiges Gewicht des ganzen Rezepts (optional, g)
+ {const CATS=["Frühstück","Mittagessen","Abendessen","Snack"],ids=new Set(x.recipes.filter(r=>r&&typeof r==="object").map(r=>String(r.id))),okId=v=>typeof v==="string"&&/^[\w-]{1,24}$/.test(v);   // Einkaufsliste und Wochenplan
+  const sh=Array.isArray(x.shop)?x.shop:[],seenS=new Set();x.shop=[];
+  sh.forEach(it=>{if(!it||typeof it!=="object"||typeof it.name!=="string"||x.shop.length>=300)return;const name=it.name.trim().slice(0,80);if(!name)return;const g=Number(it.g),id=okId(it.id)&&!seenS.has(it.id)?it.id:shopId();seenS.add(id);x.shop.push({id,name,g:isFinite(g)&&g>0?Math.min(Math.round(g*10)/10,1e6):0,done:it.done===true})});
+  const cutoff=isoAdd(todayISO(),-120),pl=Array.isArray(x.mealPlan)?x.mealPlan:[],seenP=new Set();x.mealPlan=[];
+  pl.forEach(e=>{if(!e||typeof e!=="object"||typeof e.date!=="string"||!/^\d{4}-\d{2}-\d{2}$/.test(e.date)||e.date<cutoff||!ids.has(String(e.rid))||x.mealPlan.length>=500)return;const p=Number(e.p);if(!(p>=0.1&&p<=100))return;const r=x.recipes.find(z=>z&&String(z.id)===String(e.rid)),cat=CATS.includes(e.cat)?e.cat:CATS.includes(r.category)?r.category:"Mittagessen",id=okId(e.id)&&!seenP.has(e.id)?e.id:shopId();seenP.add(id);x.mealPlan.push({id,date:e.date,rid:r.id,p:Math.round(p*100)/100,cat,done:e.done===true})})}
  if(!x.settings||typeof x.settings!=="object"||Array.isArray(x.settings))x.settings={};
  x.settings.remind=x.settings.remind!==false;   // Erinnerungs-Hinweis auf „Heute“
  {const m=x.settings.meal,ok=m&&typeof m==="object"&&[m.b,m.l,m.d].every(v=>Number.isInteger(v)&&v>=1&&v<=23)&&m.b<m.l&&m.l<m.d;x.settings.meal=ok?{b:m.b,l:m.l,d:m.d}:{b:11,l:16,d:22}}   // Mahlzeiten-Zeiten (Stunden): Frühstück bis b, Mittag bis l, Abend bis d, danach Snack
+ x.settings.notif=x.settings.notif===true;   // Android-Benachrichtigung (nur in der App)
+ x.settings.notifTime=/^([01]\d|2[0-3]):[0-5]\d$/.test(x.settings.notifTime)?x.settings.notifTime:"19:00";
  x.settings.backup=x.settings.backup!==false;   // Sicherungs-Hinweis auf „Heute“
  x.settings.weekStart=x.settings.weekStart===0?0:1;   // Wochenstart in der Analyse: 1 = Montag, 0 = Sonntag
  {const c=x.settings.cook&&typeof x.settings.cook==="object"?x.settings.cook:{};x.settings.cook={awake:c.awake!==false,sound:c.sound!==false,vibrate:c.vibrate!==false}}   // Kochmodus: Bildschirm anlassen, Alarmton, Vibration
+ if(typeof x.weeklyCheck!=="string"||!/^\d{4}-\d{2}-\d{2}$/.test(x.weeklyCheck))delete x.weeklyCheck;   // Datum des letzten Wochen-Checks
  if(typeof x.lastBackup!=="string"||!/^\d{4}-\d{2}-\d{2}$/.test(x.lastBackup))delete x.lastBackup;   // Datum der letzten Sicherung
  if(!Array.isArray(x.hiddenDishes))x.hiddenDishes=[];x.hiddenDishes=x.hiddenDishes.filter(n=>typeof n==="string");   // gelöschte (ausgeblendete) Gerichte
  if(!Array.isArray(x.body))x.body=[];
@@ -2342,7 +2356,14 @@ function restoreUserFoods(){
 }
 restoreUserFoods();
 const $=x=>document.getElementById(x),fmt=x=>Math.round(x).toLocaleString("de-DE");
-function save(){try{localStorage.setItem("napp",JSON.stringify(d))}catch(e){toast("Speichern fehlgeschlagen (Speicher voll?)")}}
+function save(){try{localStorage.setItem("napp",JSON.stringify(d))}catch(e){toast("Speichern fehlgeschlagen (Speicher voll?)")}syncNative();scheduleAuto()}
+// Android-App: der Erinnerung sagen, ob heute schon etwas eingetragen ist (dann kommt keine Benachrichtigung), und Uhrzeit/Schalter übergeben
+function syncNative(){try{const b=window.AndroidBridge;if(b&&b.setLoggedDate&&d&&d.meals)b.setLoggedDate(d.meals.some(m=>m.date===todayISO())?todayISO():"")}catch(e){}}
+function applyNativeReminder(){try{const b=window.AndroidBridge;if(!b||!b.setReminder)return;const t=(d.settings.notifTime||"19:00").split(":");b.setReminder(!!d.settings.notif,parseInt(t[0],10),parseInt(t[1],10));syncNative()}catch(e){}}
+function setNotif(on){if(!d.settings||typeof d.settings!=="object")d.settings={};d.settings.notif=!!on;save();applyNativeReminder();renderSettings();toast(on?"Tägliche Erinnerung ist an ("+d.settings.notifTime+" Uhr)":"Tägliche Erinnerung ist aus")}
+function setNotifTime(v){if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(v||""))return;d.settings.notifTime=v;save();applyNativeReminder();toast("Erinnerung um "+v+" Uhr")}
+window.onNotifDenied=()=>{if(d.settings.notif){d.settings.notif=false;save();applyNativeReminder();renderSettings()}toast("Benachrichtigungen sind für die App ausgeschaltet. Erlaube sie in den Android-Einstellungen.")};
+window.addEventListener("load",()=>setTimeout(applyNativeReminder,300));
 function toast(t){const e=$("toast");e.classList.remove("withundo");undoSnap=null;undoFn=null;clearTimeout(undoTimer);e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),1700)}
 // „Rückgängig“ nach Löschen/Import: Schnappschuss der Daten, 6 Sekunden lang wiederherstellbar
 let undoSnap=null,undoTimer=null,undoFn=null;
@@ -2351,7 +2372,7 @@ function hideUndo(){undoSnap=null;undoFn=null;$("toast").classList.remove("show"
 function undoDelete(){
  if(undoFn){const f=undoFn;hideUndo();f();return}
  if(!undoSnap)return;
- try{d=normalizeData(JSON.parse(undoSnap));foods.length=BASE_FOODS_N;appendExtraFoods();restoreUserFoods();save();hideUndo();render();toast("Wiederhergestellt")}
+ try{d=normalizeData(JSON.parse(undoSnap));foods.length=BASE_FOODS_N;appendExtraFoods();restoreUserFoods();save();hideUndo();render();try{if(modalCurRefresh&&$("modal").classList.contains("show")){modalNoPush=true;modalCurRefresh()}}catch(e){}toast("Wiederhergestellt")}
  catch(e){hideUndo();toast("Wiederherstellen fehlgeschlagen")}
 }
 function go(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(id).classList.add("active");document.body.classList.toggle("fabhide",!["home","progress","analysis","profile"].includes(id));document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));let m={home:"n0",progress:"n1",analysis:"n2",profile:"n3"};if(m[id])$(m[id]).classList.add("active");render()}
@@ -2439,8 +2460,21 @@ function renderAnalysis(){
    $("analysisCard").innerHTML+=`<div class="sectiontitle"><h2>Bericht</h2><span class="small">${n} von ${tage} Tagen</span></div><div class="row"><span>Ø Kalorien pro Tag</span><b>${fmt(k/n)} kcal</b></div><div class="row"><span>Ø Protein pro Tag</span><b>${fmt(p/n)} g</b></div><div class="row"><span>Tage im Ziel (±10 %)</span><b>${inGoal} von ${n}</b></div>${wch!=null?`<div class="row"><span>Gewichtsänderung</span><b>${(wch>=0?"+":"")+wch.toFixed(1).replace(".",",")} kg</b></div>`:""}`
   }else $("analysisCard").innerHTML+=`<p class="small" style="margin-top:12px">In diesem Zeitraum wurde nichts eingetragen.</p>`
  }
+ renderAnalysisNutrients(list);
  renderMacroDonut(p,c,f);
  renderTrendChart()
+}
+// Ballaststoffe, Zucker, Natrium: Tageswert (Tag) bzw. Ø pro Tag mit Einträgen (Woche/Monat/Jahr), gegen die Referenzwerte
+function renderAnalysisNutrients(list){
+ const el=$("analysisNutr");if(!el)return;
+ el.style.display=list.length?"":"none";
+ if(!list.length){el.innerHTML="";return}
+ const days=new Set(list.map(m=>m.date)).size||1,{totals,covered,total}=sumMicros(list);
+ const rows=["fiber","sugar","sodium"].map(k=>{
+  const v=totals[k]/days,pct=Math.round(v/MICRO_GOALS[k]*100),lim=MICRO_LIMIT[k],cls=lim?(pct>100?"o":"b"):(pct>=100?"g":"b");
+  return `<div class="row"><span>${MICRO_LABELS[k].replace(" (max.)","")}</span><b>${String(Math.round(v*10)/10).replace(".",",")} ${MICRO_UNITS[k]} <span class="small">${lim?"max.":"Ziel"} ${MICRO_GOALS[k]} ${MICRO_UNITS[k]}</span></b></div><div class="bar"><div class="fill ${cls}" style="width:${Math.min(100,pct)}%"></div></div>`
+ }).join("");
+ el.innerHTML=`<div class="sectiontitle"><h2>Ballaststoffe, Zucker, Natrium</h2><span class="small">${days>1?"Ø pro Tag":"Tag"}</span></div>${rows}${covered<total?`<p class="small">Nur für ${covered} von ${total} Einträgen sind Werte bekannt, die Summen sind deshalb eher zu niedrig.</p>`:""}`
 }
 function renderMacroDonut(p,c,f){
  const el=$("macroDonut");if(!el)return;
@@ -2625,6 +2659,20 @@ function backupDays(){
  const ref=d.lastBackup||dates[0],n=Math.round((Date.parse(todayISO()+"T12:00:00")-Date.parse(ref+"T12:00:00"))/864e5);
  return n>=14?{n,never:!d.lastBackup}:null
 }
+// Wochen-Check: höchstens einmal pro Woche, nur mit gemessenem Bedarf (Essen + Gewichtstrend) und wenn die Empfehlung mindestens 50 kcal vom Ziel abweicht
+function weeklyDue(){
+ if(d.settings&&d.settings.weekly===false)return null;
+ const t=computeTdee();if(!t.ok)return null;
+ if(d.weeklyCheck&&Math.round((Date.parse(todayISO()+"T12:00:00")-Date.parse(d.weeklyCheck+"T12:00:00"))/864e5)<7)return null;
+ const rec=planTarget({...t,src:"data"});
+ return Math.abs(rec-d.goal.k)>=50?{rec,cur:d.goal.k}:null
+}
+function weeklyApply(){applyPlan();d.weeklyCheck=todayISO();save();renderRemind()}
+function weeklyLater(){d.weeklyCheck=todayISO();save();renderRemind();toast("Nächster Vorschlag in 7 Tagen")}
+function setWeekly(on){
+ if(!d.settings||typeof d.settings!=="object")d.settings={};
+ d.settings.weekly=!!on;save();renderRemind();renderSettings();toast(on?"Wochen-Check ist an":"Wochen-Check ist aus")
+}
 function renderRemind(){
  const el=$("remind");if(!el)return;
  let html="";
@@ -2634,6 +2682,8 @@ function renderRemind(){
   else if(h>=20&&k<g*0.5)t=`Heute erst ${fmt(k)} von ${fmt(g)} kcal eingetragen – fehlt noch etwas?`;
   if(t)html+=`<div class="card" style="border-color:#3a4a2c;color:var(--green);font-size:13px">🔔 ${t}</div>`
  }
+ const wk=weeklyDue();
+ if(wk)html+=`<div class="card" style="border-color:#2c3f4a;color:#6fc3f2;font-size:13px"><div style="margin-bottom:8px">📊 Wochen-Check: Nach deinen Essens- und Gewichtsdaten passt ein Ziel von <b>${fmt(wk.rec)} kcal</b> (bisher ${fmt(wk.cur)}).</div><div style="display:flex;gap:8px"><button class="primary" style="min-height:40px;flex:1" onclick="weeklyApply()">Übernehmen</button><button class="secondary" style="min-height:40px;flex:1" onclick="weeklyLater()">Später</button></div></div>`;
  const b=backupDays();
  if(b)html+=`<div class="card" style="border-color:#4a4a2c;color:#f2c14e;font-size:13px;display:flex;align-items:center;gap:10px"><span style="flex:1">💾 ${b.never?"Du hast noch kein Backup erstellt.":"Dein letztes Backup ist "+b.n+" Tage alt."} Sichere deine Daten, falls das Handy verloren geht.</span><button class="plus" style="min-height:40px;padding:8px 14px;flex:none" onclick="exportData()">Sichern</button></div>`;
  el.innerHTML=html
@@ -2643,6 +2693,9 @@ function renderSettings(){
  const st=d.settings||{},ck=st.cook||{};
  const r=$("setRemind");if(r)r.checked=!(st.remind===false);
  const m=mealTimes();if($("setMealSum"))$("setMealSum").textContent="Frühstück bis "+m.b+" Uhr · Mittag bis "+m.l+" Uhr · Abend bis "+m.d+" Uhr";
+ {const has=!!(window.AndroidBridge&&window.AndroidBridge.setReminder);["setNotifRow","setNotifTimeRow"].forEach(id=>{const e=$(id);if(e)e.style.display=has?"":"none"});const n=$("setNotif");if(n)n.checked=!!st.notif;const nt=$("setNotifTime");if(nt)nt.value=st.notifTime||"19:00"}
+ {const has=autoAvail(),c=autoCfg();if($("setAutoRow"))$("setAutoRow").style.display=has?"":"none";if($("setAutoFolderRow"))$("setAutoFolderRow").style.display=has&&c.mode==="folder"?"":"none";if($("setAuto"))$("setAuto").value=c.mode;if($("setAutoSum"))$("setAutoSum").textContent=autoSummary(c);if($("setAutoFolder"))$("setAutoFolder").textContent=c.name||""}
+ const wc=$("setWeekly");if(wc)wc.checked=st.weekly!==false;
  const bk=$("setBackup");if(bk)bk.checked=st.backup!==false;
  const wk=$("setWeek");if(wk)wk.value=String(weekStartDay());
  [["setCookAwake","awake"],["setCookSound","sound"],["setCookVib","vibrate"]].forEach(([id,k])=>{const e=$(id);if(e)e.checked=ck[k]!==false})
@@ -2676,7 +2729,7 @@ async function confirmReset(){
  try{await MP_READY}catch(e){}
  try{if(MP.backend==="idb"&&MP.db)await mpTx("readwrite",st=>{st.clear()})}catch(e){}
  MP.map={};
- ["napp_img",PHOTO_KEY,MP_LS_KEY].forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
+ ["napp_img","napp_auto",PHOTO_KEY,MP_LS_KEY].forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});autoCache=null;
  PHOTOS={own:{},auto:{}};
  if(cook){cook=null;cookEnsureTick();cookWake(false)}
  d=normalizeData(null);foods.length=BASE_FOODS_N;appendExtraFoods();restoreUserFoods();
@@ -2724,11 +2777,19 @@ function openMealGroup(cat,date){
  renderMealGroupModal(cat,items,date)
 }
 function mealMacroText(items){return `P ${Math.round(sumMacro(items,"p"))} g · KH ${Math.round(sumMacro(items,"c"))} g · F ${Math.round(sumMacro(items,"f"))} g`}
+function mealSaveRecipe(cat,date){
+ cat=decodeURIComponent(cat);const its=d.meals.filter(m=>m.date===date&&m.name===cat);
+ if(!its.length){toast("Keine Einträge gefunden");return}
+ if(!d.recipes)d.recipes=[];
+ const name=cat+" ("+formatDateLabel(date)+")";
+ d.recipes.push({id:Date.now()+Math.random(),name,category:["Frühstück","Mittagessen","Abendessen","Snack"].includes(cat)?cat:"Snack",emoji:its[0].e||"🍽️",portions:1,items:its.map(m=>({name:m.food_name||String(m.items||"").split(" · ")[0]||"Eintrag",grams:m.grams||0,k:m.k,p:m.p,c:m.c,f:m.f}))});
+ save();toast("Als Rezept gespeichert: "+name)
+}
 function addToMealGroup(cat,date){cat=decodeURIComponent(cat);selectedAddDate=date;selectedAddCat=cat;closeModal();go("add");searchFood()}
 function renderMealGroupModal(cat,items,date){
  date=date||todayISO();
  const ph=mealPhotoOf(items),pbtn=`<button class="secondary" style="margin:8px 0 4px" onclick="mealPhotoStart(${jsArg(cat)},'${date}',true)">📷 ${ph?"Foto ändern oder entfernen":"Foto zur Mahlzeit hinzufügen"}</button>`;
- modal(cat,`<div class="small">${formatDateLabel(date)} · ${items[0]?.time||""}</div>${ph?`<div class="detailpic" style="height:170px;margin-top:8px"><img src="${ph}" alt=""></div>`:""}${pbtn}${items.map(m=>`<div class="row mealrow"><span style="display:flex;align-items:center;gap:8px;flex:1 1 150px;min-width:0;overflow-wrap:anywhere">${thumbFor(m.food_name,m.e,22)} ${esc(m.food_name||m.items)}</span><div style="display:flex;align-items:center;gap:6px;margin-left:auto"><button class="plus" onclick="adjustMealItem('${m.id}',-10)">−</button><input class="amt" type="text" inputmode="decimal" value="${Math.round(m.grams||0)}" aria-label="Menge in Gramm" onchange="setMealGrams('${m.id}',this.value)"><span class="small">g</span><button class="plus" onclick="adjustMealItem('${m.id}',10)">+</button><button class="plus" style="color:var(--red)" onclick="removeMealItem('${m.id}')">✕</button></div></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:10px"><span>Gesamt</span><b id="mealTotal">${fmt(sumMacro(items,"k"))} kcal</b></div><div class="small" id="mealMacros" style="text-align:right">${mealMacroText(items)}</div><button class="secondary" style="margin-top:10px" onclick="addToMealGroup(${jsArg(cat)},'${date}')">＋ Weiteres Essen hinzufügen</button><button class="secondary" style="margin-top:10px" onclick="copyMealDialog(${jsArg(cat)},'${date}')">⎘ Auf anderen Tag kopieren</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteMealGroup(${jsArg(cat)},'${date}')">Ganze Mahlzeit löschen</button>`)
+ modal(cat,`<div class="small">${formatDateLabel(date)} · ${items[0]?.time||""}</div>${ph?`<div class="detailpic" style="height:170px;margin-top:8px"><img src="${ph}" alt=""></div>`:""}${pbtn}${items.map(m=>`<div class="row mealrow"><span style="display:flex;align-items:center;gap:8px;flex:1 1 150px;min-width:0;overflow-wrap:anywhere">${thumbFor(m.food_name,m.e,22)} ${esc(m.food_name||m.items)}</span><div style="display:flex;align-items:center;gap:6px;margin-left:auto"><button class="plus" onclick="adjustMealItem('${m.id}',-10)">−</button><input class="amt" type="text" inputmode="decimal" value="${Math.round(m.grams||0)}" aria-label="Menge in Gramm" onchange="setMealGrams('${m.id}',this.value)"><span class="small">g</span><button class="plus" onclick="adjustMealItem('${m.id}',10)">+</button><button class="plus" style="color:var(--red)" onclick="removeMealItem('${m.id}')">✕</button></div></div>`).join("")}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:10px"><span>Gesamt</span><b id="mealTotal">${fmt(sumMacro(items,"k"))} kcal</b></div><div class="small" id="mealMacros" style="text-align:right">${mealMacroText(items)}</div><button class="secondary" style="margin-top:10px" onclick="addToMealGroup(${jsArg(cat)},'${date}')">＋ Weiteres Essen hinzufügen</button><button class="secondary" style="margin-top:10px" onclick="mealSaveRecipe(${jsArg(cat)},'${date}')">📋 Als Vorlage (Rezept) speichern</button><button class="secondary" style="margin-top:10px" onclick="copyMealDialog(${jsArg(cat)},'${date}')">⎘ Auf anderen Tag kopieren</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteMealGroup(${jsArg(cat)},'${date}')">Ganze Mahlzeit löschen</button>`)
 }
 function adjustMealItem(id,deltaGrams){
  let m=d.meals.find(x=>String(x.id)===String(id));if(!m||!m.grams)return;
@@ -3009,11 +3070,16 @@ function selectRecipeCat(btn){document.querySelectorAll("#recipeCatTabs button")
 function showRecipeTab(cat){const b=[...document.querySelectorAll("#recipeCatTabs button")].find(x=>x.dataset.cat===cat);if($("recipeSearch"))$("recipeSearch").value="";if(b)selectRecipeCat(b);else recipeCat=cat;go("recipes")}
 function renderRecipeList(){
  if(!$("recipeList"))return;
+ renderShopCount();
  let q=($("recipeSearch")?.value||"").toLowerCase();
  let list=(d.recipes||[]).filter(r=>(recipeCat==="Alle"||r.category===recipeCat)&&r.name.toLowerCase().includes(q));
  $("recipeList").innerHTML=list.length?list.map(r=>{let t=recipeTotals(r),n=recipePortions(r),q=1/n;return `<div class="meal" style="cursor:pointer" onclick="openRecipe('${r.id}')"><div class="foodimg">${foodThumb(r.emoji||"🍽️",null,50)}</div><div><h3>${esc(r.name)}</h3><p>${Math.round(t.k*q)} kcal${n>1?" / Portion":""} · P ${Math.round(t.p*q)} · K ${Math.round(t.c*q)} · F ${Math.round(t.f*q)}${n>1?` · ${n} Portionen`:""}${recipeSteps(r).length?` · ${recipeSteps(r).length} Schritte`:""}</p></div></div>`}).join(""):`<div class="small">Keine Rezepte gefunden.</div>`
 }
-function recipeFactor(r){const e=parseNum($("rpEat")?.value);return e>=0.1&&e<=100?e/recipePortions(r):null}
+function recipeFactor(r){
+ const e=parseNum($("rpEat")?.value);
+ if(recipeEatMode==="g"){const b=recipeBasisG(r);return b>0&&e>=1&&e<=20000?e/b:null}   // Gramm vom fertigen Gericht (sonst vom Zutaten-Gewicht)
+ return e>=0.1&&e<=100?e/recipePortions(r):null
+}
 function updateRecipeEat(){
  const r=window.openingRecipe;if(!r||!$("rpKcal"))return;
  const f=recipeFactor(r),t=recipeTotals(r);
@@ -3022,8 +3088,8 @@ function updateRecipeEat(){
 }
 function openRecipe(id){
  let r=(d.recipes||[]).find(x=>String(x.id)===String(id));if(!r)return;
- let t=recipeTotals(r),n=recipePortions(r),stp=recipeSteps(r);window.openingRecipe=r;
- modal(r.name,`<div class="badge">${r.category}</div>${stp.length?`<button class="secondary" style="margin:10px 0 4px" onclick="startCooking('${r.id}')">👨‍🍳 Kochen · ${stp.length} Schritt${stp.length===1?"":"e"}</button>`:""}${r.items.map(it=>`<div class="row"><span>${esc(it.name)}</span><span class="small">${Math.round(it.grams)} g</span></div>`).join("")}<div class="sectiontitle" style="margin:14px 0 4px"><h2 style="font-size:14px;margin:0">Zubereitung</h2></div>${stp.length?`<ol class="steps">${stp.map(z=>`<li>${esc(z.t)}${z.m?` <span class="small">· ⏱ ${z.m} Min.</span>`:""}</li>`).join("")}</ol>`:`<div class="small">Noch keine Zubereitung. <span class="link" onclick="editRecipe('${r.id}')">Schritte hinzufügen</span></div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>${n>1?`Ganzes Rezept (${n} Portionen)`:"Gesamt"}</span><b>${Math.round(t.k)} kcal</b></div><div class="row"><span>Ich esse</span><span style="display:flex;align-items:center;gap:6px"><input id="rpEat" class="amt" type="text" inputmode="decimal" value="1" oninput="updateRecipeEat()" aria-label="Anzahl Portionen"><span class="small">${n>1?"Portion(en)":"× Rezept"}</span></span></div><div class="row"><span>Das sind</span><b id="rpKcal">${Math.round(t.k/n)} kcal</b></div><p class="small" id="rpMacro">P ${Math.round(t.p/n)} g · K ${Math.round(t.c/n)} g · F ${Math.round(t.f/n)} g</p><button class="primary" onclick="addRecipeToLog()">${dishBuilderActive?"Zum Gericht hinzufügen":"Hinzufügen: "+formatDateLabel(currentAddDate())+" · "+currentAddCat()}</button><button class="secondary" style="margin-top:10px" onclick="editRecipe('${r.id}')">Rezept bearbeiten</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteRecipe('${r.id}')">Rezept löschen</button>`)
+ let t=recipeTotals(r),n=recipePortions(r),stp=recipeSteps(r);window.openingRecipe=r;recipeEatMode="p";
+ modal(r.name,`<div class="badge">${r.category}</div>${stp.length?`<button class="secondary" style="margin:10px 0 4px" onclick="startCooking('${r.id}')">👨‍🍳 Kochen · ${stp.length} Schritt${stp.length===1?"":"e"}</button>`:""}<div class="row"><span>Kochen für</span><span style="display:flex;align-items:center;gap:6px"><input id="rpCook" class="amt" type="text" inputmode="decimal" value="${fmtNum(n,2)}" oninput="updateRecipeScale()" aria-label="Kochen für Portionen"><span class="small">Portion(en)</span></span></div><div class="qchips">${[[0.5,"½×"],[1,"1×"],[2,"2×"],[3,"3×"]].map(([x,l])=>`<button class="qchip" onclick="setRecipeScale(${x})">${l}</button>`).join("")}</div><div id="rpScaled">${recipeScaledHtml(r,n)}</div><div class="sectiontitle" style="margin:14px 0 4px"><h2 style="font-size:14px;margin:0">Zubereitung</h2></div>${stp.length?`<ol class="steps">${stp.map(z=>`<li>${esc(z.t)}${z.m?` <span class="small">· ⏱ ${z.m} Min.</span>`:""}</li>`).join("")}</ol>`:`<div class="small">Noch keine Zubereitung. <span class="link" onclick="editRecipe('${r.id}')">Schritte hinzufügen</span></div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Ich esse</span><span style="display:flex;align-items:center;gap:6px"><input id="rpEat" class="amt" type="text" inputmode="decimal" value="1" oninput="updateRecipeEat()" aria-label="Menge, die ich esse"><span class="small" id="rpUnit">${n>1?"Portion(en)":"× Rezept"}</span></span></div><div class="qchips"><button class="qchip sel" id="rpModeP" onclick="setEatMode('p')">Portionen</button><button class="qchip" id="rpModeG" onclick="setEatMode('g')">Gramm</button></div><div class="row"><span>Das sind</span><b id="rpKcal">${Math.round(t.k/n)} kcal</b></div><p class="small" id="rpMacro">P ${Math.round(t.p/n)} g · K ${Math.round(t.c/n)} g · F ${Math.round(t.f/n)} g</p><button class="primary" onclick="addRecipeToLog()">${dishBuilderActive?"Zum Gericht hinzufügen":"Hinzufügen: "+formatDateLabel(currentAddDate())+" · "+currentAddCat()}</button><button class="secondary" style="margin-top:10px" onclick="recipeToShop('${r.id}')">🛒 Zutaten auf die Einkaufsliste</button><button class="secondary" style="margin-top:10px" onclick="planAddAsk('${r.id}')">📅 In den Wochenplan</button><button class="secondary" style="margin-top:10px" onclick="editRecipe('${r.id}')">Rezept bearbeiten</button><button class="secondary" style="color:var(--red);margin-top:10px" onclick="deleteRecipe('${r.id}')">Rezept löschen</button>`)
 }
 let selectedAddDate=null,selectedAddCat=null;
 function currentAddDate(){return selectedAddDate||todayISO()}
@@ -3032,20 +3098,228 @@ function updateAddDateLabel(){if($("addDateLabel"))$("addDateLabel").textContent
 function pickAddDate(){modal("Datum & Mahlzeit",`<p class="small">Datum und Mahlzeit wählen, dann direkt Lebensmittel hinzufügen.</p><input id="addDateInput" type="date" value="${currentAddDate()}" max="${todayISO()}"><select id="addCatInput" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===currentAddCat()?"selected":""}>${c}</option>`).join("")}</select><button class="primary" onclick="confirmAddDate();searchFood()">🔎 Lebensmittel suchen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();textLog()">✏️ Mit Text beschreiben</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();barcode()">▥ Barcode scannen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();closeModal();showRecipeTab('Alle')">📖 Rezept nutzen</button><button class="secondary" style="margin-top:8px" onclick="confirmAddDate();createDish()">🍲 Gericht erstellen</button>${selectedAddDate||selectedAddCat?`<button class="secondary" style="margin-top:14px;color:var(--red)" onclick="resetAddDate()">Auf Jetzt zurücksetzen</button>`:""}`)}
 function confirmAddDate(){let v=$("addDateInput").value;if(v)selectedAddDate=v;selectedAddCat=$("addCatInput").value;updateAddDateLabel()}
 function resetAddDate(){selectedAddDate=null;selectedAddCat=null;closeModal();updateAddDateLabel()}
+function pushRecipeMeals(r,q,date,cat){
+ const time=new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
+ r.items.forEach(it=>{const x={name:it.name,grams:Math.max(1,Math.round(it.grams*q)),k:it.k*q,p:it.p*q,c:it.c*q,f:it.f*q};d.meals.push({id:Date.now()+Math.random(),date,name:cat,time,items:`${x.name} · ${x.grams} g`,food_name:x.name,grams:x.grams,k:x.k,p:x.p,c:x.c,f:x.f,e:r.emoji||"🍽️"})})
+}
 function addRecipeToLog(){
  let r=window.openingRecipe;if(!r)return;
  const q=recipeFactor(r);
- if(q==null){toast("Bitte eine Portionszahl zwischen 0,1 und 100 eingeben");return}
+ if(q==null){toast(recipeEatMode==="g"?"Bitte eine Menge zwischen 1 und 20.000 g eingeben":"Bitte eine Portionszahl zwischen 0,1 und 100 eingeben");return}
  const sc=it=>({name:it.name,grams:Math.max(1,Math.round(it.grams*q)),k:it.k*q,p:it.p*q,c:it.c*q,f:it.f*q});
  if(dishBuilderActive){
   r.items.forEach(it=>window.newDish.items.push({...sc(it),e:r.emoji||"🍽️",img:null}));
   dishBuilderActive=false;closeModal();renderDishBuilder();toast(r.name+" übernommen");return
  }
- let cat=currentAddCat(),time=new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"}),dateNow=currentAddDate();
- r.items.forEach(it=>{const x=sc(it);d.meals.push({id:Date.now()+Math.random(),date:dateNow,name:cat,time,items:`${x.name} · ${x.grams} g`,food_name:x.name,grams:x.grams,k:x.k,p:x.p,c:x.c,f:x.f,e:r.emoji||"🍽️"})});
+ pushRecipeMeals(r,q,currentAddDate(),currentAddCat());
  save();closeModal();go("home");toast(r.name+" hinzugefügt");selectedAddDate=null;selectedAddCat=null
 }
-function deleteRecipe(id){const snap=JSON.stringify(d);d.recipes=(d.recipes||[]).filter(r=>String(r.id)!==String(id));save();closeModal();renderRecipeList();showUndo("Rezept gelöscht",snap)}
+function deleteRecipe(id){const snap=JSON.stringify(d);d.recipes=(d.recipes||[]).filter(r=>String(r.id)!==String(id));d.mealPlan=(d.mealPlan||[]).filter(e=>String(e.rid)!==String(id));save();closeModal();renderRecipeList();showUndo("Rezept gelöscht",snap)}
+// ---------------------------------------------------------------- Rezepte: Portionen skalieren, Gesamtgewicht, Einkaufsliste, Wochenplan (v27)
+function fmtNum(x,dec){const f=Math.pow(10,dec);return (Math.round(x*f)/f).toLocaleString("de-DE",{maximumFractionDigits:dec})}
+function fmtG(g){g=Number(g);if(!isFinite(g)||g<=0)return"0 g";if(g>=1000)return fmtNum(g/1000,2)+" kg";if(g<10)return fmtNum(g,1)+" g";return Math.round(g).toLocaleString("de-DE")+" g"}
+function fmtPortions(p){return p===1?"1 Portion":fmtNum(p,2)+" Portionen"}
+function recipeWeight(r){return (r.items||[]).reduce((a,it)=>a+(Number(it.grams)||0),0)}
+function recipeCooked(r){const c=Number(r&&r.cookedG);return c>=10&&c<=50000?c:0}
+function recipeBasisG(r){return recipeCooked(r)||recipeWeight(r)}   // Gewicht, auf das sich „Gramm“ beim Essen bezieht: fertig gewogen, sonst die Zutaten
+var recipeEatMode="p";   // „Ich esse“: p = Portionen, g = Gramm
+function recipeScaleP(r){const e=parseNum($("rpCook")?$("rpCook").value:"");return e>=0.5&&e<=200?e:recipePortions(r)}   // „Kochen für“; ungültig = Rezeptstandard
+function recipeScaledHtml(r,sp0){
+ const n=recipePortions(r),sp=sp0||recipeScaleP(r),sc=sp/n,t=recipeTotals(r),w=recipeWeight(r),ck=recipeCooked(r),b=recipeBasisG(r);
+ return r.items.map(it=>`<div class="row"><span>${esc(it.name)}</span><span class="small">${fmtG(it.grams*sc)}</span></div>`).join("")
+  +`<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamtgewicht der Zutaten</span><b>${fmtG(w*sc)}</b></div>`
+  +(ck?`<div class="row"><span>Fertig gewogen</span><b>${fmtG(ck*sc)}</b></div>`:"")
+  +`<div class="row"><span>Ganzes Rezept (${fmtPortions(sp)})</span><b>${Math.round(t.k*sc).toLocaleString("de-DE")} kcal</b></div>`
+  +`<p class="small" style="margin:2px 0 0">Eine Portion: ${fmtG(b/n)} · ${Math.round(t.k/n)} kcal · ${b>0?Math.round(t.k/b*100):0} kcal je 100 g${ck?"":" (Zutaten roh gewogen)"}</p>`
+}
+function updateRecipeScale(){const r=window.openingRecipe;if(r&&$("rpScaled"))$("rpScaled").innerHTML=recipeScaledHtml(r)}
+function setRecipeScale(x){const r=window.openingRecipe;if(!r||!$("rpCook"))return;$("rpCook").value=fmtNum(recipePortions(r)*x,2);updateRecipeScale()}
+function setEatMode(m){
+ const r=window.openingRecipe;if(!r||!$("rpEat"))return;
+ recipeEatMode=m==="g"?"g":"p";
+ $("rpEat").value=recipeEatMode==="g"?String(Math.round(recipeBasisG(r)/recipePortions(r))):"1";
+ if($("rpUnit"))$("rpUnit").textContent=recipeEatMode==="g"?"g":(recipePortions(r)>1?"Portion(en)":"× Rezept");
+ if($("rpModeP"))$("rpModeP").classList.toggle("sel",recipeEatMode==="p");if($("rpModeG"))$("rpModeG").classList.toggle("sel",recipeEatMode==="g");
+ updateRecipeEat()
+}
+// --- Einkaufsliste: d.shop = [{id,name,g,done}], gleiche Namen werden zusammengezählt
+function shopId(){return "s"+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function shopKey(n){return String(n).trim().toLowerCase().replace(/\s+/g," ")}
+function shopAdd(name,g){
+ name=String(name==null?"":name).trim().slice(0,80);if(!name)return false;
+ g=Number(g);g=isFinite(g)&&g>0?Math.min(g,1e6):0;
+ if(!Array.isArray(d.shop))d.shop=[];
+ const k=shopKey(name),it=d.shop.find(x=>shopKey(x.name)===k);
+ if(it){it.g=Math.round(((it.g||0)+g)*10)/10;it.done=false;return true}
+ if(d.shop.length>=300)return false;
+ d.shop.push({id:shopId(),name,g:Math.round(g*10)/10,done:false});return true
+}
+function shopOpenCount(){return (d.shop||[]).filter(x=>!x.done).length}
+function renderShopCount(){const e=$("shopCount");if(e){const n=shopOpenCount();e.textContent=n?"("+n+")":""}}
+function recipeById(id){return (d.recipes||[]).find(x=>x&&String(x.id)===String(id))}
+function recipeToShop(id){
+ const r=recipeById(id);if(!r)return;
+ const sc=recipeScaleP(r)/recipePortions(r);let n=0,full=false;
+ r.items.forEach(it=>{if(shopAdd(it.name,it.grams*sc))n++;else full=true});
+ save();renderShopCount();
+ toast(full?"Die Liste ist voll, nicht alles passte hinein":n+" Zutat"+(n===1?"":"en")+" auf der Einkaufsliste");
+ openShop()
+}
+function shopSorted(done){return (d.shop||[]).filter(x=>!!x.done===done).sort((a,b)=>a.name.localeCompare(b.name,"de"))}
+function shopRowHtml(x){return `<div class="shrow${x.done?" done":""}"><button class="shchk" aria-label="${esc(x.name)} abhaken" onclick="shopToggle('${x.id}')">${x.done?"✓":""}</button><span class="shname" onclick="shopToggle('${x.id}')">${esc(x.name)}</span><span class="small shamt">${x.g>0?fmtG(x.g):""}</span><button class="rmrow" aria-label="${esc(x.name)} entfernen" onclick="shopRemove('${x.id}')">✕</button></div>`}
+function renderShopList(){
+ if(!$("shList"))return;
+ const o=shopSorted(false),dn=shopSorted(true);
+ $("shList").innerHTML=(o.length?o.map(shopRowHtml).join(""):`<div class="small" style="padding:8px 0">${dn.length?"Alles erledigt 🎉":"Noch nichts auf der Liste. Öffne ein Rezept und tippe „Zutaten auf die Einkaufsliste“ oder erstelle einen Wochenplan."}</div>`)+(dn.length?`<div class="small" style="margin:14px 0 2px"><b>Erledigt (${dn.length})</b></div>`+dn.map(shopRowHtml).join(""):"");
+ if($("shActions"))$("shActions").style.display=(o.length||dn.length)?"":"none";
+ if($("shClearDone"))$("shClearDone").style.display=dn.length?"":"none";
+ if($("shCopy"))$("shCopy").style.display=o.length?"":"none";
+ renderShopCount()
+}
+function openShop(){
+ modalNextRefresh=renderShopList;
+ modal("Einkaufsliste",`<div style="display:flex;gap:8px;align-items:center"><input id="shNew" placeholder="Eigener Eintrag, z. B. Zahnpasta" maxlength="80" style="margin:0" onkeydown="if(event.key==='Enter')shopAddCustom()"><button class="primary" style="width:auto;margin:0;padding:0 18px;min-height:44px" aria-label="Eintrag hinzufügen" onclick="shopAddCustom()">＋</button></div><div id="shList" style="margin-top:8px"></div><div id="shActions"><button class="secondary" id="shCopy" style="margin-top:10px" onclick="shopCopy()">📋 Liste kopieren</button><button class="secondary" id="shClearDone" style="margin-top:8px" onclick="shopClearDone()">Erledigte entfernen</button><button class="secondary" style="margin-top:8px;color:var(--red)" onclick="shopClearAll()">Alles löschen</button></div>`);
+ renderShopList()
+}
+function shopAddCustom(){const e=$("shNew");if(!e)return;const v=e.value.trim();if(!v)return;if(!shopAdd(v,0)){toast("Die Liste ist voll");return}save();e.value="";renderShopList();e.focus()}
+function shopToggle(id){const it=(d.shop||[]).find(x=>x.id===id);if(!it)return;it.done=!it.done;save();renderShopList()}
+function shopRemove(id){const n=(d.shop||[]).length;d.shop=(d.shop||[]).filter(x=>x.id!==id);if(d.shop.length!==n){save();renderShopList()}}
+function shopClearDone(){const snap=JSON.stringify(d),n=(d.shop||[]).filter(x=>x.done).length;if(!n)return;d.shop=d.shop.filter(x=>!x.done);save();renderShopList();showUndo(n+" erledigt"+(n===1?"":"e")+" entfernt",snap)}
+function shopClearAll(){const snap=JSON.stringify(d);if(!(d.shop||[]).length)return;d.shop=[];save();renderShopList();showUndo("Einkaufsliste geleert",snap)}
+function shopText(){return shopSorted(false).map(x=>"☐ "+x.name+(x.g>0?" – "+fmtG(x.g):"")).join("\n")}
+function copyFallback(t){try{const a=document.createElement("textarea");a.value=t;a.style.cssText="position:fixed;opacity:0;top:0";document.body.appendChild(a);a.select();const ok=document.execCommand("copy");document.body.removeChild(a);toast(ok?"Liste kopiert":"Kopieren nicht möglich")}catch(e){toast("Kopieren nicht möglich")}}
+function shopCopy(){
+ const t=shopText();if(!t){toast("Nichts zu kopieren");return}
+ try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>toast("Liste kopiert"),()=>copyFallback(t));return}}catch(e){}
+ copyFallback(t)
+}
+// --- Wochenplan: d.mealPlan = [{id,date,rid,p,cat,done}]; p = Portionen, done = schon als gegessen eingetragen
+var planWeek=null;   // erster Tag der angezeigten Woche
+function isoAdd(iso,n){const [y,m,da]=iso.split("-").map(Number);return todayISO(new Date(y,m-1,da+n))}
+function weekStartOf(iso){const [y,m,da]=iso.split("-").map(Number),dt=new Date(y,m-1,da),diff=(dt.getDay()-weekStartDay()+7)%7;return todayISO(new Date(y,m-1,da-diff))}
+function planDayLabel(iso){const [y,m,da]=iso.split("-").map(Number),t=new Date(y,m-1,da).toLocaleDateString("de-DE",{weekday:"short",day:"numeric",month:"long"});return iso===todayISO()?t+" · Heute":t}
+function planFind(id){return (d.mealPlan||[]).find(e=>e.id===id)}
+function planKcal(e){const r=recipeById(e.rid);if(!r)return 0;return recipeTotals(r).k/recipePortions(r)*e.p}
+function planEntries(date){const o=["Frühstück","Mittagessen","Abendessen","Snack"];return (d.mealPlan||[]).filter(e=>e.date===date).sort((a,b)=>o.indexOf(a.cat)-o.indexOf(b.cat))}
+function planAddEntry(date,rid,p,cat){if(!Array.isArray(d.mealPlan))d.mealPlan=[];if(d.mealPlan.length>=500)return false;d.mealPlan.push({id:shopId(),date,rid,p,cat,done:false});return true}
+function planRowHtml(e){const r=recipeById(e.rid);if(!r)return"";return `<div class="plrow${e.done?" done":""}" onclick="planEntry('${e.id}')"><span class="plemo">${esc(r.emoji||"🍽️")}</span><span class="plmain"><b>${esc(r.name)}</b><span class="small">${esc(e.cat)} · ${fmtPortions(e.p)} · ${Math.round(planKcal(e)).toLocaleString("de-DE")} kcal</span></span><span class="plst">${e.done?"✓":"›"}</span></div>`}
+function openPlan(){
+ if(!planWeek)planWeek=weekStartOf(todayISO());
+ const days=[0,1,2,3,4,5,6].map(i=>isoAdd(planWeek,i)),cur=planWeek===weekStartOf(todayISO());
+ const [y1,m1,d1]=days[0].split("-").map(Number),[y2,m2,d2]=days[6].split("-").map(Number),fm=(y,m,da)=>new Date(y,m-1,da).toLocaleDateString("de-DE",{day:"numeric",month:"short"});
+ let planned=0,sumK=0;
+ const body=days.map(dt=>{const es=planEntries(dt).filter(e=>recipeById(e.rid)),k=es.reduce((a,e)=>a+planKcal(e),0);if(es.length){planned++;sumK+=k}
+  return `<div class="sectiontitle plh"><h2>${esc(planDayLabel(dt))}</h2><span class="small">${es.length?Math.round(k).toLocaleString("de-DE")+" kcal":""}</span><button class="plus" aria-label="Rezept am ${esc(planDayLabel(dt))} hinzufügen" onclick="planPick('${dt}')">＋</button></div>${es.map(planRowHtml).join("")||`<div class="small plempty">Nichts geplant</div>`}`}).join("");
+ const goal=d.goal&&d.goal.k>0?d.goal.k:0;
+ modalNextRefresh=openPlan;
+ modal("Wochenplan",`<div class="anav"><button class="navbtn" aria-label="Vorherige Woche" onclick="planNav(-7)">‹</button><div class="navlabel"${cur?"":` onclick="planNav(0)" style="cursor:pointer"`}>${fm(y1,m1,d1)} – ${fm(y2,m2,d2)}<div class="small">${cur?"Diese Woche":"Zur aktuellen Woche"}</div></div><button class="navbtn" aria-label="Nächste Woche" onclick="planNav(7)">›</button></div>${body}<p class="small" style="margin:14px 0 6px">${planned?planned+" Tag"+(planned===1?"":"e")+" geplant · Ø "+Math.round(sumK/planned).toLocaleString("de-DE")+" kcal pro geplantem Tag"+(goal?" (Ziel "+Math.round(goal).toLocaleString("de-DE")+")":""):"Tippe bei einem Tag auf ＋ und wähle ein Rezept."}</p><button class="primary" onclick="planToShop()">🛒 Einkaufsliste für diese Woche</button><button class="secondary" style="margin-top:8px" onclick="planCopyWeek()">⧉ Woche in die nächste kopieren</button>`)
+}
+function planNav(n){planWeek=n===0?weekStartOf(todayISO()):isoAdd(planWeek||weekStartOf(todayISO()),n);openPlan()}
+function planPick(date){
+ modal("Rezept wählen",`<p class="small">${esc(planDayLabel(date))}</p><input id="planQ" placeholder="Rezepte suchen" oninput="planPickList('${date}')"><div id="planPickList"></div>`);
+ planPickList(date)
+}
+function planPickList(date){
+ if(!$("planPickList"))return;
+ const q=($("planQ")?$("planQ").value:"").toLowerCase(),all=(d.recipes||[]).filter(r=>r&&Array.isArray(r.items)),L=all.filter(r=>String(r.name).toLowerCase().includes(q));
+ $("planPickList").innerHTML=L.length?L.map(r=>{const t=recipeTotals(r),n=recipePortions(r);return `<div class="meal" style="cursor:pointer" onclick="planPicked('${date}','${r.id}')"><div class="foodimg">${foodThumb(r.emoji||"🍽️",null,50)}</div><div><h3>${esc(r.name)}</h3><p>${esc(r.category)} · ${Math.round(t.k/n)} kcal / Portion</p></div></div>`}).join(""):`<div class="small">${all.length?"Keine Rezepte gefunden.":"Du hast noch keine Rezepte. Lege unter „Rezepte“ eins an."}</div>`
+}
+function planPicked(date,rid){const r=recipeById(rid);if(!r)return;if(!planAddEntry(date,r.id,1,r.category)){toast("Der Wochenplan ist voll");return}save();toast(r.name+" geplant");modalBack()}
+function planAddAsk(rid){
+ const r=recipeById(rid);if(!r)return;
+ modal("In den Wochenplan",`<p class="small">${esc(r.name)}</p><input id="paDate" type="date" value="${todayISO()}"><select id="paCat" style="margin-top:8px" aria-label="Mahlzeit">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===r.category?"selected":""}>${c}</option>`).join("")}</select><div class="row"><span>Portionen</span><input id="paP" class="amt" type="text" inputmode="decimal" value="1" aria-label="Portionen"></div><button class="primary" onclick="planAddConfirm('${r.id}')">Hinzufügen</button>`)
+}
+function planAddConfirm(rid){
+ const r=recipeById(rid);if(!r||!$("paDate"))return;
+ const date=$("paDate").value,p=parseNum($("paP").value),cat=$("paCat").value;
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){toast("Bitte ein Datum wählen");return}
+ if(!(p>=0.1&&p<=100)){toast("Bitte eine Portionszahl zwischen 0,1 und 100 eingeben");return}
+ if(!planAddEntry(date,r.id,Math.round(p*100)/100,cat)){toast("Der Wochenplan ist voll");return}
+ save();toast(r.name+" ist für "+planDayLabel(date)+" geplant");modalBack()
+}
+function planEntry(id){
+ const e=planFind(id),r=e&&recipeById(e.rid);if(!e||!r)return;
+ const canEat=!e.done&&e.date<=todayISO();
+ modal("Geplantes Essen",`<p><b>${esc(r.name)}</b><br><span class="small">${esc(planDayLabel(e.date))}</span></p><select id="peCat" aria-label="Mahlzeit">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===e.cat?"selected":""}>${c}</option>`).join("")}</select><div class="row"><span>Portionen</span><input id="peP" class="amt" type="text" inputmode="decimal" value="${fmtNum(e.p,2)}" aria-label="Portionen"></div>${e.done?`<p class="small">✓ Schon als gegessen eingetragen.</p>`:canEat?`<button class="primary" onclick="planEat('${e.id}')">✓ Als gegessen eintragen</button>`:`<p class="small">Eintragen geht ab dem Tag selbst.</p>`}<button class="secondary" style="margin-top:8px" onclick="planEntrySave('${e.id}')">Speichern</button><button class="secondary" style="margin-top:8px" onclick="openRecipe('${r.id}')">Rezept ansehen</button><button class="secondary" style="margin-top:8px;color:var(--red)" onclick="planRemove('${e.id}')">Aus dem Plan entfernen</button>`)
+}
+function planReadForm(e){const p=parseNum($("peP")?$("peP").value:e.p);if(!(p>=0.1&&p<=100)){toast("Bitte eine Portionszahl zwischen 0,1 und 100 eingeben");return null}const c=$("peCat")?$("peCat").value:"";return {p:Math.round(p*100)/100,cat:["Frühstück","Mittagessen","Abendessen","Snack"].includes(c)?c:e.cat}}
+function planEntrySave(id){const e=planFind(id);if(!e)return;const f=planReadForm(e);if(!f)return;e.p=f.p;e.cat=f.cat;save();toast("Gespeichert");modalBack()}
+function planRemove(id){const n=(d.mealPlan||[]).length;d.mealPlan=(d.mealPlan||[]).filter(e=>e.id!==id);if(d.mealPlan.length!==n){save();toast("Aus dem Plan entfernt")}modalBack()}
+function planEat(id){
+ const e=planFind(id),r=e&&recipeById(e.rid);if(!e||!r||e.done)return;
+ if(e.date>todayISO()){toast("Das liegt noch in der Zukunft");return}
+ const f=planReadForm(e);if(!f)return;
+ const snap=JSON.stringify(d);
+ e.p=f.p;e.cat=f.cat;e.done=true;
+ pushRecipeMeals(r,e.p/recipePortions(r),e.date,e.cat);
+ save();render();modalBack();showUndo(r.name+" eingetragen",snap)
+}
+function planToShop(){
+ const days=[0,1,2,3,4,5,6].map(i=>isoAdd(planWeek||weekStartOf(todayISO()),i)),es=(d.mealPlan||[]).filter(e=>days.includes(e.date)&&!e.done&&recipeById(e.rid));
+ if(!es.length){toast("Für diese Woche ist nichts offen geplant");return}
+ let n=0,full=false;
+ es.forEach(e=>{const r=recipeById(e.rid),q=e.p/recipePortions(r);r.items.forEach(it=>{if(shopAdd(it.name,it.grams*q))n++;else full=true})});
+ save();renderShopCount();
+ toast(full?"Die Liste ist voll, nicht alles passte hinein":n+" Zutat"+(n===1?"":"en")+" für "+es.length+" Essen auf der Liste");
+ openShop()
+}
+function planCopyWeek(){
+ const w=planWeek||weekStartOf(todayISO()),days=[0,1,2,3,4,5,6].map(i=>isoAdd(w,i)),next=[0,1,2,3,4,5,6].map(i=>isoAdd(w,7+i));
+ const src=(d.mealPlan||[]).filter(e=>days.includes(e.date)&&recipeById(e.rid));
+ if(!src.length){toast("In dieser Woche ist nichts geplant");return}
+ if((d.mealPlan||[]).some(e=>next.includes(e.date))){toast("Die nächste Woche ist nicht leer");return}
+ if((d.mealPlan||[]).length+src.length>500){toast("Der Wochenplan ist voll");return}
+ src.forEach(e=>planAddEntry(isoAdd(e.date,7),e.rid,e.p,e.cat));
+ save();planWeek=isoAdd(w,7);toast(src.length+" Essen in die nächste Woche kopiert");openPlan()
+}
+// ---------------------------------------------------------------- Automatische Sicherung (nur Android-App): Datei ohne Dialog in Downloads/MacroTrack oder in einen einmal gewählten Ordner
+// Die Einstellung steht in localStorage "napp_auto" (gehört zum Gerät, nicht ins Backup). Es bleiben die letzten 7 Dateien.
+var autoCache=null,autoTimer=null,autoBusy=false,autoQuiet=false;
+function autoAvail(){return !!(window.AndroidBridge&&window.AndroidBridge.autoBackup&&window.AndroidBridge.pickBackupFolder)}
+function autoCfg(){
+ if(autoCache)return autoCache;
+ let o={};try{o=JSON.parse(localStorage.getItem("napp_auto")||"{}")||{}}catch(e){o={}}
+ autoCache={mode:o.mode==="downloads"||o.mode==="folder"?o.mode:"off",name:typeof o.name==="string"?o.name.slice(0,80):"",at:typeof o.at==="string"&&!isNaN(Date.parse(o.at))?o.at:"",ok:o.ok!==false,msg:typeof o.msg==="string"?o.msg.slice(0,160):""};
+ return autoCache
+}
+function autoSet(p){autoCache={...autoCfg(),...p};try{localStorage.setItem("napp_auto",JSON.stringify(autoCache))}catch(e){}}
+function autoOn(){return autoAvail()&&autoCfg().mode!=="off"}
+function autoFileName(){return "MacroTrack-Sicherung-"+todayISO()+".json"}
+function scheduleAuto(){if(autoQuiet||autoTimer||!autoOn())return;autoTimer=setTimeout(runAuto,60000)}   // höchstens eine Sicherung pro Minute Aktivität
+function runAuto(){
+ clearTimeout(autoTimer);autoTimer=null;
+ if(!autoOn()||autoBusy)return;
+ autoBusy=true;
+ try{window.AndroidBridge.autoBackup(autoCfg().mode,backupJson(),autoFileName())}
+ catch(e){autoBusy=false;autoSet({ok:false,msg:"Fehler beim Sichern"});renderSettings()}
+}
+window.onAutoBackup=(ok,msg)=>{
+ autoBusy=false;
+ if(ok){
+  autoSet({ok:true,msg:"",at:new Date().toISOString()});
+  if(d.lastBackup!==todayISO()){d.lastBackup=todayISO();autoQuiet=true;try{save()}finally{autoQuiet=false}renderRemind()}   // gilt auch für den Sicherungs-Hinweis
+ }else if(msg==="nofolder"){autoSet({mode:"off",name:"",ok:false,msg:"Der Ordner ist nicht mehr verfügbar. Bitte neu wählen."});toast("Sicherungsordner nicht mehr verfügbar")}
+ else autoSet({ok:false,msg:String(msg||"Fehler").slice(0,160)});
+ renderSettings()
+};
+window.onBackupFolder=(ok,name)=>{
+ if(ok){autoSet({mode:"folder",name:String(name||"Ordner").slice(0,80),ok:true,msg:""});toast("Sicherungsordner gewählt");renderSettings();runAuto()}
+ else{toast("Kein Ordner gewählt");renderSettings()}
+};
+function pickAutoFolder(){if(autoAvail())window.AndroidBridge.pickBackupFolder()}
+function setAutoMode(v){
+ if(!autoAvail())return;
+ if(v==="off"){autoSet({mode:"off"});clearTimeout(autoTimer);autoTimer=null;toast("Automatische Sicherung ist aus");renderSettings();return}
+ if(v==="downloads"){autoSet({mode:"downloads",name:"",ok:true,msg:""});toast("Sichert in Downloads/MacroTrack");renderSettings();runAuto();return}
+ pickAutoFolder()
+}
+function autoWhen(iso){const t=new Date(iso);if(isNaN(t))return"";const hm=t.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});return todayISO(t)===todayISO()?"heute, "+hm+" Uhr":t.toLocaleDateString("de-DE",{day:"numeric",month:"short"})+", "+hm+" Uhr"}
+function autoSummary(c){
+ if(c.mode==="off")return"Sichert deine Daten selbst, ohne Dialog: in Downloads oder in einem Ordner deiner Wahl";
+ const where=c.mode==="folder"?"Ordner „"+(c.name||"?")+"“":"Downloads/MacroTrack";
+ return where+" · "+(!c.ok?"Letzter Versuch fehlgeschlagen"+(c.msg?": "+c.msg:""):c.at?"zuletzt "+autoWhen(c.at):"noch nicht gesichert")
+}
+try{document.addEventListener("visibilitychange",()=>{if(document.hidden&&autoTimer)runAuto()})}catch(e){}   // beim Verlassen der App sofort sichern
 // ---------------------------------------------------------------- Kochmodus: Schritt für Schritt kochen, Timer je Schritt
 let cook=null,cookTimerId=null,cookWakeLock=null,cookWakeWatch=null,cookAudio=null;
 function fmtTimer(sec){sec=Math.max(0,Math.round(sec));return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
@@ -3053,8 +3327,9 @@ function cookShown(){return !!cook&&$("modal").classList.contains("show")&&$("mt
 function startCooking(id){
  const r=(d.recipes||[]).find(x=>String(x.id)===String(id));if(!r)return;
  const st=recipeSteps(r);if(!st.length){toast("Dieses Rezept hat noch keine Schritte");return}
- const sig=JSON.stringify(st);
- if(!(cook&&String(cook.id)===String(r.id)&&cook.sig===sig))cook={id:r.id,name:r.name,title:"👨‍🍳 "+r.name,sig,steps:st,items:r.items.map(it=>({name:it.name,grams:it.grams})),n:recipePortions(r),i:0,showIng:false,timers:{}};   // gleiches Rezept, gleiche Schritte: dort weitermachen
+ const sc=$("rpCook")&&window.openingRecipe&&String(window.openingRecipe.id)===String(r.id)?recipeScaleP(r)/recipePortions(r):1;   // „Kochen für“ aus dem Rezept-Fenster
+ const sig=JSON.stringify(st)+(sc===1?"":"|"+sc);
+ if(!(cook&&String(cook.id)===String(r.id)&&cook.sig===sig))cook={id:r.id,name:r.name,title:"👨‍🍳 "+r.name,sig,steps:st,items:r.items.map(it=>({name:it.name,grams:it.grams*sc})),n:recipePortions(r)*sc,sc,i:0,showIng:false,timers:{}};   // gleiches Rezept, gleiche Schritte: dort weitermachen
  renderCook();cookWake(true)
 }
 function cookTimerOf(i){const c=cook;if(!c.timers[i]){const sec=(c.steps[i].m||0)*60;c.timers[i]={sec,left:sec,end:0,done:false}}return c.timers[i]}
@@ -3064,7 +3339,7 @@ function renderCook(){
  const n=c.steps.length,z=c.steps[c.i],last=c.i===n-1,t=c.timers[c.i],hasT=z.m>0;
  const left=cookLeft(c.i),running=!!(t&&t.end),done=!!(t&&t.done);
  const others=Object.keys(c.timers).map(Number).filter(k=>k!==c.i&&(c.timers[k].end||c.timers[k].done)).sort((a,b)=>a-b).map(k=>c.timers[k].done?`<button class="cookrun alarm" onclick="cookGo(${k})">🔔 Schritt ${k+1}: Zeit abgelaufen</button>`:`<button class="cookrun" onclick="cookGo(${k})">⏱ Schritt ${k+1}: <b data-ck="${k}">${fmtTimer(cookLeft(k))}</b></button>`).join("");
- const ing=c.showIng?`<div style="margin-top:6px">${c.items.map(it=>`<div class="row"><span>${esc(it.name)}</span><span class="small">${Math.round(it.grams)} g</span></div>`).join("")}${c.n>1?`<div class="small" style="margin-top:6px">Mengen für das ganze Rezept (${c.n} Portionen).</div>`:""}</div>`:"";
+ const ing=c.showIng?`<div style="margin-top:6px">${c.items.map(it=>`<div class="row"><span>${esc(it.name)}</span><span class="small">${c.sc&&c.sc!==1?fmtG(it.grams):Math.round(it.grams)+" g"}</span></div>`).join("")}${c.sc&&c.sc!==1?`<div class="small" style="margin-top:6px">Mengen für ${fmtPortions(c.n)}.</div>`:c.n>1?`<div class="small" style="margin-top:6px">Mengen für das ganze Rezept (${c.n} Portionen).</div>`:""}</div>`:"";
  modal(c.title,`<div class="small">Schritt ${c.i+1} von ${n}</div><div class="cookprog" role="progressbar" aria-valuemin="1" aria-valuemax="${n}" aria-valuenow="${c.i+1}"><span style="width:${Math.round((c.i+1)/n*100)}%"></span></div>${others?`<div class="cookruns">${others}</div>`:""}<div class="cooktext">${esc(z.t)}</div>${hasT?`<div class="cooktimer${done?" done":""}"><div class="small" id="ckLbl">${done?"Zeit abgelaufen":"Timer"}</div><div class="cooktime" id="ckTime">${fmtTimer(done?0:left)}</div><div class="cooktbtn"><button class="primary" onclick="cookTimer('toggle')">${running?"⏸ Pause":done?"▶ Noch einmal":(t&&left<t.sec?"▶ Weiter":"▶ Start")}</button><button class="secondary" aria-label="Timer zurücksetzen" onclick="cookTimer('reset')">↺</button></div></div>`:""}<div class="cookbtns"><button class="secondary" onclick="cookStep(-1)"${c.i===0?" disabled":""}>‹ Zurück</button><button class="primary" onclick="cookStep(1)">${last?"✓ Fertig":"Weiter ›"}</button></div><button class="secondary" onclick="cookToggleIng()">🧾 Zutaten ${c.showIng?"ausblenden":"anzeigen"}</button>${ing}<div style="text-align:center;margin-top:14px"><span class="link" style="font-size:12px" onclick="cookRestart()">↺ Von vorn beginnen</span></div>`)
 }
 function cookStep(dir){const c=cook;if(!c)return;const j=c.i+dir;if(j<0)return;if(j>=c.steps.length){cookFinish();return}c.i=j;renderCook();const b=$("mb");if(b)b.scrollTop=0}
@@ -3131,7 +3406,7 @@ function editRecipe(id){
 function startNewRecipe(){editingRecipeId=null;window.newRecipe={name:"",category:"Frühstück",portions:1,items:[],steps:[]};renderRecipeBuilder()}
 function renderRecipeBuilder(){
  let r=window.newRecipe,t=recipeTotals(r);
- modal(editingRecipeId?"Rezept bearbeiten":"Neues Rezept",`<input id="rName" placeholder="Rezeptname" value="${esc(r.name)}"><select id="rCat" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===r.category?"selected":""}>${c}</option>`).join("")}</select><div class="row"><span>Ergibt Portionen</span><input id="rPortions" class="amt" type="text" inputmode="numeric" value="${recipePortions(r)}" aria-label="Anzahl Portionen"></div><div class="sectiontitle" style="margin:16px 0 6px"><h2 style="font-size:14px;margin:0">Zutaten</h2><span class="link" onclick="addRecipeIngredient()">+ Zutat</span></div>${r.items.length?r.items.map((it,i)=>`<div class="row"><span>${esc(it.name)} · ${Math.round(it.grams)} g</span><span style="display:flex;align-items:center;gap:8px">${Math.round(it.k)} kcal<button class="plus" onclick="removeRecipeIngredient(${i})">✕</button></span></div>`).join(""):`<div class="small">Noch keine Zutaten hinzugefügt.</div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div>${recipeStepsEditor(r)}<button class="primary" onclick="saveRecipe()">${editingRecipeId?"Änderungen speichern":"Rezept speichern"}</button>${editingRecipeId?`<button class="secondary" style="color:var(--red);margin-top:8px" onclick="deleteRecipe(editingRecipeId)">Rezept löschen</button>`:""}`)
+ modal(editingRecipeId?"Rezept bearbeiten":"Neues Rezept",`<input id="rName" placeholder="Rezeptname" value="${esc(r.name)}"><select id="rCat" style="margin-top:8px">${["Frühstück","Mittagessen","Abendessen","Snack"].map(c=>`<option ${c===r.category?"selected":""}>${c}</option>`).join("")}</select><div class="row"><span>Ergibt Portionen</span><input id="rPortions" class="amt" type="text" inputmode="numeric" value="${recipePortions(r)}" aria-label="Anzahl Portionen"></div><div class="row"><span class="setlbl"><span>Fertiges Gewicht (optional)</span><span class="small">Gericht nach dem Kochen wiegen: dann stimmen „je 100 g“ und das Essen nach Gramm</span></span><span style="display:flex;align-items:center;gap:6px"><input id="rCooked" class="amt" type="text" inputmode="numeric" value="${recipeCooked(r)||""}" aria-label="Fertiges Gewicht in Gramm"><span class="small">g</span></span></div><div class="sectiontitle" style="margin:16px 0 6px"><h2 style="font-size:14px;margin:0">Zutaten</h2><span class="link" onclick="addRecipeIngredient()">+ Zutat</span></div>${r.items.length?r.items.map((it,i)=>`<div class="row"><span>${esc(it.name)} · ${Math.round(it.grams)} g</span><span style="display:flex;align-items:center;gap:8px">${Math.round(it.k)} kcal<button class="plus" onclick="removeRecipeIngredient(${i})">✕</button></span></div>`).join(""):`<div class="small">Noch keine Zutaten hinzugefügt.</div>`}<div class="row" style="border-top:1px solid #292f35;margin-top:8px;padding-top:8px"><span>Gesamt</span><b>${Math.round(t.k)} kcal</b></div>${recipeStepsEditor(r)}<button class="primary" onclick="saveRecipe()">${editingRecipeId?"Änderungen speichern":"Rezept speichern"}</button>${editingRecipeId?`<button class="secondary" style="color:var(--red);margin-top:8px" onclick="deleteRecipe(editingRecipeId)">Rezept löschen</button>`:""}`)
 }
 // Zubereitung im Rezept-Editor: Textfelder rs<i> (Schritt) und rm<i> (Timer-Minuten); vor jedem Neuzeichnen mit syncRecipeSteps() übernehmen
 function recipeStepsEditor(r){
@@ -3159,7 +3434,7 @@ function addRecipeIngredient(){
  modal("Zutat hinzufügen",`<input id="q" placeholder="z.B. Hähnchen" oninput="results()"><div id="results"></div><p class="small" id="searchStatus"></p><p class="small" style="opacity:.7">Tippe auf Name oder Symbol für Details und eigenes Foto, auf ＋ zum Hinzufügen.</p><button class="secondary" style="margin-top:10px" onclick="createCustomFood()">+ Eigenes Lebensmittel erstellen</button>`);results()
 }
 // Eingaben aus dem Fenster in das Arbeitsobjekt übernehmen, bevor das Fenster neu gezeichnet wird (sonst gehen Name/Kategorie verloren)
-function syncRecipeFields(){const n=window.newRecipe;if(!n)return;const a=$("rName");if(a)n.name=a.value;const c=$("rCat");if(c)n.category=c.value;const pe=$("rPortions");if(pe)n.portions=Math.min(100,Math.max(1,Math.round(parseNum(pe.value))||1));syncRecipeSteps()}
+function syncRecipeFields(){const n=window.newRecipe;if(!n)return;const a=$("rName");if(a)n.name=a.value;const c=$("rCat");if(c)n.category=c.value;const pe=$("rPortions");if(pe)n.portions=Math.min(100,Math.max(1,Math.round(parseNum(pe.value))||1));const ce=$("rCooked");if(ce){const c=Math.round(parseNum(ce.value));if(c>=10&&c<=50000)n.cookedG=c;else delete n.cookedG}syncRecipeSteps()}
 function syncDishFields(){const n=window.newDish;if(!n)return;const a=$("dishName");if(a)n.name=a.value;const c=$("dishSaveRecipe");if(c)n.saveRecipe=c.checked}
 function removeRecipeIngredient(i){syncRecipeFields();window.newRecipe.items.splice(i,1);renderRecipeBuilder()}
 function parseNum(v){return Number(String(v??"").trim().replace(",","."))}
@@ -3494,8 +3769,8 @@ function cleanImportedRecipe(o){
   const f=foods[i],m=g/100;items.push({name:f[0],grams:g,k:f[2]*m,p:f[3]*m,c:f[4]*m,f:f[5]*m})
  });
  if(!items.length)return null;
- const pn=Math.round(Number(o.portions));
- return {name,category:RECIPE_CATS.includes(o.category)?o.category:"Mittagessen",emoji:typeof o.emoji==="string"&&/^[^<>&"'\\\n]{1,8}$/.test(o.emoji)?o.emoji:"🍽️",portions:pn>=1&&pn<=100?pn:1,items,steps:cleanSteps(o.steps)}
+ const pn=Math.round(Number(o.portions)),ck=Math.round(Number(o.cookedG));
+ return {...(ck>=10&&ck<=50000?{cookedG:ck}:{}),name,category:RECIPE_CATS.includes(o.category)?o.category:"Mittagessen",emoji:typeof o.emoji==="string"&&/^[^<>&"'\\\n]{1,8}$/.test(o.emoji)?o.emoji:"🍽️",portions:pn>=1&&pn<=100?pn:1,items,steps:cleanSteps(o.steps)}
 }
 function importFromFileText(txt){
  txt=String(txt).replace(/^﻿/,"");
@@ -3510,7 +3785,7 @@ function importFromFileText(txt){
  importHandleText(txt)
 }
 function exportRecipes(){
- const list=(d.recipes||[]).filter(r=>r&&Array.isArray(r.items)).map(r=>({name:r.name,category:r.category,emoji:r.emoji||"🍽️",portions:recipePortions(r),items:r.items.map(it=>({name:it.name,grams:Math.round(it.grams),k:Math.round(it.k*100)/100,p:Math.round(it.p*100)/100,c:Math.round(it.c*100)/100,f:Math.round(it.f*100)/100})),steps:recipeSteps(r)}));
+ const list=(d.recipes||[]).filter(r=>r&&Array.isArray(r.items)).map(r=>({name:r.name,category:r.category,emoji:r.emoji||"🍽️",portions:recipePortions(r),...(recipeCooked(r)?{cookedG:recipeCooked(r)}:{}),items:r.items.map(it=>({name:it.name,grams:Math.round(it.grams),k:Math.round(it.k*100)/100,p:Math.round(it.p*100)/100,c:Math.round(it.c*100)/100,f:Math.round(it.f*100)/100})),steps:recipeSteps(r)}));
  if(!list.length){toast("Du hast noch keine Rezepte");return}
  const json=JSON.stringify({format:"macrotrack-rezepte",version:1,recipes:list},null,2);
  if(window.AndroidBridge&&window.AndroidBridge.saveBackup){toast("Speicherort wählen (Name gern macrotrack-rezepte.json)");window.AndroidBridge.saveBackup(json);return}
@@ -3621,8 +3896,18 @@ async function fetchRemoteResults(q,gen){
   if($("searchStatus"))$("searchStatus").textContent=hinzugefuegt.length?`+${hinzugefuegt.length} Treffer von Open Food Facts`:"Keine weiteren Treffer bei Open Food Facts";
  }catch(e){console.warn("Open Food Facts Suche fehlgeschlagen (offline?)",e);if(gen===searchGen&&$("searchStatus"))$("searchStatus").textContent="⚠️ Open Food Facts nicht erreichbar (offline oder kein Zugriff)"}
 }
-function portion(i){let f=foods[i];modal(f[1]+" "+f[0],`<div class="badge">Nährwerte pro 100 g</div><p class="small">Menge</p><div style="display:flex;gap:8px"><input id="grams" type="text" inputmode="decimal" value="100" style="flex:1" oninput="portPrev(${i})"><select id="unit" style="flex:1" onchange="portPrev(${i})"><option value="g">Gramm</option><option value="tbsp">Esslöffel (≈15 g)</option><option value="tsp">Teelöffel (≈5 g)</option><option value="cup">Tasse (≈240 g)</option><option value="ml">Milliliter (≈1 g)</option></select></div><div class="pprev" id="pprev"></div><p class="small">Löffel/Tasse/ml sind ungefähre Umrechnungen – abhängig von der Zutat.</p><button class="secondary" id="favBtn" style="margin-top:6px" onclick="toggleFav(${i})">${isFav(f[0])?"★ Favorit":"☆ Als Favorit merken"}</button><button class="secondary" onclick="foodDetails(${i},true)">ⓘ Details &amp; Foto</button><button class="primary" onclick="${dishAddActive?`addIngredientToDishSheet(${i})`:recipeBuilderActive?`addIngredientToRecipe(${i})`:dishBuilderActive?`addIngredientToDish(${i})`:`add(${i})`}">Hinzufügen</button>`);portInit(i)}
-function portInit(i){const f=foods[i],l=d.lastAmt&&d.lastAmt[f[0]];if(l&&l.a>0&&$("grams")&&UNIT_G[l.u]){$("grams").value=String(l.a).replace(".",",");$("unit").value=l.u}portPrev(i)}
+function portion(i){let f=foods[i];modal(f[1]+" "+f[0],`<div class="badge">Nährwerte pro 100 g</div><p class="small">Menge</p><div style="display:flex;gap:8px"><input id="grams" type="text" inputmode="decimal" value="100" style="flex:1" oninput="portPrev(${i})"><select id="unit" style="flex:1" onchange="portPrev(${i})"><option value="g">Gramm</option><option value="tbsp">Esslöffel (≈15 g)</option><option value="tsp">Teelöffel (≈5 g)</option><option value="cup">Tasse (≈240 g)</option><option value="ml">Milliliter (≈1 g)</option></select></div><div class="qchips" id="qchips">${quickChips(i)}</div><div class="pprev" id="pprev"></div><p class="small">Löffel/Tasse/ml sind ungefähre Umrechnungen – abhängig von der Zutat.</p><button class="secondary" id="favBtn" style="margin-top:6px" onclick="toggleFav(${i})">${isFav(f[0])?"★ Favorit":"☆ Als Favorit merken"}</button><button class="secondary" onclick="foodDetails(${i},true)">ⓘ Details &amp; Foto</button><button class="primary" onclick="${dishAddActive?`addIngredientToDishSheet(${i})`:recipeBuilderActive?`addIngredientToRecipe(${i})`:dishBuilderActive?`addIngredientToDish(${i})`:`add(${i})`}">Hinzufügen</button>`);portInit(i)}
+function quickChips(i){
+ const f=foods[i],nl=String(f[0]).toLowerCase(),key=nl.split(" ")[0].replace(/[(),]/g,""),n=FOOD_NOTE&&FOOD_NOTE[f[0]];
+ const pc=(n&&n.g)||unitG(PIECE_G,key),sl=unitG(SLICE_G,key),sv=unitG(SERVING_G,key),c=[];
+ if(pc){c.push(["1 Stück",pc]);c.push(["2 Stück",pc*2])}
+ if(sl){c.push(["1 Scheibe",sl]);c.push(["2 Scheiben",sl*2])}
+ if(sv){c.push(["½ Portion",sv/2]);c.push(["1 Portion",sv])}
+ [50,100,200].forEach(g=>c.push([g+" g",g]));
+ return c.slice(0,8).map(([l,g])=>`<button type="button" class="qchip" onclick="setQuick(${i},${Math.round(g)})">${l}${/ g$/.test(l)?"":`<span class="small"> ${Math.round(g)} g</span>`}</button>`).join("")
+}
+function setQuick(i,g){$("grams").value=String(g);$("unit").value="g";portPrev(i)}
+function portInit(i){const f=foods[i],l=d.lastAmt&&d.lastAmt[f[0]];if(l&&l.a>0&&$("grams")&&Object.prototype.hasOwnProperty.call(UNIT_G,l.u)){$("grams").value=String(l.a).replace(".",",");$("unit").value=l.u}portPrev(i)}
 function portPrev(i){const f=foods[i],el=$("pprev");if(!el||!f)return;const a=parseNum($("grams").value),g=a*(UNIT_G[$("unit").value]||1);if(!(a>0)){el.innerHTML='<span class="small">Menge eingeben</span>';return}const m=g/100;el.innerHTML=`<b>${fmt(f[2]*m)} kcal</b><span>P ${Math.round(f[3]*m*10)/10} g · KH ${Math.round(f[4]*m*10)/10} g · F ${Math.round(f[5]*m*10)/10} g</span>`}
 function add(i){
  let f=foods[i],unit=$("unit")?.value||"g",amount=parseNum($("grams").value);
@@ -3972,10 +4257,13 @@ function saveGoals(){
  d.goal=v;save();closeModal();render();toast("Ziele gespeichert")
 }
 // In der Android-App läuft der Export über die Brücke (Speicherdialog); im Browser als normaler Download
-function exportData(){
+function backupJson(){
  const ph={};if(Object.keys(PHOTOS.own).length)ph.own=PHOTOS.own;const mph=backupMealPhotos();if(Object.keys(mph).length)ph.meals=mph;
  const out=Object.keys(ph).length?{...d,_photos:ph}:d;   // eigene Fotos gehören ins Backup, Produktbilder nicht (lassen sich neu laden)
- const json=JSON.stringify(out,null,2);
+ return JSON.stringify(out,null,2)
+}
+function exportData(){
+ const json=backupJson();
  if(window.AndroidBridge&&window.AndroidBridge.saveBackup){toast("Speicherort wählen …");window.AndroidBridge.saveBackup(json);return}
  let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([json],{type:"application/json"}));a.download="macrotrack-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);d.lastBackup=todayISO();save();renderRemind();toast("Backup erstellt")
 }
